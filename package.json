@@ -1,0 +1,32 @@
+{
+    "name": "expense-mnagement-system",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\" "
+    },
+    "keywords": [],
+    "author": "Reshika",
+    "license": "MIT",
+    "description": "Expense Tracker App",
+    "dependencies": {
+        "antd": "^5.26.2",
+        "bcryptjs": "^3.0.3",
+        "colors": "^1.4.0",
+        "concurrently": "^9.2.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "joi": "^18.0.2",
+        "jsonwebtoken": "^9.0.3",
+        "lodash": "^4.17.23",
+        "mock-mongoose": "^8.0.0",
+        "moment": "^2.30.1",
+        "mongoose": "^8.16.0",
+        "morgan": "^1.10.0",
+        "nedb-promises": "^6.2.3"
+    }
+}
