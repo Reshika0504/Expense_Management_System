@@ -1,13 +1,13 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/api/v1";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
 
 // Initial state
 const initialState = {
     user: null,
     token: localStorage.getItem("token") || null,
-    isAuthenticated: false,
+    isAuthenticated: !!localStorage.getItem("token"),
     loading: false,
     error: null,
 };
@@ -154,6 +154,12 @@ const authSlice = createSlice({
         .addCase(getProfile.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
+            if (action.payload === "Not authorized, token failed" || action.payload === "Not authorized, no token") {
+                state.user = null;
+                state.token = null;
+                state.isAuthenticated = false;
+                localStorage.removeItem("token");
+            }
         })
 
         // Update Profile

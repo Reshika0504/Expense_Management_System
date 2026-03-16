@@ -3,16 +3,20 @@ const colors = require("colors");
 
 const connectDb = async () => {
     try {
+        if (!process.env.MONGO_URL) {
+            console.log("MONGO_URL is not set. Skipping database connection.".yellow);
+            return false;
+        }
+
         // Log the connection URL (without password for security)
-        const urlWithoutPassword = process.env.MONGO_URL.replace(/:\w+@/, ":***@");
+        const urlWithoutPassword = process.env.MONGO_URL.replace(/\/\/([^:]+):([^@]+)@/, "//$1:***@");
         console.log(`Attempting to connect to: ${urlWithoutPassword}`.cyan);
 
         // Add connection options for better reliability
         const connectionOptions = {
-            serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+            serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
             socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
             maxPoolSize: 10, // Maintain up to 10 socket connections
-            serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
             heartbeatFrequencyMS: 10000, // Send heartbeats every 10 seconds
         };
 
