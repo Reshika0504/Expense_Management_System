@@ -249,17 +249,6 @@ npm run client
 }
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
@@ -269,9 +258,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Authentication secured with JWT
 - Database powered by MongoDB
 
-## 📞 Support
 
-For support, email [your-email] or create an issue in the repository.
 
 ---
 **Built with ❤️ using the MERN Stack**
