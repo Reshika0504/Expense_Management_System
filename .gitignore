@@ -48,3 +48,5 @@ Thumbs.db
 
 # MongoDB data (if using local MongoDB)
 data/
+# Visual Studio workspace
+.vs/
