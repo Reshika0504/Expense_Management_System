@@ -27,6 +27,7 @@ const profileSchema = Joi.object({
     name: Joi.string().min(2).max(50).optional().trim(),
     phone: Joi.string().optional().allow("").trim(),
     avatar: Joi.string().optional().allow("").trim(),
+    monthlyBudget: Joi.number().min(0).optional(),
 });
 
 // Register callback
@@ -80,6 +81,7 @@ const registerController = async (req, res) => {
                 role: newUser.role,
                 avatar: newUser.avatar,
                 phone: newUser.phone,
+                monthlyBudget: newUser.monthlyBudget,
             },
         });
     } catch (error) {
@@ -150,6 +152,7 @@ const loginController = async (req, res) => {
                 role: user.role,
                 avatar: user.avatar,
                 phone: user.phone,
+                monthlyBudget: user.monthlyBudget,
             },
         });
     } catch (error) {
@@ -200,7 +203,7 @@ const updateProfileController = async (req, res) => {
             });
         }
 
-        const {name, phone, avatar} = req.body;
+        const {name, phone, avatar, monthlyBudget} = req.body;
 
         const user = await userModel.findById(req.user.id);
         if (!user) {
@@ -211,9 +214,10 @@ const updateProfileController = async (req, res) => {
         }
 
         // Update fields
-        if (name) user.name = name;
+        if (name !== undefined) user.name = name;
         if (phone !== undefined) user.phone = phone;
-        if (avatar) user.avatar = avatar;
+        if (avatar !== undefined) user.avatar = avatar;
+        if (monthlyBudget !== undefined) user.monthlyBudget = monthlyBudget;
 
         await user.save();
 
@@ -227,6 +231,7 @@ const updateProfileController = async (req, res) => {
                 role: user.role,
                 avatar: user.avatar,
                 phone: user.phone,
+                monthlyBudget: user.monthlyBudget,
             },
         });
     } catch (error) {

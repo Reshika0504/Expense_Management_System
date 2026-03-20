@@ -35,6 +35,11 @@ const userSchema = new mongoose.Schema(
             trim: true,
             default: "",
         },
+        monthlyBudget: {
+            type: Number,
+            default: 0,
+            min: 0,
+        },
         lastLogin: {
             type: Date,
             default: null,

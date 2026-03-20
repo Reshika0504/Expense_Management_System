@@ -5,18 +5,53 @@ import {Link} from "react-router-dom";
 const HomePage = () => {
     return (
         <Layout>
-            <section className="max-w-4xl mx-auto px-4 py-16 text-center">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">Track Every Rupee. Plan Better.</h1>
-                <p className="text-lg text-gray-600 mb-8">
-                    Manage your income and expenses with categories, reports, and a clean dashboard.
-                </p>
-                <div className="flex items-center justify-center gap-3">
-                    <Link to="/register" className="btn-primary">
-                        Create Account
-                    </Link>
-                    <Link to="/login" className="btn-secondary">
-                        Login
-                    </Link>
+            <section className="home-hero">
+                <div className="home-hero-glow home-hero-glow-left" />
+                <div className="home-hero-glow home-hero-glow-right" />
+                <div className="home-hero-inner">
+                    <p className="home-eyebrow">Built for focused personal finance</p>
+                    <h1 className="home-title">Track every rupee with clarity and control.</h1>
+                    <p className="home-subtitle">
+                        Plan monthly budgets, tag transactions by category, and review reports that show exactly where
+                        your money goes.
+                    </p>
+                    <div className="home-cta-row">
+                        <Link to="/register" className="btn-primary home-cta-btn">
+                            Get Started
+                        </Link>
+                        <Link to="/login" className="btn-secondary home-cta-btn">
+                            Login
+                        </Link>
+                    </div>
+                    <div className="home-metrics">
+                        <div className="home-metric-card">
+                            <p className="home-metric-value">3-step</p>
+                            <p className="home-metric-label">Transaction logging</p>
+                        </div>
+                        <div className="home-metric-card">
+                            <p className="home-metric-value">Live</p>
+                            <p className="home-metric-label">Balance updates</p>
+                        </div>
+                        <div className="home-metric-card">
+                            <p className="home-metric-value">Monthly</p>
+                            <p className="home-metric-label">Insight reports</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="home-features">
+                <div className="home-feature-card">
+                    <h3>Category-based tracking</h3>
+                    <p>Split spending into useful categories so patterns are visible at a glance.</p>
+                </div>
+                <div className="home-feature-card">
+                    <h3>Dashboard overview</h3>
+                    <p>See income, expenses, and net balance together without digging through tables.</p>
+                </div>
+                <div className="home-feature-card">
+                    <h3>Actionable reports</h3>
+                    <p>Review monthly trends to cut waste and plan future budgets with confidence.</p>
                 </div>
             </section>
         </Layout>

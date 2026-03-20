@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const colors = require("colors");
 const connectDb = require("./config/connectDb");
 const {initializeSystemCategories} = require("./models/categoryModel");
+const {requireDb} = require("./middlewares/requireDb");
 
 dotenv.config();
 
@@ -32,10 +33,10 @@ dotenv.config();
     app.use(express.json());
     app.use(cors());
 
-    app.use("/api/v1/users", require("./routes/userRoute"));
-    app.use("/api/v1/transactions", require("./routes/transactionRoute"));
-    app.use("/api/v1/categories", require("./routes/categoryRoute"));
-    app.use("/api/v1/dashboard", require("./routes/dashboardRoute"));
+    app.use("/api/v1/users", requireDb, require("./routes/userRoute"));
+    app.use("/api/v1/transactions", requireDb, require("./routes/transactionRoute"));
+    app.use("/api/v1/categories", requireDb, require("./routes/categoryRoute"));
+    app.use("/api/v1/dashboard", requireDb, require("./routes/dashboardRoute"));
 
     app.use((err, req, res, next) => {
         console.error(err.stack);

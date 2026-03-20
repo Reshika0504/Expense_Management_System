@@ -1,11 +1,12 @@
 const transactionModel = require("../models/transactionModel");
 const {categoryModel} = require("../models/categoryModel");
 const moment = require("moment");
+const mongoose = require("mongoose");
 
 // Get dashboard overview data
 const getDashboardOverviewController = async (req, res) => {
     try {
-        const userId = req.user.id;
+        const userId = new mongoose.Types.ObjectId(req.user.id);
         const now = new Date();
 
         // Current month range
@@ -59,8 +60,30 @@ const getDashboardOverviewController = async (req, res) => {
             },
         ]);
 
+        // All-time statistics
+        const totalStats = await transactionModel.aggregate([
+            {
+                $match: {
+                    userId: userId,
+                },
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalIncome: {
+                        $sum: {$cond: [{$eq: ["$type", "income"]}, "$amount", 0]},
+                    },
+                    totalExpenses: {
+                        $sum: {$cond: [{$eq: ["$type", "expense"]}, "$amount", 0]},
+                    },
+                    transactionCount: {$sum: 1},
+                },
+            },
+        ]);
+
         const currentStats = currentMonthStats[0] || {totalIncome: 0, totalExpenses: 0, transactionCount: 0};
         const previousStats = previousMonthStats[0] || {totalIncome: 0, totalExpenses: 0};
+        const totals = totalStats[0] || {totalIncome: 0, totalExpenses: 0, transactionCount: 0};
 
         // Calculate percentages
         const incomeChange =
@@ -97,6 +120,11 @@ const getDashboardOverviewController = async (req, res) => {
         res.status(200).json({
             success: true,
             overview: {
+                totals: {
+                    totalIncome: totals.totalIncome,
+                    totalExpenses: totals.totalExpenses,
+                    transactionCount: totals.transactionCount,
+                },
                 currentMonth: {
                     totalIncome: currentStats.totalIncome,
                     totalExpenses: currentStats.totalExpenses,
@@ -129,16 +157,16 @@ const getDashboardOverviewController = async (req, res) => {
 // Get monthly summary report
 const getMonthlySummaryController = async (req, res) => {
     try {
-        const {year = new Date().getFullYear()} = req.query;
-        const userId = req.user.id;
+        const parsedYear = Number(req.query.year) || new Date().getFullYear();
+        const userId = new mongoose.Types.ObjectId(req.user.id);
 
         const monthlyData = await transactionModel.aggregate([
             {
                 $match: {
                     userId: userId,
                     date: {
-                        $gte: new Date(year, 0, 1),
-                        $lte: new Date(year, 11, 31, 23, 59, 59),
+                        $gte: new Date(parsedYear, 0, 1),
+                        $lte: new Date(parsedYear, 11, 31, 23, 59, 59),
                     },
                 },
             },
@@ -177,7 +205,7 @@ const getMonthlySummaryController = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            year: parseInt(year),
+            year: parsedYear,
             monthlyData: formattedData,
         });
     } catch (error) {
@@ -194,10 +222,9 @@ const getMonthlySummaryController = async (req, res) => {
 const getCategoryReportController = async (req, res) => {
     try {
         const {type, period = "month"} = req.query;
-        const userId = req.user.id;
+        const userId = new mongoose.Types.ObjectId(req.user.id);
 
         let dateFilter = {};
-        const now = new Date();
 
         // Set date range based on period
         switch (period) {
@@ -299,7 +326,7 @@ const getCategoryReportController = async (req, res) => {
 const getTopCategoriesController = async (req, res) => {
     try {
         const {limit = 5, type = "expense"} = req.query;
-        const userId = req.user.id;
+        const userId = new mongoose.Types.ObjectId(req.user.id);
 
         const thirtyDaysAgo = moment().subtract(30, "days").toDate();
 

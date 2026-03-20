@@ -1,18 +1,39 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getDashboardOverview} from "../redux/slices/dashboardSlice";
+import {updateProfile} from "../redux/slices/authSlice";
 import AppShell from "../Components/AppShell";
+import {Button, InputNumber, message} from "antd";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const {isAuthenticated} = useSelector((state) => state.auth);
+    const {isAuthenticated, user, loading: profileLoading} = useSelector((state) => state.auth);
     const {overview, loading} = useSelector((state) => state.dashboard);
+    const [budgetValue, setBudgetValue] = useState(0);
 
     useEffect(() => {
         if (isAuthenticated) {
             dispatch(getDashboardOverview());
         }
     }, [dispatch, isAuthenticated]);
+
+    useEffect(() => {
+        setBudgetValue(user?.monthlyBudget ?? 0);
+    }, [user?.monthlyBudget]);
+
+    const handleBudgetSave = async () => {
+        try {
+            await dispatch(updateProfile({monthlyBudget: budgetValue ?? 0})).unwrap();
+            await dispatch(getDashboardOverview()).unwrap();
+            message.success("Monthly budget updated");
+        } catch (error) {
+            message.error(error || "Failed to update monthly budget");
+        }
+    };
+
+    const monthlyBudget = user?.monthlyBudget ?? 0;
+    const currentMonthExpenses = overview?.currentMonth?.totalExpenses ?? 0;
+    const remainingBudget = monthlyBudget - currentMonthExpenses;
 
     return (
         <AppShell title="Dashboard Overview">
@@ -24,27 +45,41 @@ const Dashboard = () => {
                 <>
                     <div className="dashboard-grid mb-8">
                         <div className="stat-card income-card">
-                            <h3 className="text-sm font-medium text-gray-500">Total Income</h3>
-                            <p className="text-2xl font-semibold text-gray-900">
-                                Rs {overview?.currentMonth?.totalIncome?.toLocaleString() || "0"}
-                            </p>
+                            <h3 className="text-sm font-medium text-gray-500">Monthly Budget</h3>
+                            <div className="budget-editor">
+                                <InputNumber
+                                    min={0}
+                                    value={budgetValue}
+                                    onChange={(value) => setBudgetValue(value ?? 0)}
+                                    className="budget-input"
+                                    formatter={(value) => (value === undefined || value === null ? "" : `Rs ${value}`)}
+                                    parser={(value) => (value || "").replace(/[^\d.]/g, "")}
+                                />
+                                <Button
+                                    type="primary"
+                                    onClick={handleBudgetSave}
+                                    loading={profileLoading}
+                                    disabled={budgetValue === monthlyBudget}
+                                >
+                                    Save
+                                </Button>
+                            </div>
+                        </div>
+                        <div className={`stat-card ${remainingBudget < 0 ? "expense-card" : "balance-card"}`}>
+                            <h3 className="text-sm font-medium text-gray-500">Remaining Budget</h3>
+                            <p className="text-2xl font-semibold text-gray-900">Rs {remainingBudget.toLocaleString()}</p>
                         </div>
                         <div className="stat-card expense-card">
                             <h3 className="text-sm font-medium text-gray-500">Total Expenses</h3>
                             <p className="text-2xl font-semibold text-gray-900">
-                                Rs {overview?.currentMonth?.totalExpenses?.toLocaleString() || "0"}
-                            </p>
-                        </div>
-                        <div className="stat-card balance-card">
-                            <h3 className="text-sm font-medium text-gray-500">Net Balance</h3>
-                            <p className="text-2xl font-semibold text-gray-900">
-                                Rs {overview?.currentMonth?.netBalance?.toLocaleString() || "0"}
+                                Rs{" "}
+                                {(overview?.totals?.totalExpenses ?? overview?.currentMonth?.totalExpenses ?? 0).toLocaleString()}
                             </p>
                         </div>
                         <div className="stat-card">
                             <h3 className="text-sm font-medium text-gray-500">Transactions</h3>
                             <p className="text-2xl font-semibold text-gray-900">
-                                {overview?.currentMonth?.transactionCount || 0}
+                                {overview?.totals?.transactionCount ?? overview?.currentMonth?.transactionCount ?? 0}
                             </p>
                         </div>
                     </div>
