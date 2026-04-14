@@ -2,6 +2,10 @@
 
 A comprehensive personal expense management application built with the MERN stack (MongoDB, Express.js, React, Node.js) that helps users track, categorize, and analyze their expenses with a clean, responsive interface.
 
+## Live Demo
+- You can see the complete live demo of my application here:
+- https://expense-management-system-frontend-3o3i.onrender.com
+
 ## 🚀 Features
 
 ### Authentication & Security
