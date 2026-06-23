@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema(
             trim: true,
             default: "",
         },
+        dateOfBirth: {
+            type: Date,
+            default: null,
+        },
         monthlyBudget: {
             type: Number,
             default: 0,

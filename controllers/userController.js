@@ -27,7 +27,19 @@ const profileSchema = Joi.object({
     name: Joi.string().min(2).max(50).optional().trim(),
     phone: Joi.string().optional().allow("").trim(),
     avatar: Joi.string().optional().allow("").trim(),
+    dateOfBirth: Joi.date().optional().allow(null, ""),
     monthlyBudget: Joi.number().min(0).optional(),
+});
+
+const formatUserResponse = (user) => ({
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    avatar: user.avatar,
+    phone: user.phone,
+    dateOfBirth: user.dateOfBirth,
+    monthlyBudget: user.monthlyBudget,
 });
 
 // Register callback
@@ -74,15 +86,7 @@ const registerController = async (req, res) => {
             success: true,
             message: "Registration successful",
             token,
-            user: {
-                id: newUser._id,
-                name: newUser.name,
-                email: newUser.email,
-                role: newUser.role,
-                avatar: newUser.avatar,
-                phone: newUser.phone,
-                monthlyBudget: newUser.monthlyBudget,
-            },
+            user: formatUserResponse(newUser),
         });
     } catch (error) {
         console.error("Register Error:", error);
@@ -145,15 +149,7 @@ const loginController = async (req, res) => {
             success: true,
             message: "Login successful",
             token,
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                avatar: user.avatar,
-                phone: user.phone,
-                monthlyBudget: user.monthlyBudget,
-            },
+            user: formatUserResponse(user),
         });
     } catch (error) {
         console.error("Login Error:", error);
@@ -203,7 +199,7 @@ const updateProfileController = async (req, res) => {
             });
         }
 
-        const {name, phone, avatar, monthlyBudget} = req.body;
+        const {name, phone, avatar, dateOfBirth, monthlyBudget} = req.body;
 
         const user = await userModel.findById(req.user.id);
         if (!user) {
@@ -217,6 +213,7 @@ const updateProfileController = async (req, res) => {
         if (name !== undefined) user.name = name;
         if (phone !== undefined) user.phone = phone;
         if (avatar !== undefined) user.avatar = avatar;
+        if (dateOfBirth !== undefined) user.dateOfBirth = dateOfBirth || null;
         if (monthlyBudget !== undefined) user.monthlyBudget = monthlyBudget;
 
         await user.save();
@@ -224,15 +221,7 @@ const updateProfileController = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Profile updated successfully",
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                avatar: user.avatar,
-                phone: user.phone,
-                monthlyBudget: user.monthlyBudget,
-            },
+            user: formatUserResponse(user),
         });
     } catch (error) {
         console.error("Update Profile Error:", error);

@@ -125,6 +125,12 @@ body,
     min-width: 180px;
 }
 
+.profile-photo-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
 .transaction-table {
     width: 100%;
     background: white;

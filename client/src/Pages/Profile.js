@@ -1,8 +1,15 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Button, Card, Form, Input, message, Row, Col} from "antd";
+import {Avatar, Button, Card, Form, Input, message, Row, Col} from "antd";
 import AppShell from "../Components/AppShell";
 import {changePassword, getProfile, updateProfile} from "../redux/slices/authSlice";
+
+const formatDateInput = (value) => {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toISOString().slice(0, 10);
+};
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -19,6 +26,7 @@ const Profile = () => {
             name: user?.name || "",
             phone: user?.phone || "",
             avatar: user?.avatar || "",
+            dateOfBirth: formatDateInput(user?.dateOfBirth),
         });
     }, [user, profileForm]);
 
@@ -47,16 +55,28 @@ const Profile = () => {
                 <Col xs={24} lg={12}>
                     <Card title="Profile Details">
                         <Form form={profileForm} layout="vertical" onFinish={onProfileSubmit}>
+                            <Form.Item shouldUpdate={(prev, current) => prev.avatar !== current.avatar} noStyle>
+                                {({getFieldValue}) => (
+                                    <div className="profile-photo-preview">
+                                        <Avatar size={88} src={getFieldValue("avatar") || user?.avatar}>
+                                            {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+                                        </Avatar>
+                                    </div>
+                                )}
+                            </Form.Item>
                             <Form.Item label="Name" name="name" rules={[{required: true, min: 2}]}>
                                 <Input />
                             </Form.Item>
                             <Form.Item label="Email">
                                 <Input value={user?.email || ""} disabled />
                             </Form.Item>
-                            <Form.Item label="Phone" name="phone">
+                            <Form.Item label="Contact Number" name="phone">
                                 <Input />
                             </Form.Item>
-                            <Form.Item label="Avatar URL" name="avatar">
+                            <Form.Item label="Date of Birth" name="dateOfBirth">
+                                <Input type="date" />
+                            </Form.Item>
+                            <Form.Item label="Photo URL" name="avatar">
                                 <Input />
                             </Form.Item>
                             <Button type="primary" htmlType="submit" loading={loading}>

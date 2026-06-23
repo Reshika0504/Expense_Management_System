@@ -32,8 +32,11 @@ const Dashboard = () => {
     };
 
     const monthlyBudget = user?.monthlyBudget ?? 0;
+    const currentMonthIncome = overview?.currentMonth?.totalIncome ?? 0;
     const currentMonthExpenses = overview?.currentMonth?.totalExpenses ?? 0;
     const remainingBudget = monthlyBudget - currentMonthExpenses;
+    const monthlyTransactionCount = overview?.currentMonth?.transactionCount ?? 0;
+    const totalTransactionCount = overview?.totals?.transactionCount ?? 0;
 
     return (
         <AppShell title="Dashboard Overview">
@@ -65,22 +68,29 @@ const Dashboard = () => {
                                 </Button>
                             </div>
                         </div>
+                        <div className="stat-card income-card">
+                            <h3 className="text-sm font-medium text-gray-500">Monthly Income</h3>
+                            <p className="text-2xl font-semibold text-gray-900">
+                                Rs {currentMonthIncome.toLocaleString()}
+                            </p>
+                        </div>
+                        <div className="stat-card expense-card">
+                            <h3 className="text-sm font-medium text-gray-500">Monthly Expenses</h3>
+                            <p className="text-2xl font-semibold text-gray-900">
+                                Rs {currentMonthExpenses.toLocaleString()}
+                            </p>
+                        </div>
                         <div className={`stat-card ${remainingBudget < 0 ? "expense-card" : "balance-card"}`}>
                             <h3 className="text-sm font-medium text-gray-500">Remaining Budget</h3>
                             <p className="text-2xl font-semibold text-gray-900">Rs {remainingBudget.toLocaleString()}</p>
                         </div>
-                        <div className="stat-card expense-card">
-                            <h3 className="text-sm font-medium text-gray-500">Total Expenses</h3>
-                            <p className="text-2xl font-semibold text-gray-900">
-                                Rs{" "}
-                                {(overview?.totals?.totalExpenses ?? overview?.currentMonth?.totalExpenses ?? 0).toLocaleString()}
-                            </p>
+                        <div className="stat-card">
+                            <h3 className="text-sm font-medium text-gray-500">Monthly Transactions</h3>
+                            <p className="text-2xl font-semibold text-gray-900">{monthlyTransactionCount}</p>
                         </div>
                         <div className="stat-card">
-                            <h3 className="text-sm font-medium text-gray-500">Transactions</h3>
-                            <p className="text-2xl font-semibold text-gray-900">
-                                {overview?.totals?.transactionCount ?? overview?.currentMonth?.transactionCount ?? 0}
-                            </p>
+                            <h3 className="text-sm font-medium text-gray-500">Total Transactions</h3>
+                            <p className="text-2xl font-semibold text-gray-900">{totalTransactionCount}</p>
                         </div>
                     </div>
 
