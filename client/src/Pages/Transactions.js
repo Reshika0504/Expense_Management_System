@@ -17,6 +17,11 @@ const initialForm = {
     paymentMethod: "other",
 };
 
+const quickTypeActions = [
+    {label: "Add Expense", value: "expense"},
+    {label: "Add Income", value: "income"},
+];
+
 const Transactions = () => {
     const dispatch = useDispatch();
     const {transactions, pagination, loading} = useSelector((state) => state.transactions);
@@ -48,6 +53,11 @@ const Transactions = () => {
             [name]: value,
             page: name === "page" ? value : 1,
         }));
+    };
+
+    const setTransactionType = (type) => {
+        setForm((current) => ({...current, type}));
+        setEditingId(null);
     };
 
     const onSubmit = async (event) => {
@@ -117,11 +127,24 @@ const Transactions = () => {
     return (
         <AppShell title="Transactions">
             <section className="finance-card transaction-workspace">
+                <div className="transaction-mode-row">
+                    {quickTypeActions.map((action) => (
+                        <button
+                            key={action.value}
+                            type="button"
+                            className={`mode-chip ${form.type === action.value ? "mode-chip-active" : ""}`}
+                            onClick={() => setTransactionType(action.value)}
+                        >
+                            {action.label}
+                        </button>
+                    ))}
+                </div>
+
                 <form className="transaction-form" onSubmit={onSubmit}>
                     <div className="form-header">
                         <div>
                             <p className="eyebrow">{editingId ? "Update entry" : "New entry"}</p>
-                            <h3>{editingId ? "Edit transaction" : "Add transaction"}</h3>
+                            <h3>{editingId ? "Edit transaction" : form.type === "income" ? "Add income" : "Add expense"}</h3>
                         </div>
                         {editingId && (
                             <button type="button" className="ghost-button" onClick={() => { setEditingId(null); setForm(initialForm); }}>

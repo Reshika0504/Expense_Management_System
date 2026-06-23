@@ -83,6 +83,24 @@ const Profile = () => {
                         <h3>{user?.name || "Your profile"}</h3>
                         <p>{user?.email}</p>
                     </div>
+                    <div className="profile-meta-grid">
+                        <div>
+                            <span>Email</span>
+                            <strong>{user?.email || "Not added"}</strong>
+                        </div>
+                        <div>
+                            <span>Contact</span>
+                            <strong>{user?.phone || "Not added"}</strong>
+                        </div>
+                        <div>
+                            <span>DOB</span>
+                            <strong>{profile.dateOfBirth || "Not added"}</strong>
+                        </div>
+                        <div>
+                            <span>Avatar</span>
+                            <strong>{profile.avatar ? "Uploaded" : "Not uploaded"}</strong>
+                        </div>
+                    </div>
                     <div className="profile-stat-list">
                         <span>Budget {formatCurrency(user?.monthlyBudget || 0)}</span>
                         <span>Income {formatCurrency(user?.monthlyIncome || 0)}</span>
@@ -94,12 +112,12 @@ const Profile = () => {
                     <div className="form-header">
                         <div>
                             <p className="eyebrow">Manage details</p>
-                            <h3>Personal and finance settings</h3>
+                            <h3>Personal, contact, and finance settings</h3>
                         </div>
                     </div>
 
                     <label>
-                        Avatar upload
+                        Profile picture
                         <input type="file" accept="image/*" onChange={handleAvatarUpload} />
                     </label>
                     <label>
@@ -107,11 +125,11 @@ const Profile = () => {
                         <input value={profile.name} onChange={(event) => setProfile({...profile, name: event.target.value})} required />
                     </label>
                     <label>
-                        Email
+                        Email address
                         <input value={user?.email || ""} disabled />
                     </label>
                     <label>
-                        Contact
+                        Contact number
                         <input value={profile.phone} onChange={(event) => setProfile({...profile, phone: event.target.value})} />
                     </label>
                     <label>
