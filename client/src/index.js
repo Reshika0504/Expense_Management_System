@@ -7,6 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
+import {Toaster} from "react-hot-toast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +15,17 @@ root.render(
         <Provider store={store}>
             <BrowserRouter>
                 <App />
+                <Toaster
+                    position="top-right"
+                    toastOptions={{
+                        duration: 3200,
+                        style: {
+                            borderRadius: "14px",
+                            background: "#111827",
+                            color: "#fff",
+                        },
+                    }}
+                />
             </BrowserRouter>
         </Provider>
     </React.StrictMode>

@@ -1,123 +1,83 @@
 import React from "react";
-import {Form, Input, message} from "antd";
+import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {registerUser, clearError} from "../redux/slices/authSlice";
+import {clearError, registerUser} from "../redux/slices/authSlice";
 
 const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {loading, error} = useSelector((state) => state.auth);
 
-    const onFinish = async (values) => {
+    React.useEffect(() => {
+        dispatch(clearError());
+        return () => dispatch(clearError());
+    }, [dispatch]);
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
         try {
-            await dispatch(registerUser(values)).unwrap();
-            message.success("Registration successful! Welcome aboard.");
+            await dispatch(
+                registerUser({
+                    name: formData.get("name"),
+                    email: formData.get("email"),
+                    password: formData.get("password"),
+                    phone: formData.get("phone"),
+                })
+            ).unwrap();
+            toast.success("Account created");
             navigate("/dashboard");
         } catch (err) {
-            message.error(err || "Registration failed");
+            toast.error(err || "Registration failed");
         }
     };
 
-    const onFinishFailed = (errorInfo) => {
-        console.log("Failed:", errorInfo);
-        message.error("Please check your inputs");
-    };
-
-    // Clear error when component mounts or unmounts
-    React.useEffect(() => {
-        dispatch(clearError());
-        return () => {
-            dispatch(clearError());
-        };
-    }, [dispatch]);
-
     return (
-        <div className="register-page min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="auth-form">
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
-                    <p className="mt-2 text-sm text-gray-600">
-                        Or{" "}
-                        <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
-                            sign in to your existing account
-                        </Link>
-                    </p>
+        <main className="auth-page">
+            <section className="auth-visual" aria-hidden="true">
+                <div className="auth-illustration">
+                    <div className="wallet-card wallet-card-main">
+                        <span>Budget control</span>
+                        <strong>Smart goals</strong>
+                    </div>
+                    <div className="wallet-card wallet-card-float">
+                        <span>Insights</span>
+                        <strong>Auto generated</strong>
+                    </div>
                 </div>
-
-                <Form name="register" onFinish={onFinish} onFinishFailed={onFinishFailed} className="space-y-6">
-                    <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                            Full Name
-                        </label>
-                        <div className="mt-1">
-                            <Form.Item
-                                name="name"
-                                rules={[
-                                    {required: true, message: "Please input your name!"},
-                                    {min: 2, message: "Name must be at least 2 characters"},
-                                ]}
-                                noStyle
-                            >
-                                <Input className="form-input" placeholder="Enter your full name" />
-                            </Form.Item>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email address
-                        </label>
-                        <div className="mt-1">
-                            <Form.Item
-                                name="email"
-                                rules={[
-                                    {required: true, message: "Please input your email!"},
-                                    {type: "email", message: "Please enter a valid email!"},
-                                ]}
-                                noStyle
-                            >
-                                <Input type="email" className="form-input" placeholder="Enter your email" />
-                            </Form.Item>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
-                        </label>
-                        <div className="mt-1">
-                            <Form.Item
-                                name="password"
-                                rules={[
-                                    {required: true, message: "Please input your password!"},
-                                    {min: 6, message: "Password must be at least 6 characters"},
-                                ]}
-                                noStyle
-                            >
-                                <Input.Password className="form-input" placeholder="Enter your password" />
-                            </Form.Item>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="btn-primary w-full flex justify-center py-2 px-4"
-                        >
-                            {loading ? "Creating account..." : "Create account"}
-                        </button>
-                    </div>
-                </Form>
-
-                {error && (
-                    <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
-                        <p className="text-sm text-red-700">{error}</p>
-                    </div>
-                )}
-            </div>
-        </div>
+            </section>
+            <section className="auth-card" aria-label="Create account form">
+                <p className="eyebrow">Start tracking</p>
+                <h1>Create your account</h1>
+                <p>Build healthier spending habits with a clean monthly command center.</p>
+                <form onSubmit={onSubmit} className="auth-form-modern">
+                    <label>
+                        Full name
+                        <input name="name" required minLength={2} autoComplete="name" />
+                    </label>
+                    <label>
+                        Email address
+                        <input name="email" type="email" required autoComplete="email" />
+                    </label>
+                    <label>
+                        Contact number
+                        <input name="phone" autoComplete="tel" />
+                    </label>
+                    <label>
+                        Password
+                        <input name="password" type="password" required minLength={6} autoComplete="new-password" />
+                    </label>
+                    <button type="submit" className="primary-button" disabled={loading}>
+                        {loading ? "Creating..." : "Create account"}
+                    </button>
+                </form>
+                {error && <p className="form-error">{error}</p>}
+                <p className="auth-switch">
+                    Already registered? <Link to="/login">Sign in</Link>
+                </p>
+            </section>
+        </main>
     );
 };
 

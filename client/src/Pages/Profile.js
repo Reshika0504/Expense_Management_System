@@ -1,172 +1,178 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Avatar, Button, Card, Form, Input, InputNumber, message, Row, Col} from "antd";
+import toast from "react-hot-toast";
 import AppShell from "../Components/AppShell";
 import {changePassword, getProfile, updateProfile} from "../redux/slices/authSlice";
+import {formatCurrency} from "../utils/finance";
 
 const formatDateInput = (value) => {
     if (!value) return "";
     const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "";
-    return date.toISOString().slice(0, 10);
+    return Number.isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10);
 };
-
-const formatDisplayDate = (value) => {
-    if (!value) return "Not added";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "Not added";
-    return date.toLocaleDateString();
-};
-
-const currencyFormatter = (value) => (value === undefined || value === null ? "" : `Rs ${value}`);
-const currencyParser = (value) => (value || "").replace(/[^\d.]/g, "");
 
 const Profile = () => {
     const dispatch = useDispatch();
     const {user, loading} = useSelector((state) => state.auth);
-    const [profileForm] = Form.useForm();
-    const [passwordForm] = Form.useForm();
+    const [profile, setProfile] = useState({
+        name: "",
+        phone: "",
+        avatar: "",
+        dateOfBirth: "",
+        monthlyBudget: 0,
+        monthlyIncome: 0,
+        monthlySavingsGoal: 0,
+    });
+    const [passwords, setPasswords] = useState({currentPassword: "", newPassword: ""});
 
     useEffect(() => {
         dispatch(getProfile());
     }, [dispatch]);
 
     useEffect(() => {
-        profileForm.setFieldsValue({
+        setProfile({
             name: user?.name || "",
             phone: user?.phone || "",
             avatar: user?.avatar || "",
             dateOfBirth: formatDateInput(user?.dateOfBirth),
             monthlyBudget: user?.monthlyBudget ?? 0,
             monthlyIncome: user?.monthlyIncome ?? 0,
+            monthlySavingsGoal: user?.monthlySavingsGoal ?? 0,
         });
-    }, [user, profileForm]);
+    }, [user]);
 
-    const onProfileSubmit = async (values) => {
+    const handleAvatarUpload = (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+            setProfile((current) => ({...current, avatar: reader.result}));
+            toast.success("Avatar ready to save");
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const saveProfile = async (event) => {
+        event.preventDefault();
         try {
-            await dispatch(updateProfile(values)).unwrap();
-            message.success("Profile updated");
+            await dispatch(updateProfile(profile)).unwrap();
+            toast.success("Profile updated");
         } catch (error) {
-            message.error(error || "Failed to update profile");
+            toast.error(error || "Failed to update profile");
         }
     };
 
-    const onPasswordSubmit = async (values) => {
+    const savePassword = async (event) => {
+        event.preventDefault();
         try {
-            await dispatch(changePassword(values)).unwrap();
-            message.success("Password changed");
-            passwordForm.resetFields();
+            await dispatch(changePassword(passwords)).unwrap();
+            setPasswords({currentPassword: "", newPassword: ""});
+            toast.success("Password changed");
         } catch (error) {
-            message.error(error || "Failed to change password");
+            toast.error(error || "Failed to change password");
         }
     };
 
     return (
         <AppShell title="Profile">
-            <Row gutter={16}>
-                <Col xs={24} lg={12}>
-                    <Card title="Profile Details" className="profile-summary-card">
-                        <div className="profile-summary">
-                            <Avatar size={96} src={user?.avatar}>
-                                {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
-                            </Avatar>
-                            <div>
-                                <h3>{user?.name || "Your Name"}</h3>
-                                <p>{user?.email || "Email not available"}</p>
-                            </div>
-                        </div>
-                        <div className="profile-detail-grid">
-                            <div>
-                                <span>Contact</span>
-                                <strong>{user?.phone || "Not added"}</strong>
-                            </div>
-                            <div>
-                                <span>Date of Birth</span>
-                                <strong>{formatDisplayDate(user?.dateOfBirth)}</strong>
-                            </div>
-                            <div>
-                                <span>Monthly Budget</span>
-                                <strong>Rs {(user?.monthlyBudget ?? 0).toLocaleString()}</strong>
-                            </div>
-                            <div>
-                                <span>Monthly Income</span>
-                                <strong>Rs {(user?.monthlyIncome ?? 0).toLocaleString()}</strong>
-                            </div>
-                        </div>
-                    </Card>
+            <section className="profile-layout">
+                <div className="finance-card profile-identity">
+                    <img className="profile-avatar" src={profile.avatar || "/logo192.png"} alt={`${profile.name || "User"} avatar`} />
+                    <div>
+                        <p className="eyebrow">Profile</p>
+                        <h3>{user?.name || "Your profile"}</h3>
+                        <p>{user?.email}</p>
+                    </div>
+                    <div className="profile-stat-list">
+                        <span>Budget {formatCurrency(user?.monthlyBudget || 0)}</span>
+                        <span>Income {formatCurrency(user?.monthlyIncome || 0)}</span>
+                        <span>Savings Goal {formatCurrency(user?.monthlySavingsGoal || 0)}</span>
+                    </div>
+                </div>
 
-                    <Card title="Edit Profile" className="profile-edit-card">
-                        <Form form={profileForm} layout="vertical" onFinish={onProfileSubmit}>
-                            <Form.Item shouldUpdate={(prev, current) => prev.avatar !== current.avatar} noStyle>
-                                {({getFieldValue}) => (
-                                    <div className="profile-photo-preview">
-                                        <Avatar size={88} src={getFieldValue("avatar") || user?.avatar}>
-                                            {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
-                                        </Avatar>
-                                    </div>
-                                )}
-                            </Form.Item>
-                            <Form.Item label="Name" name="name" rules={[{required: true, min: 2}]}>
-                                <Input />
-                            </Form.Item>
-                            <Form.Item label="Email">
-                                <Input value={user?.email || ""} disabled />
-                            </Form.Item>
-                            <Form.Item label="Contact Number" name="phone">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item label="Date of Birth" name="dateOfBirth">
-                                <Input type="date" />
-                            </Form.Item>
-                            <Form.Item label="Photo URL" name="avatar">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item label="Monthly Budget" name="monthlyBudget">
-                                <InputNumber
-                                    min={0}
-                                    className="profile-number-input"
-                                    formatter={currencyFormatter}
-                                    parser={currencyParser}
-                                />
-                            </Form.Item>
-                            <Form.Item label="Monthly Income" name="monthlyIncome">
-                                <InputNumber
-                                    min={0}
-                                    className="profile-number-input"
-                                    formatter={currencyFormatter}
-                                    parser={currencyParser}
-                                />
-                            </Form.Item>
-                            <Button type="primary" htmlType="submit" loading={loading}>
-                                Save Profile
-                            </Button>
-                        </Form>
-                    </Card>
-                </Col>
-                <Col xs={24} lg={12}>
-                    <Card title="Change Password">
-                        <Form form={passwordForm} layout="vertical" onFinish={onPasswordSubmit}>
-                            <Form.Item
-                                label="Current Password"
-                                name="currentPassword"
-                                rules={[{required: true, message: "Current password is required"}]}
-                            >
-                                <Input.Password />
-                            </Form.Item>
-                            <Form.Item
-                                label="New Password"
-                                name="newPassword"
-                                rules={[{required: true, min: 6, message: "At least 6 characters"}]}
-                            >
-                                <Input.Password />
-                            </Form.Item>
-                            <Button type="primary" htmlType="submit" loading={loading}>
-                                Change Password
-                            </Button>
-                        </Form>
-                    </Card>
-                </Col>
-            </Row>
+                <form className="finance-card profile-form" onSubmit={saveProfile}>
+                    <div className="form-header">
+                        <div>
+                            <p className="eyebrow">Manage details</p>
+                            <h3>Personal and finance settings</h3>
+                        </div>
+                    </div>
+
+                    <label>
+                        Avatar upload
+                        <input type="file" accept="image/*" onChange={handleAvatarUpload} />
+                    </label>
+                    <label>
+                        Name
+                        <input value={profile.name} onChange={(event) => setProfile({...profile, name: event.target.value})} required />
+                    </label>
+                    <label>
+                        Email
+                        <input value={user?.email || ""} disabled />
+                    </label>
+                    <label>
+                        Contact
+                        <input value={profile.phone} onChange={(event) => setProfile({...profile, phone: event.target.value})} />
+                    </label>
+                    <label>
+                        Date of birth
+                        <input type="date" value={profile.dateOfBirth} onChange={(event) => setProfile({...profile, dateOfBirth: event.target.value})} />
+                    </label>
+                    <div className="form-grid">
+                        <label>
+                            Monthly budget
+                            <input type="number" min="0" value={profile.monthlyBudget} onChange={(event) => setProfile({...profile, monthlyBudget: Number(event.target.value)})} />
+                        </label>
+                        <label>
+                            Monthly income
+                            <input type="number" min="0" value={profile.monthlyIncome} onChange={(event) => setProfile({...profile, monthlyIncome: Number(event.target.value)})} />
+                        </label>
+                        <label>
+                            Monthly savings goal
+                            <input
+                                type="number"
+                                min="0"
+                                value={profile.monthlySavingsGoal}
+                                onChange={(event) => setProfile({...profile, monthlySavingsGoal: Number(event.target.value)})}
+                            />
+                        </label>
+                    </div>
+                    <button type="submit" className="primary-button" disabled={loading}>
+                        Save profile
+                    </button>
+                </form>
+
+                <form className="finance-card profile-form" onSubmit={savePassword}>
+                    <div className="form-header">
+                        <div>
+                            <p className="eyebrow">Security</p>
+                            <h3>Change password</h3>
+                        </div>
+                    </div>
+                    <label>
+                        Current password
+                        <input
+                            type="password"
+                            value={passwords.currentPassword}
+                            onChange={(event) => setPasswords({...passwords, currentPassword: event.target.value})}
+                            required
+                        />
+                    </label>
+                    <label>
+                        New password
+                        <input
+                            type="password"
+                            minLength={6}
+                            value={passwords.newPassword}
+                            onChange={(event) => setPasswords({...passwords, newPassword: event.target.value})}
+                            required
+                        />
+                    </label>
+                    <button type="submit" className="primary-button" disabled={loading}>
+                        Change password
+                    </button>
+                </form>
+            </section>
         </AppShell>
     );
 };

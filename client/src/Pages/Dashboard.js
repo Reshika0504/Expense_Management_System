@@ -1,185 +1,203 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getDashboardOverview} from "../redux/slices/dashboardSlice";
-import {updateProfile} from "../redux/slices/authSlice";
+import {
+    Bar,
+    BarChart,
+    CartesianGrid,
+    Cell,
+    Line,
+    LineChart,
+    Pie,
+    PieChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from "recharts";
 import AppShell from "../Components/AppShell";
-import {Button, InputNumber, message} from "antd";
+import KpiCard from "../Components/ui/KpiCard";
+import ChartCard from "../Components/ui/ChartCard";
+import EmptyState from "../Components/ui/EmptyState";
+import Skeleton from "../Components/ui/Skeleton";
+import {getCategoryReport, getDashboardOverview, getMonthlySummary, getTopCategories} from "../redux/slices/dashboardSlice";
+import {clampPercent, formatCurrency, formatPercent, getMonthLabel} from "../utils/finance";
 
-const currencyFormatter = (value) => (value === undefined || value === null ? "" : `Rs ${value}`);
-const currencyParser = (value) => (value || "").replace(/[^\d.]/g, "");
+const COLORS = ["#14b8a6", "#6366f1", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const {isAuthenticated, user, loading: profileLoading} = useSelector((state) => state.auth);
-    const {overview, loading} = useSelector((state) => state.dashboard);
-    const [budgetValue, setBudgetValue] = useState(0);
-    const [incomeValue, setIncomeValue] = useState(0);
+    const {isAuthenticated, user} = useSelector((state) => state.auth);
+    const {overview, monthlySummary, categoryReport, topCategories, loading} = useSelector((state) => state.dashboard);
 
     useEffect(() => {
         if (isAuthenticated) {
             dispatch(getDashboardOverview());
+            dispatch(getMonthlySummary());
+            dispatch(getCategoryReport({period: "month", type: "expense"}));
+            dispatch(getTopCategories({type: "expense", limit: 5}));
         }
     }, [dispatch, isAuthenticated]);
 
-    useEffect(() => {
-        setBudgetValue(user?.monthlyBudget ?? 0);
-    }, [user?.monthlyBudget]);
+    const metrics = useMemo(() => {
+        const income = overview?.currentMonth?.totalIncome ?? 0;
+        const configuredIncome = user?.monthlyIncome ?? 0;
+        const effectiveIncome = income || configuredIncome;
+        const expenses = overview?.currentMonth?.totalExpenses ?? 0;
+        const budget = user?.monthlyBudget ?? 0;
+        const savings = effectiveIncome - expenses;
+        const savingsGoal = user?.monthlySavingsGoal ?? 0;
+        const dayOfMonth = new Date().getDate();
+        const budgetUtilization = budget > 0 ? (expenses / budget) * 100 : 0;
+        const savingsRate = effectiveIncome > 0 ? (savings / effectiveIncome) * 100 : 0;
+        const topCategory = topCategories?.[0];
 
-    useEffect(() => {
-        setIncomeValue(user?.monthlyIncome ?? 0);
-    }, [user?.monthlyIncome]);
+        return {
+            income,
+            configuredIncome,
+            effectiveIncome,
+            expenses,
+            budget,
+            savings,
+            savingsGoal,
+            budgetUtilization,
+            savingsRate,
+            avgDailySpend: expenses / dayOfMonth,
+            topCategory: topCategory?.categoryName || "No spend yet",
+            topCategoryAmount: topCategory?.totalAmount || 0,
+        };
+    }, [overview, topCategories, user]);
 
-    const handleBudgetSave = async () => {
-        try {
-            await dispatch(updateProfile({monthlyBudget: budgetValue ?? 0})).unwrap();
-            await dispatch(getDashboardOverview()).unwrap();
-            message.success("Monthly budget updated");
-        } catch (error) {
-            message.error(error || "Failed to update monthly budget");
-        }
-    };
+    const categoryData = useMemo(
+        () =>
+            (categoryReport?.categories || []).map((item) => ({
+                name: item.categoryName,
+                value: item.totalAmount,
+            })),
+        [categoryReport]
+    );
 
-    const handleIncomeSave = async () => {
-        try {
-            await dispatch(updateProfile({monthlyIncome: incomeValue ?? 0})).unwrap();
-            await dispatch(getDashboardOverview()).unwrap();
-            message.success("Monthly income updated");
-        } catch (error) {
-            message.error(error || "Failed to update monthly income");
-        }
-    };
+    const monthlyData = useMemo(
+        () =>
+            (monthlySummary?.monthlyData || []).map((item) => ({
+                month: item.monthName || getMonthLabel(item.month),
+                income: item.totalIncome,
+                expense: item.totalExpenses,
+                savings: item.netBalance,
+            })),
+        [monthlySummary]
+    );
 
-    const monthlyBudget = user?.monthlyBudget ?? 0;
-    const monthlyIncome = user?.monthlyIncome ?? 0;
-    const recordedMonthIncome = overview?.currentMonth?.totalIncome ?? 0;
-    const currentMonthExpenses = overview?.currentMonth?.totalExpenses ?? 0;
-    const remainingBudget = monthlyBudget - currentMonthExpenses;
-    const monthlyTransactionCount = overview?.currentMonth?.transactionCount ?? 0;
-    const totalTransactionCount = overview?.totals?.transactionCount ?? 0;
+    const insights = useMemo(() => {
+        const trend = monthlyData.length > 1 ? monthlyData[monthlyData.length - 1].expense - monthlyData[monthlyData.length - 2].expense : 0;
+        return [
+            `Budget utilization is ${formatPercent(metrics.budgetUtilization)} for this month.`,
+            `Highest spending category is ${metrics.topCategory} at ${formatCurrency(metrics.topCategoryAmount)}.`,
+            trend > 0
+                ? `Spending increased by ${formatCurrency(trend)} compared with last month.`
+                : `Spending is ${formatCurrency(Math.abs(trend))} lower than last month.`,
+        ];
+    }, [metrics, monthlyData]);
 
     return (
-        <AppShell title="Dashboard Overview">
-            {loading ? (
-                <div className="flex items-center justify-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+        <AppShell title="Dashboard">
+            <section className="hero-panel">
+                <div>
+                    <p className="eyebrow">Monthly health</p>
+                    <h2>{formatCurrency(metrics.savings)} projected savings</h2>
+                    <p>Track budget pressure, category concentration, and cash flow from one responsive workspace.</p>
                 </div>
+                <div className="budget-meter" aria-label="Budget utilization">
+                    <span>Budget used</span>
+                    <strong>{formatPercent(metrics.budgetUtilization)}</strong>
+                    <div className="progress-track">
+                        <div className="progress-fill" style={{width: `${clampPercent(metrics.budgetUtilization)}%`}} />
+                    </div>
+                </div>
+            </section>
+
+            {loading ? (
+                <Skeleton rows={6} />
             ) : (
                 <>
-                    <div className="dashboard-grid mb-8">
-                        <div className="stat-card income-card">
-                            <h3 className="text-sm font-medium text-gray-500">Monthly Budget</h3>
-                            <div className="budget-editor">
-                                <InputNumber
-                                    min={0}
-                                    value={budgetValue}
-                                    onChange={(value) => setBudgetValue(value ?? 0)}
-                                    className="budget-input"
-                                    formatter={currencyFormatter}
-                                    parser={currencyParser}
-                                />
-                                <Button
-                                    type="primary"
-                                    onClick={handleBudgetSave}
-                                    loading={profileLoading}
-                                    disabled={budgetValue === monthlyBudget}
-                                >
-                                    Save
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="stat-card income-card">
-                            <h3 className="text-sm font-medium text-gray-500">Monthly Income</h3>
-                            <div className="budget-editor">
-                                <InputNumber
-                                    min={0}
-                                    value={incomeValue}
-                                    onChange={(value) => setIncomeValue(value ?? 0)}
-                                    className="budget-input"
-                                    formatter={currencyFormatter}
-                                    parser={currencyParser}
-                                />
-                                <Button
-                                    type="primary"
-                                    onClick={handleIncomeSave}
-                                    loading={profileLoading}
-                                    disabled={incomeValue === monthlyIncome}
-                                >
-                                    Save
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="stat-card income-card">
-                            <h3 className="text-sm font-medium text-gray-500">Recorded Income</h3>
-                            <p className="text-2xl font-semibold text-gray-900">
-                                Rs {recordedMonthIncome.toLocaleString()}
-                            </p>
-                        </div>
-                        <div className="stat-card expense-card">
-                            <h3 className="text-sm font-medium text-gray-500">Monthly Expenses</h3>
-                            <p className="text-2xl font-semibold text-gray-900">
-                                Rs {currentMonthExpenses.toLocaleString()}
-                            </p>
-                        </div>
-                        <div className={`stat-card ${remainingBudget < 0 ? "expense-card" : "balance-card"}`}>
-                            <h3 className="text-sm font-medium text-gray-500">Remaining Budget</h3>
-                            <p className="text-2xl font-semibold text-gray-900">Rs {remainingBudget.toLocaleString()}</p>
-                        </div>
-                        <div className="stat-card">
-                            <h3 className="text-sm font-medium text-gray-500">Monthly Transactions</h3>
-                            <p className="text-2xl font-semibold text-gray-900">{monthlyTransactionCount}</p>
-                        </div>
-                        <div className="stat-card">
-                            <h3 className="text-sm font-medium text-gray-500">Total Transactions</h3>
-                            <p className="text-2xl font-semibold text-gray-900">{totalTransactionCount}</p>
-                        </div>
-                    </div>
+                    <section className="kpi-grid">
+                        <KpiCard label="Income" value={formatCurrency(metrics.effectiveIncome)} detail="Recorded or monthly income target" accent="teal" icon="+" />
+                        <KpiCard label="Expenses" value={formatCurrency(metrics.expenses)} detail="Current month spending" accent="rose" icon="-" />
+                        <KpiCard label="Savings Rate" value={formatPercent(metrics.savingsRate)} detail="Monthly savings percentage" accent="indigo" icon="%" />
+                        <KpiCard label="Avg Daily Spend" value={formatCurrency(metrics.avgDailySpend)} detail="Based on current month" accent="amber" icon="D" />
+                    </section>
 
-                    <div className="bg-white rounded-lg shadow">
-                        <div className="px-6 py-4 border-b border-gray-200">
-                            <h3 className="text-lg font-medium text-gray-900">Recent Transactions</h3>
+                    <section className="insight-grid">
+                        <div className="finance-card">
+                            <h3 className="section-title">Financial Insights</h3>
+                            <div className="insight-list">
+                                {insights.map((insight) => (
+                                    <p key={insight}>{insight}</p>
+                                ))}
+                            </div>
                         </div>
-                        <div className="p-6">
-                            {overview?.recentTransactions?.length > 0 ? (
-                                <div className="overflow-x-auto">
-                                    <table className="min-w-full divide-y divide-gray-200">
-                                        <thead className="bg-gray-50">
-                                            <tr>
-                                                <th className="table-header">Description</th>
-                                                <th className="table-header">Category</th>
-                                                <th className="table-header">Date</th>
-                                                <th className="table-header text-right">Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="bg-white divide-y divide-gray-200">
-                                            {overview.recentTransactions.map((transaction) => (
-                                                <tr key={transaction._id}>
-                                                    <td className="table-cell">{transaction.description || "N/A"}</td>
-                                                    <td className="table-cell">{transaction.category}</td>
-                                                    <td className="table-cell">
-                                                        {new Date(transaction.date).toLocaleDateString()}
-                                                    </td>
-                                                    <td className="table-cell text-right">
-                                                        <span
-                                                            className={
-                                                                transaction.type === "income"
-                                                                    ? "text-green-600"
-                                                                    : "text-red-600"
-                                                            }
-                                                        >
-                                                            {transaction.type === "income" ? "+" : "-"} Rs{" "}
-                                                            {transaction.amount.toLocaleString()}
-                                                        </span>
-                                                    </td>
-                                                </tr>
+                        <div className="finance-card">
+                            <h3 className="section-title">Savings Goal</h3>
+                            <p className="metric-large">{formatCurrency(metrics.savingsGoal)}</p>
+                            <div className="progress-track">
+                                <div
+                                    className="progress-fill savings-fill"
+                                    style={{width: `${clampPercent(metrics.savingsGoal > 0 ? (metrics.savings / metrics.savingsGoal) * 100 : 0)}%`}}
+                                />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="chart-grid">
+                        <ChartCard title="Category Breakdown" subtitle="Expense share this month">
+                            {categoryData.length ? (
+                                <ResponsiveContainer width="100%" height={280}>
+                                    <PieChart>
+                                        <Pie data={categoryData} dataKey="value" nameKey="name" innerRadius={60} outerRadius={96} paddingAngle={3}>
+                                            {categoryData.map((entry, index) => (
+                                                <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
                                             ))}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </Pie>
+                                        <Tooltip formatter={(value) => formatCurrency(value)} />
+                                    </PieChart>
+                                </ResponsiveContainer>
                             ) : (
-                                <p className="text-gray-500">No transactions yet.</p>
+                                <EmptyState title="No category data" />
                             )}
-                        </div>
-                    </div>
+                        </ChartCard>
+
+                        <ChartCard title="Monthly Spending Trend" subtitle="Expense movement by month">
+                            {monthlyData.length ? (
+                                <ResponsiveContainer width="100%" height={280}>
+                                    <LineChart data={monthlyData}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="month" />
+                                        <YAxis />
+                                        <Tooltip formatter={(value) => formatCurrency(value)} />
+                                        <Line type="monotone" dataKey="expense" stroke="#ef4444" strokeWidth={3} dot={false} />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            ) : (
+                                <EmptyState title="No trend data" />
+                            )}
+                        </ChartCard>
+
+                        <ChartCard title="Income vs Expense" subtitle="Monthly cash-flow comparison">
+                            {monthlyData.length ? (
+                                <ResponsiveContainer width="100%" height={280}>
+                                    <BarChart data={monthlyData}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="month" />
+                                        <YAxis />
+                                        <Tooltip formatter={(value) => formatCurrency(value)} />
+                                        <Bar dataKey="income" fill="#14b8a6" radius={[8, 8, 0, 0]} />
+                                        <Bar dataKey="expense" fill="#ef4444" radius={[8, 8, 0, 0]} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            ) : (
+                                <EmptyState title="No cash-flow data" />
+                            )}
+                        </ChartCard>
+                    </section>
                 </>
             )}
         </AppShell>
