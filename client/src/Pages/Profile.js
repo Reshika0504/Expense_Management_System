@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Avatar, Button, Card, Form, Input, message, Row, Col} from "antd";
+import {Avatar, Button, Card, Form, Input, InputNumber, message, Row, Col} from "antd";
 import AppShell from "../Components/AppShell";
 import {changePassword, getProfile, updateProfile} from "../redux/slices/authSlice";
 
@@ -10,6 +10,16 @@ const formatDateInput = (value) => {
     if (Number.isNaN(date.getTime())) return "";
     return date.toISOString().slice(0, 10);
 };
+
+const formatDisplayDate = (value) => {
+    if (!value) return "Not added";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Not added";
+    return date.toLocaleDateString();
+};
+
+const currencyFormatter = (value) => (value === undefined || value === null ? "" : `Rs ${value}`);
+const currencyParser = (value) => (value || "").replace(/[^\d.]/g, "");
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -27,6 +37,8 @@ const Profile = () => {
             phone: user?.phone || "",
             avatar: user?.avatar || "",
             dateOfBirth: formatDateInput(user?.dateOfBirth),
+            monthlyBudget: user?.monthlyBudget ?? 0,
+            monthlyIncome: user?.monthlyIncome ?? 0,
         });
     }, [user, profileForm]);
 
@@ -53,7 +65,37 @@ const Profile = () => {
         <AppShell title="Profile">
             <Row gutter={16}>
                 <Col xs={24} lg={12}>
-                    <Card title="Profile Details">
+                    <Card title="Profile Details" className="profile-summary-card">
+                        <div className="profile-summary">
+                            <Avatar size={96} src={user?.avatar}>
+                                {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+                            </Avatar>
+                            <div>
+                                <h3>{user?.name || "Your Name"}</h3>
+                                <p>{user?.email || "Email not available"}</p>
+                            </div>
+                        </div>
+                        <div className="profile-detail-grid">
+                            <div>
+                                <span>Contact</span>
+                                <strong>{user?.phone || "Not added"}</strong>
+                            </div>
+                            <div>
+                                <span>Date of Birth</span>
+                                <strong>{formatDisplayDate(user?.dateOfBirth)}</strong>
+                            </div>
+                            <div>
+                                <span>Monthly Budget</span>
+                                <strong>Rs {(user?.monthlyBudget ?? 0).toLocaleString()}</strong>
+                            </div>
+                            <div>
+                                <span>Monthly Income</span>
+                                <strong>Rs {(user?.monthlyIncome ?? 0).toLocaleString()}</strong>
+                            </div>
+                        </div>
+                    </Card>
+
+                    <Card title="Edit Profile" className="profile-edit-card">
                         <Form form={profileForm} layout="vertical" onFinish={onProfileSubmit}>
                             <Form.Item shouldUpdate={(prev, current) => prev.avatar !== current.avatar} noStyle>
                                 {({getFieldValue}) => (
@@ -78,6 +120,22 @@ const Profile = () => {
                             </Form.Item>
                             <Form.Item label="Photo URL" name="avatar">
                                 <Input />
+                            </Form.Item>
+                            <Form.Item label="Monthly Budget" name="monthlyBudget">
+                                <InputNumber
+                                    min={0}
+                                    className="profile-number-input"
+                                    formatter={currencyFormatter}
+                                    parser={currencyParser}
+                                />
+                            </Form.Item>
+                            <Form.Item label="Monthly Income" name="monthlyIncome">
+                                <InputNumber
+                                    min={0}
+                                    className="profile-number-input"
+                                    formatter={currencyFormatter}
+                                    parser={currencyParser}
+                                />
                             </Form.Item>
                             <Button type="primary" htmlType="submit" loading={loading}>
                                 Save Profile

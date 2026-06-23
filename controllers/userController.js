@@ -29,6 +29,7 @@ const profileSchema = Joi.object({
     avatar: Joi.string().optional().allow("").trim(),
     dateOfBirth: Joi.date().optional().allow(null, ""),
     monthlyBudget: Joi.number().min(0).optional(),
+    monthlyIncome: Joi.number().min(0).optional(),
 });
 
 const formatUserResponse = (user) => ({
@@ -40,6 +41,7 @@ const formatUserResponse = (user) => ({
     phone: user.phone,
     dateOfBirth: user.dateOfBirth,
     monthlyBudget: user.monthlyBudget,
+    monthlyIncome: user.monthlyIncome,
 });
 
 // Register callback
@@ -199,7 +201,7 @@ const updateProfileController = async (req, res) => {
             });
         }
 
-        const {name, phone, avatar, dateOfBirth, monthlyBudget} = req.body;
+        const {name, phone, avatar, dateOfBirth, monthlyBudget, monthlyIncome} = req.body;
 
         const user = await userModel.findById(req.user.id);
         if (!user) {
@@ -215,6 +217,7 @@ const updateProfileController = async (req, res) => {
         if (avatar !== undefined) user.avatar = avatar;
         if (dateOfBirth !== undefined) user.dateOfBirth = dateOfBirth || null;
         if (monthlyBudget !== undefined) user.monthlyBudget = monthlyBudget;
+        if (monthlyIncome !== undefined) user.monthlyIncome = monthlyIncome;
 
         await user.save();
 

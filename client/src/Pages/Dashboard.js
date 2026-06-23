@@ -5,11 +5,15 @@ import {updateProfile} from "../redux/slices/authSlice";
 import AppShell from "../Components/AppShell";
 import {Button, InputNumber, message} from "antd";
 
+const currencyFormatter = (value) => (value === undefined || value === null ? "" : `Rs ${value}`);
+const currencyParser = (value) => (value || "").replace(/[^\d.]/g, "");
+
 const Dashboard = () => {
     const dispatch = useDispatch();
     const {isAuthenticated, user, loading: profileLoading} = useSelector((state) => state.auth);
     const {overview, loading} = useSelector((state) => state.dashboard);
     const [budgetValue, setBudgetValue] = useState(0);
+    const [incomeValue, setIncomeValue] = useState(0);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -21,6 +25,10 @@ const Dashboard = () => {
         setBudgetValue(user?.monthlyBudget ?? 0);
     }, [user?.monthlyBudget]);
 
+    useEffect(() => {
+        setIncomeValue(user?.monthlyIncome ?? 0);
+    }, [user?.monthlyIncome]);
+
     const handleBudgetSave = async () => {
         try {
             await dispatch(updateProfile({monthlyBudget: budgetValue ?? 0})).unwrap();
@@ -31,8 +39,19 @@ const Dashboard = () => {
         }
     };
 
+    const handleIncomeSave = async () => {
+        try {
+            await dispatch(updateProfile({monthlyIncome: incomeValue ?? 0})).unwrap();
+            await dispatch(getDashboardOverview()).unwrap();
+            message.success("Monthly income updated");
+        } catch (error) {
+            message.error(error || "Failed to update monthly income");
+        }
+    };
+
     const monthlyBudget = user?.monthlyBudget ?? 0;
-    const currentMonthIncome = overview?.currentMonth?.totalIncome ?? 0;
+    const monthlyIncome = user?.monthlyIncome ?? 0;
+    const recordedMonthIncome = overview?.currentMonth?.totalIncome ?? 0;
     const currentMonthExpenses = overview?.currentMonth?.totalExpenses ?? 0;
     const remainingBudget = monthlyBudget - currentMonthExpenses;
     const monthlyTransactionCount = overview?.currentMonth?.transactionCount ?? 0;
@@ -55,8 +74,8 @@ const Dashboard = () => {
                                     value={budgetValue}
                                     onChange={(value) => setBudgetValue(value ?? 0)}
                                     className="budget-input"
-                                    formatter={(value) => (value === undefined || value === null ? "" : `Rs ${value}`)}
-                                    parser={(value) => (value || "").replace(/[^\d.]/g, "")}
+                                    formatter={currencyFormatter}
+                                    parser={currencyParser}
                                 />
                                 <Button
                                     type="primary"
@@ -70,8 +89,29 @@ const Dashboard = () => {
                         </div>
                         <div className="stat-card income-card">
                             <h3 className="text-sm font-medium text-gray-500">Monthly Income</h3>
+                            <div className="budget-editor">
+                                <InputNumber
+                                    min={0}
+                                    value={incomeValue}
+                                    onChange={(value) => setIncomeValue(value ?? 0)}
+                                    className="budget-input"
+                                    formatter={currencyFormatter}
+                                    parser={currencyParser}
+                                />
+                                <Button
+                                    type="primary"
+                                    onClick={handleIncomeSave}
+                                    loading={profileLoading}
+                                    disabled={incomeValue === monthlyIncome}
+                                >
+                                    Save
+                                </Button>
+                            </div>
+                        </div>
+                        <div className="stat-card income-card">
+                            <h3 className="text-sm font-medium text-gray-500">Recorded Income</h3>
                             <p className="text-2xl font-semibold text-gray-900">
-                                Rs {currentMonthIncome.toLocaleString()}
+                                Rs {recordedMonthIncome.toLocaleString()}
                             </p>
                         </div>
                         <div className="stat-card expense-card">
