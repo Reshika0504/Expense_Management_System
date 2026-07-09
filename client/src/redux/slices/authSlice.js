@@ -89,6 +89,23 @@ export const changePassword = createAsyncThunk(
     }
 );
 
+export const deleteAccount = createAsyncThunk(
+    "auth/deleteAccount",
+    async (_, {getState, rejectWithValue}) => {
+        try {
+            const {auth} = getState();
+            const response = await axios.delete(`${API_BASE_URL}/users/profile`, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`,
+                },
+            });
+            return response.data.message;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Failed to delete account");
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -185,6 +202,23 @@ const authSlice = createSlice({
             state.loading = false;
         })
         .addCase(changePassword.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+
+        // Delete Account
+        .addCase(deleteAccount.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(deleteAccount.fulfilled, (state) => {
+            state.loading = false;
+            state.user = null;
+            state.token = null;
+            state.isAuthenticated = false;
+            localStorage.removeItem("token");
+        })
+        .addCase(deleteAccount.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         });

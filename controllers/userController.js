@@ -1,4 +1,6 @@
 const userModel = require("../models/userModel");
+const transactionModel = require("../models/transactionModel");
+const {categoryModel} = require("../models/categoryModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
@@ -31,6 +33,11 @@ const profileSchema = Joi.object({
     monthlyBudget: Joi.number().min(0).optional(),
     monthlyIncome: Joi.number().min(0).optional(),
     monthlySavingsGoal: Joi.number().min(0).optional(),
+    gender: Joi.string().optional().allow("").trim(),
+    occupation: Joi.string().optional().allow("").trim(),
+    currency: Joi.string().optional().allow("").trim(),
+    themePreference: Joi.string().valid("light", "dark").optional(),
+    categoryBudgets: Joi.object().pattern(Joi.string(), Joi.number().min(0)).optional(),
 });
 
 const formatUserResponse = (user) => ({
@@ -44,12 +51,16 @@ const formatUserResponse = (user) => ({
     monthlyBudget: user.monthlyBudget,
     monthlyIncome: user.monthlyIncome,
     monthlySavingsGoal: user.monthlySavingsGoal,
+    gender: user.gender,
+    occupation: user.occupation,
+    currency: user.currency,
+    themePreference: user.themePreference,
+    categoryBudgets: user.categoryBudgets instanceof Map ? Object.fromEntries(user.categoryBudgets) : user.categoryBudgets || {},
 });
 
 // Register callback
 const registerController = async (req, res) => {
     try {
-        // Validate request body
         const {error} = registerSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
@@ -60,7 +71,6 @@ const registerController = async (req, res) => {
 
         const {name, email, password, phone} = req.body;
 
-        // Check if user already exists
         const existingUser = await userModel.findOne({email});
         if (existingUser) {
             return res.status(400).json({
@@ -69,11 +79,9 @@ const registerController = async (req, res) => {
             });
         }
 
-        // Hash password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create new user
         const newUser = new userModel({
             name,
             email,
@@ -82,8 +90,6 @@ const registerController = async (req, res) => {
         });
 
         await newUser.save();
-
-        // Generate token
         const token = generateToken(newUser);
 
         res.status(201).json({
@@ -105,7 +111,6 @@ const registerController = async (req, res) => {
 // Login callback
 const loginController = async (req, res) => {
     try {
-        // Validate request body
         const {error} = loginSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
@@ -116,7 +121,6 @@ const loginController = async (req, res) => {
 
         const {email, password} = req.body;
 
-        // Find user
         const user = await userModel.findOne({email}).select("+password");
         if (!user) {
             return res.status(404).json({
@@ -125,7 +129,6 @@ const loginController = async (req, res) => {
             });
         }
 
-        // Check if user is active
         if (!user.isActive) {
             return res.status(403).json({
                 success: false,
@@ -133,7 +136,6 @@ const loginController = async (req, res) => {
             });
         }
 
-        // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({
@@ -142,11 +144,8 @@ const loginController = async (req, res) => {
             });
         }
 
-        // Update last login
         user.lastLogin = new Date();
         await user.save();
-
-        // Generate token
         const token = generateToken(user);
 
         res.status(200).json({
@@ -169,7 +168,6 @@ const loginController = async (req, res) => {
 const getProfileController = async (req, res) => {
     try {
         const user = await userModel.findById(req.user.id).select("-password");
-
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -179,7 +177,7 @@ const getProfileController = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            user,
+            user: formatUserResponse(user),
         });
     } catch (error) {
         console.error("Get Profile Error:", error);
@@ -194,7 +192,6 @@ const getProfileController = async (req, res) => {
 // Update profile
 const updateProfileController = async (req, res) => {
     try {
-        // Validate request body
         const {error} = profileSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
@@ -203,7 +200,20 @@ const updateProfileController = async (req, res) => {
             });
         }
 
-        const {name, phone, avatar, dateOfBirth, monthlyBudget, monthlyIncome, monthlySavingsGoal} = req.body;
+        const {
+            name,
+            phone,
+            avatar,
+            dateOfBirth,
+            monthlyBudget,
+            monthlyIncome,
+            monthlySavingsGoal,
+            gender,
+            occupation,
+            currency,
+            themePreference,
+            categoryBudgets,
+        } = req.body;
 
         const user = await userModel.findById(req.user.id);
         if (!user) {
@@ -213,7 +223,6 @@ const updateProfileController = async (req, res) => {
             });
         }
 
-        // Update fields
         if (name !== undefined) user.name = name;
         if (phone !== undefined) user.phone = phone;
         if (avatar !== undefined) user.avatar = avatar;
@@ -221,6 +230,11 @@ const updateProfileController = async (req, res) => {
         if (monthlyBudget !== undefined) user.monthlyBudget = monthlyBudget;
         if (monthlyIncome !== undefined) user.monthlyIncome = monthlyIncome;
         if (monthlySavingsGoal !== undefined) user.monthlySavingsGoal = monthlySavingsGoal;
+        if (gender !== undefined) user.gender = gender;
+        if (occupation !== undefined) user.occupation = occupation;
+        if (currency !== undefined) user.currency = currency;
+        if (themePreference !== undefined) user.themePreference = themePreference;
+        if (categoryBudgets !== undefined) user.categoryBudgets = categoryBudgets;
 
         await user.save();
 
@@ -266,7 +280,6 @@ const changePasswordController = async (req, res) => {
             });
         }
 
-        // Check current password
         const isMatch = await bcrypt.compare(currentPassword, user.password);
         if (!isMatch) {
             return res.status(400).json({
@@ -275,7 +288,6 @@ const changePasswordController = async (req, res) => {
             });
         }
 
-        // Hash new password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(newPassword, salt);
 
@@ -296,10 +308,39 @@ const changePasswordController = async (req, res) => {
     }
 };
 
+// Delete account
+const deleteAccountController = async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        // Cascade delete transactions
+        await transactionModel.deleteMany({userId});
+
+        // Cascade delete custom categories
+        await categoryModel.deleteMany({userId});
+
+        // Delete user
+        await userModel.findByIdAndDelete(userId);
+
+        res.status(200).json({
+            success: true,
+            message: "Account and associated data deleted successfully",
+        });
+    } catch (error) {
+        console.error("Delete Account Error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete account",
+            error: error.message,
+        });
+    }
+};
+
 module.exports = {
     registerController,
     loginController,
     getProfileController,
     updateProfileController,
     changePasswordController,
+    deleteAccountController,
 };

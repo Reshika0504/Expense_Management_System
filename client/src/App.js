@@ -5,6 +5,7 @@ import HomePage from "./Pages/HomePage";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
+import Income from "./Pages/Income";
 import Transactions from "./Pages/Transactions";
 import Reports from "./Pages/Reports";
 import Profile from "./Pages/Profile";
@@ -33,6 +34,14 @@ function App() {
                 element={
                     <ProtectedRoute>
                         <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/income"
+                element={
+                    <ProtectedRoute>
+                        <Income />
                     </ProtectedRoute>
                 }
             />

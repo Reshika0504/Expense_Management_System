@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../redux/slices/authSlice";
+import logo from "../assets/logo.jpeg";
 
 const navItems = [
     {to: "/dashboard", label: "Dashboard"},
+    {to: "/income", label: "Income"},
     {to: "/transactions", label: "Transactions"},
     {to: "/reports", label: "Reports"},
     {to: "/profile", label: "Profile"},
@@ -14,8 +16,17 @@ const AppShell = ({title, children}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {user} = useSelector((state) => state.auth);
-    const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
+    const [darkMode, setDarkMode] = useState(() => {
+        const localTheme = localStorage.getItem("theme");
+        return localTheme ? localTheme === "dark" : true;
+    });
     const [menuOpen, setMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (user?.themePreference) {
+            setDarkMode(user.themePreference === "dark");
+        }
+    }, [user?.themePreference]);
 
     useEffect(() => {
         document.documentElement.classList.toggle("dark", darkMode);
@@ -31,10 +42,9 @@ const AppShell = ({title, children}) => {
         <div className="app-shell">
             <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`} aria-label="Primary navigation">
                 <div className="brand-lockup">
-                    <div className="brand-mark">EM</div>
+                    <img src={logo} alt="Expense Manager" className="brand-mark brand-mark-logo" />
                     <div>
                         <h1>Expense Manager</h1>
-                        <p>Finance command center</p>
                     </div>
                 </div>
 

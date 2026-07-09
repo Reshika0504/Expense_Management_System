@@ -62,6 +62,28 @@ const userSchema = new mongoose.Schema(
             type: Boolean,
             default: true,
         },
+        gender: {
+            type: String,
+            default: "",
+        },
+        occupation: {
+            type: String,
+            default: "",
+        },
+        currency: {
+            type: String,
+            default: "USD",
+        },
+        themePreference: {
+            type: String,
+            enum: ["light", "dark"],
+            default: "dark",
+        },
+        categoryBudgets: {
+            type: Map,
+            of: Number,
+            default: {},
+        },
     },
     {timestamps: true}
 );

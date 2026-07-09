@@ -5,6 +5,7 @@ const {
     getProfileController,
     updateProfileController,
     changePasswordController,
+    deleteAccountController,
 } = require("../controllers/userController");
 const {protect} = require("../middlewares/authMiddleware");
 
@@ -19,6 +20,7 @@ router.post("/register", registerController);
 router.use(protect);
 router.get("/profile", getProfileController);
 router.put("/profile", updateProfileController);
+router.delete("/profile", deleteAccountController);
 router.put("/change-password", changePasswordController);
 
 module.exports = router;

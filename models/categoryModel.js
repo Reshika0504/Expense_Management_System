@@ -51,6 +51,9 @@ const systemCategories = [
     // Income categories
     {name: "Salary", type: "income", icon: "💰", color: "#10B981", isSystem: true},
     {name: "Freelance", type: "income", icon: "💼", color: "#3B82F6", isSystem: true},
+    {name: "Bonus", type: "income", icon: "🎟️", color: "#F59E0B", isSystem: true},
+    {name: "Investments", type: "income", icon: "📈", color: "#8B5CF6", isSystem: true},
+    {name: "Other", type: "income", icon: "💵", color: "#6B7280", isSystem: true},
     {name: "Investment", type: "income", icon: "📈", color: "#8B5CF6", isSystem: true},
     {name: "Gift", type: "income", icon: "🎁", color: "#EC4899", isSystem: true},
     {name: "Other Income", type: "income", icon: "💵", color: "#6B7280", isSystem: true},
