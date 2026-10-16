@@ -12,13 +12,19 @@ export default function SocialLogin({onSuccess}) {
     const mounted = useRef(true);
     useEffect(() => {
         mounted.current = true;
+        if (isFirebaseConfigured) {
+            try { getFirebaseAuth(); }
+            catch (error) { setError(authErrorMessage(error)); }
+        }
         return () => { mounted.current = false; };
     }, []);
     const googleLogin = async () => {
         setError(''); setBusy(true);
         let auth;
         try {
-            auth = await getFirebaseAuth();
+            // Open the popup in the original click event; Safari loses user
+            // activation when initialization is awaited before this call.
+            auth = getFirebaseAuth();
             const provider = new GoogleAuthProvider();
             provider.setCustomParameters({prompt: 'select_account'});
             const credential = await signInWithPopup(auth, provider);

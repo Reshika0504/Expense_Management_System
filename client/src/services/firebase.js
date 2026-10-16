@@ -1,5 +1,5 @@
 import {initializeApp, getApps} from 'firebase/app';
-import {getAuth, inMemoryPersistence, setPersistence} from 'firebase/auth';
+import {initializeAuth, inMemoryPersistence, browserPopupRedirectResolver} from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -8,16 +8,15 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
-let authPromise;
+let auth;
 export function getFirebaseAuth() {
     if (!isFirebaseConfigured) throw new Error('Google sign-in is being set up. Please use email and password.');
-    if (!authPromise) {
+    if (!auth) {
         const app = getApps().find((item) => item.name === 'spendwise') || initializeApp(firebaseConfig, 'spendwise');
-        const auth = getAuth(app);
+        auth = initializeAuth(app, {persistence: inMemoryPersistence, popupRedirectResolver: browserPopupRedirectResolver});
         auth.languageCode = 'en';
-        authPromise = setPersistence(auth, inMemoryPersistence).then(() => auth);
     }
-    return authPromise;
+    return auth;
 }
 
 export function authErrorMessage(error) {
