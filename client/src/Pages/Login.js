@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {clearError, loginUser} from "../redux/slices/authSlice";
+import SocialLogin from "../Components/Auth/SocialLogin";
 import logo from "../assets/logo.jpeg";
 
 const Login = () => {
@@ -170,7 +171,8 @@ const Login = () => {
                         {loading ? "Signing in..." : "Sign in to Dashboard"}
                     </button>
                 </form>
-                {error && <p className="form-error">{error}</p>}
+                <SocialLogin onSuccess={() => navigate(from, {replace: true})} />
+                {error && <p className="form-error" role="alert">{error}</p>}
                 <p className="auth-switch">
                     New here? <Link to="/register">Create free account</Link>
                 </p>

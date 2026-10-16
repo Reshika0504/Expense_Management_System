@@ -6,7 +6,8 @@
         "start": "node server.js",
         "server": "node server.js",
         "client": "npm start --prefix client",
-        "dev": "powershell -ExecutionPolicy Bypass -File .\\scripts\\dev.ps1"
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "test": "node --test tests/*.test.js"
     },
     "keywords": [],
     "author": "Reshika",
@@ -20,6 +21,8 @@
         "cors": "^2.8.5",
         "dotenv": "^16.5.0",
         "express": "^5.1.0",
+        "express-rate-limit": "^8.7.1",
+        "firebase-admin": "^14.5.0",
         "joi": "^18.0.2",
         "jsonwebtoken": "^9.0.3",
         "lodash": "^4.17.23",
@@ -28,5 +31,12 @@
         "mongoose": "^8.16.0",
         "morgan": "^1.10.0",
         "nedb-promises": "^6.2.3"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "devDependencies": {
+        "mongodb-memory-server": "^11.3.0",
+        "supertest": "^7.3.1"
     }
 }

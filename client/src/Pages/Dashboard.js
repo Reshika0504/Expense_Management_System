@@ -3,8 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
 import {
-    Bar,
-    BarChart,
     CartesianGrid,
     Cell,
     Line,
@@ -24,7 +22,7 @@ import Skeleton from "../Components/ui/Skeleton";
 import {getCategoryReport, getDashboardOverview, getMonthlySummary, getTopCategories} from "../redux/slices/dashboardSlice";
 import {createTransaction} from "../redux/slices/transactionSlice";
 import {getCategories} from "../redux/slices/categorySlice";
-import {clampPercent, formatCurrency, formatPercent, getMonthLabel} from "../utils/finance";
+import {clampPercent, formatCurrency, getMonthLabel} from "../utils/finance";
 
 const COLORS = ["#14b8a6", "#6366f1", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
 

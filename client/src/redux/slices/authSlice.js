@@ -13,6 +13,17 @@ const initialState = {
 };
 
 // Async thunks
+export const firebaseLogin = createAsyncThunk("auth/firebase", async (credentials, {rejectWithValue}) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/users/firebase`, credentials);
+        const {token, user} = response.data;
+        localStorage.setItem("token", token);
+        return {token, user};
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Unable to finish sign-in. Please try again.");
+    }
+});
+
 export const loginUser = createAsyncThunk("auth/login", async (credentials, {rejectWithValue}) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/users/login`, credentials);
@@ -51,7 +62,7 @@ export const getProfile = createAsyncThunk("auth/getProfile", async (_, {getStat
         });
         return response.data.user;
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Failed to fetch profile");
+        return rejectWithValue({message: error.response?.data?.message || "Could not load your profile. Please retry.", status: error.response?.status});
     }
 });
 
@@ -128,6 +139,11 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+        .addCase(firebaseLogin.pending, (state) => { state.loading = true; state.error = null; })
+        .addCase(firebaseLogin.fulfilled, (state, action) => {
+            state.loading = false; state.user = action.payload.user; state.token = action.payload.token; state.isAuthenticated = true;
+        })
+        .addCase(firebaseLogin.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
         // Login
         .addCase(loginUser.pending, (state) => {
             state.loading = true;
@@ -170,8 +186,8 @@ const authSlice = createSlice({
         })
         .addCase(getProfile.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload;
-            if (action.payload === "Not authorized, token failed" || action.payload === "Not authorized, no token") {
+            state.error = action.payload?.message;
+            if ([401, 403, 404].includes(action.payload?.status)) {
                 state.user = null;
                 state.token = null;
                 state.isAuthenticated = false;

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -22,11 +22,8 @@ import {
 import AppShell from "../Components/AppShell";
 import ChartCard from "../Components/ui/ChartCard";
 import EmptyState from "../Components/ui/EmptyState";
-import Skeleton from "../Components/ui/Skeleton";
-import KpiCard from "../Components/ui/KpiCard";
 import {getCategoryReport, getMonthlySummary} from "../redux/slices/dashboardSlice";
 import {updateProfile} from "../redux/slices/authSlice";
-import {getCategories} from "../redux/slices/categorySlice";
 import {formatCurrency} from "../utils/finance";
 
 const COLORS = ["#14b8a6", "#6366f1", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
@@ -34,9 +31,7 @@ const COLORS = ["#14b8a6", "#6366f1", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"
 const Reports = () => {
     const dispatch = useDispatch();
     const {token, user} = useSelector((state) => state.auth);
-    const {categories} = useSelector((state) => state.categories);
     const [period, setPeriod] = useState("month");
-    const [loadingData, setLoadingData] = useState(false);
     const [customDates, setCustomDates] = useState({startDate: "", endDate: ""});
     const [applyCustomDate, setApplyCustomDate] = useState(false);
     
@@ -51,13 +46,6 @@ const Reports = () => {
 
     const {monthlySummary, categoryReport} = useSelector((state) => state.dashboard);
 
-    // Initial dispatches
-    useEffect(() => {
-        dispatch(getCategories());
-        fetchRolling12Months();
-        fetchTransactionsForRecurring();
-    }, [dispatch]);
-
     // Fetch reports based on period/custom date
     useEffect(() => {
         const params = {period, type: "expense"};
@@ -67,12 +55,11 @@ const Reports = () => {
         }
         dispatch(getCategoryReport(params));
         dispatch(getMonthlySummary());
-    }, [dispatch, period, applyCustomDate]);
+    }, [dispatch, period, applyCustomDate, customDates.startDate, customDates.endDate]);
 
     // Fetch rolling 12 months data directly via Axios (current + prev year)
-    const fetchRolling12Months = async () => {
+    const fetchRolling12Months = useCallback(async () => {
         if (!token) return;
-        setLoadingData(true);
         try {
             const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
             const currentYear = new Date().getFullYear();
@@ -99,13 +86,11 @@ const Reports = () => {
             setRollingData(sorted.slice(-12));
         } catch (error) {
             console.error("Error fetching rolling data", error);
-        } finally {
-            setLoadingData(false);
         }
-    };
+    }, [token]);
 
     // Fetch transactions list to run client-side recurring expense detection
-    const fetchTransactionsForRecurring = async () => {
+    const fetchTransactionsForRecurring = useCallback(async () => {
         if (!token) return;
         try {
             const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
@@ -116,7 +101,12 @@ const Reports = () => {
         } catch (error) {
             console.error("Error fetching transactions for recurring check", error);
         }
-    };
+    }, [token]);
+
+    useEffect(() => {
+        fetchRolling12Months();
+        fetchTransactionsForRecurring();
+    }, [fetchRolling12Months, fetchTransactionsForRecurring]);
 
     const categoryData = useMemo(() => {
         return (categoryReport?.categories || []).map((item) => ({

@@ -18,6 +18,7 @@ dotenv.config();
     });
 
     if (dbConnected) {
+        await require("./models/userModel").init();
         setTimeout(() => {
             initializeSystemCategories().catch(() => {
                 console.log("Failed to initialize system categories".yellow);
@@ -31,6 +32,7 @@ dotenv.config();
 
     const app = express();
 
+    app.set("trust proxy", 1);
     app.use(morgan("dev"));
     app.use(express.json());
     app.use(cors());

@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {clearError, registerUser} from "../redux/slices/authSlice";
+import SocialLogin from "../Components/Auth/SocialLogin";
 import logo from "../assets/logo.jpeg";
 
 const Register = () => {
@@ -172,8 +173,8 @@ const Register = () => {
                         <input name="email" type="email" placeholder="name@domain.com" required autoComplete="email" />
                     </label>
                     <label>
-                        Contact Number
-                        <input name="phone" placeholder="+1 555-0199" autoComplete="tel" />
+                        Contact number (optional)
+                        <input name="phone" type="tel" placeholder="+919876543210" autoComplete="tel" />
                     </label>
                     <label>
                         Password
@@ -183,7 +184,8 @@ const Register = () => {
                         {loading ? "Creating..." : "Create Free Account"}
                     </button>
                 </form>
-                {error && <p className="form-error">{error}</p>}
+                <SocialLogin onSuccess={() => navigate("/dashboard", {replace: true})} />
+                {error && <p className="form-error" role="alert">{error}</p>}
                 <p className="auth-switch">
                     Already have an account? <Link to="/login">Sign in here</Link>
                 </p>

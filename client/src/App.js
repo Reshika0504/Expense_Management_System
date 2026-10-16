@@ -10,7 +10,7 @@ import Transactions from "./Pages/Transactions";
 import Reports from "./Pages/Reports";
 import Profile from "./Pages/Profile";
 import ProtectedRoute from "./Components/Auth/ProtectedRoute";
-import {getProfile, logout} from "./redux/slices/authSlice";
+import {getProfile} from "./redux/slices/authSlice";
 
 function App() {
     const dispatch = useDispatch();
@@ -18,9 +18,7 @@ function App() {
 
     useEffect(() => {
         if (token && isAuthenticated) {
-            dispatch(getProfile()).unwrap().catch(() => {
-                dispatch(logout());
-            });
+            dispatch(getProfile());
         }
     }, [dispatch, token, isAuthenticated]);
 

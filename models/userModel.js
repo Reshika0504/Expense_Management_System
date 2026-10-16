@@ -14,13 +14,15 @@ const userSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
             trim: true,
-            match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, "Please enter a valid email"],
+            match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email"],
         },
         password: {
             type: String,
-            required: [true, "password is required"],
+            required: function () { return !this.firebaseUid; },
+            select: false,
             minlength: 6,
         },
+        firebaseUid: {type: String},
         role: {
             type: String,
             enum: ["user", "admin"],
@@ -87,6 +89,8 @@ const userSchema = new mongoose.Schema(
     },
     {timestamps: true}
 );
+
+userSchema.index({firebaseUid: 1}, {unique: true, sparse: true});
 
 const userModel = mongoose.model("users", userSchema);
 module.exports = userModel;

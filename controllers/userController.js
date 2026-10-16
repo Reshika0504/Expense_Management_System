@@ -4,6 +4,7 @@ const {categoryModel} = require("../models/categoryModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
+const {verifyFirebaseToken} = require("../services/firebaseAuth");
 
 // Generate JWT token
 const generateToken = (user) => {
@@ -61,7 +62,7 @@ const formatUserResponse = (user) => ({
 // Register callback
 const registerController = async (req, res) => {
     try {
-        const {error} = registerSchema.validate(req.body);
+        const {error, value} = registerSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -69,7 +70,7 @@ const registerController = async (req, res) => {
             });
         }
 
-        const {name, email, password, phone} = req.body;
+        const {name, email, password, phone} = value;
 
         const existingUser = await userModel.findOne({email});
         if (existingUser) {
@@ -111,7 +112,7 @@ const registerController = async (req, res) => {
 // Login callback
 const loginController = async (req, res) => {
     try {
-        const {error} = loginSchema.validate(req.body);
+        const {error, value} = loginSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -119,11 +120,10 @@ const loginController = async (req, res) => {
             });
         }
 
-        const {email, password} = req.body;
-
+        const {email, password} = value;
         const user = await userModel.findOne({email}).select("+password");
         if (!user) {
-            return res.status(404).json({
+            return res.status(401).json({
                 success: false,
                 message: "Invalid email or password",
             });
@@ -136,9 +136,9 @@ const loginController = async (req, res) => {
             });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = user.password && await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({
+            return res.status(401).json({
                 success: false,
                 message: "Invalid email or password",
             });
@@ -161,6 +161,53 @@ const loginController = async (req, res) => {
             message: "Login failed",
             error: error.message,
         });
+    }
+};
+
+// Exchange a provider-verified identity for the existing application session.
+const firebaseLoginController = async (req, res) => {
+    const {error, value} = Joi.object({idToken: Joi.string().max(10000).required()}).validate(req.body);
+    if (error) return res.status(400).json({success: false, message: "A valid identity token is required"});
+    let identity;
+    try {
+        identity = await verifyFirebaseToken(value.idToken);
+    } catch (error) {
+        return res.status(error.status || 401).json({success: false,
+            message: error.status === 503 ? error.message : "Sign-in expired or invalid. Please try again."});
+    }
+    const provider = identity.firebase?.sign_in_provider;
+    if (provider !== "google.com" || !identity.email_verified || !identity.email) {
+        return res.status(401).json({success: false, message: "A verified Google account is required"});
+    }
+    try {
+        let user = await userModel.findOne({firebaseUid: identity.uid});
+        const email = identity.email?.trim().toLowerCase();
+        if (!user) {
+            user = await userModel.findOne({email});
+            // Only Google-authoritative addresses may link automatically.
+            if (user && !email.endsWith("@gmail.com") && !identity.hd) {
+                return res.status(409).json({success: false, message: "An email/password account already uses this email. Please sign in with your password."});
+            }
+            if (user?.firebaseUid && user.firebaseUid !== identity.uid) {
+                return res.status(409).json({success: false, message: "This email is linked to another sign-in identity."});
+            }
+        }
+        if (!user) {
+            user = new userModel({
+                firebaseUid: identity.uid,
+                email,
+                name: (identity.name || email.split("@")[0]).slice(0, 50),
+                avatar: identity.picture || "",
+            });
+        }
+        if (!user.isActive) return res.status(403).json({success: false, message: "Account is deactivated"});
+        user.firebaseUid = identity.uid;
+        user.lastLogin = new Date();
+        await user.save();
+        return res.json({success: true, token: generateToken(user), user: formatUserResponse(user)});
+    } catch (error) {
+        return res.status(error.code === 11000 ? 409 : 500).json({success: false,
+            message: error.code === 11000 ? "This identity is already registered. Please try signing in again." : "Unable to finish sign-in. Please try again."});
     }
 };
 
@@ -192,7 +239,7 @@ const getProfileController = async (req, res) => {
 // Update profile
 const updateProfileController = async (req, res) => {
     try {
-        const {error} = profileSchema.validate(req.body);
+        const {error, value} = profileSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -213,7 +260,7 @@ const updateProfileController = async (req, res) => {
             currency,
             themePreference,
             categoryBudgets,
-        } = req.body;
+        } = value;
 
         const user = await userModel.findById(req.user.id);
         if (!user) {
@@ -280,7 +327,7 @@ const changePasswordController = async (req, res) => {
             });
         }
 
-        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        const isMatch = user.password && await bcrypt.compare(currentPassword, user.password);
         if (!isMatch) {
             return res.status(400).json({
                 success: false,
@@ -339,6 +386,7 @@ const deleteAccountController = async (req, res) => {
 module.exports = {
     registerController,
     loginController,
+    firebaseLoginController,
     getProfileController,
     updateProfileController,
     changePasswordController,
