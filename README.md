@@ -95,7 +95,7 @@ expense-management-system/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (version 22 or higher)
+- Node.js 24 (24.12 or newer)
 - MongoDB (local or Atlas)
 - npm or yarn package manager
 
@@ -271,7 +271,7 @@ npm run client
 
 The app supports **email/password** and **Continue with Google**. Phone/SMS login is deliberately excluded to keep this personal project free of SMS charges.
 
-- Copy `.env.example` to `.env` and `client/.env.example` to `client/.env` for local development. Set a MongoDB URL and a strong JWT secret. Node 22 or newer is required.
+- Copy `.env.example` to `.env` and `client/.env.example` to `client/.env` for local development. Set a MongoDB URL and a strong JWT secret. Node 24.12 or newer within the Node 24 release line is required. Use npm 11.19.0, matching CI.
 - For Google sign-in, enable Google in Firebase Authentication, then copy the web app's public configuration into the four frontend `REACT_APP_FIREBASE_*` variables. Set the matching `FIREBASE_PROJECT_ID` on the backend. No Firebase private service-account key is required for verifying ID tokens.
 - Add the frontend hostname under Firebase Authentication → Settings → Authorized domains. Enable popups in your browser. The existing project is `spendwise-2d716`.
 - The frontend signs in with Firebase and exchanges the verified Google ID token at `POST /api/v1/users/firebase` for the same application JWT used by email login. Only verified Google identities are accepted. Existing Gmail accounts retain their user ID, password and transactions when linked. Other existing email accounts must continue using their password until an explicit account-linking flow is added.
@@ -290,7 +290,7 @@ Frontend: https://expense-management-system-frontend-3o3i.onrender.com
 
 Backend: https://expense-management-system-backend-546t.onrender.com
 
-The frontend's `REACT_APP_API_URL` must be `https://expense-management-system-backend-546t.onrender.com/api/v1`. Frontend environment variables are embedded at build time, so configuration changes need a new build. Both existing services were verified as **On Commit**, so a push to `main` triggers deployment. Frontend-only root filters mean backend-only changes do not rebuild the static site.
+The frontend's `REACT_APP_API_URL` must be `https://expense-management-system-backend-546t.onrender.com/api/v1`. The static site needs a rewrite rule `/*` → `/index.html` (action: **Rewrite**) for direct `/login` and `/dashboard` requests. This rule was added in Render. Frontend environment variables are embedded at build time, so configuration changes need a new build. Both existing services were verified as **On Commit**, so a push to `main` triggers deployment. Frontend-only root filters mean backend-only changes do not rebuild the static site.
 
 `.github/workflows/ci.yml` runs backend integration tests against an isolated temporary MongoDB, frontend tests and a production build. Backend auth tests simulate the provider verifier; real Google login must also be checked in the deployed browser. Render currently deploys on commit independently of CI; consider **After CI Checks Pass** once the workflow is established.
 
