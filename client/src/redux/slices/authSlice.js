@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
+import api, {apiErrorMessage} from "../../services/api";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
 
 // Initial state
 const initialState = {
@@ -9,24 +8,25 @@ const initialState = {
     token: localStorage.getItem("token") || null,
     isAuthenticated: !!localStorage.getItem("token"),
     loading: false,
+    profileStatus: "idle",
     error: null,
 };
 
 // Async thunks
 export const firebaseLogin = createAsyncThunk("auth/firebase", async (credentials, {rejectWithValue}) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/users/firebase`, credentials);
+        const response = await api.post(`/users/firebase`, credentials);
         const {token, user} = response.data;
         localStorage.setItem("token", token);
         return {token, user};
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Unable to finish sign-in. Please try again.");
+        return rejectWithValue(apiErrorMessage(error, "Unable to finish sign-in. Please try again."));
     }
 });
 
 export const loginUser = createAsyncThunk("auth/login", async (credentials, {rejectWithValue}) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/users/login`, credentials);
+        const response = await api.post(`/users/login`, credentials);
         const {token, user} = response.data;
 
         // Store token in localStorage
@@ -34,13 +34,13 @@ export const loginUser = createAsyncThunk("auth/login", async (credentials, {rej
 
         return {token, user};
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Login failed");
+        return rejectWithValue(apiErrorMessage(error, "Login failed"));
     }
 });
 
 export const registerUser = createAsyncThunk("auth/register", async (userData, {rejectWithValue}) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/users/register`, userData);
+        const response = await api.post(`/users/register`, userData);
         const {token, user} = response.data;
 
         // Store token in localStorage
@@ -48,21 +48,21 @@ export const registerUser = createAsyncThunk("auth/register", async (userData, {
 
         return {token, user};
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Registration failed");
+        return rejectWithValue(apiErrorMessage(error, "Registration failed"));
     }
 });
 
 export const getProfile = createAsyncThunk("auth/getProfile", async (_, {getState, rejectWithValue}) => {
     try {
         const {auth} = getState();
-        const response = await axios.get(`${API_BASE_URL}/users/profile`, {
+        const response = await api.get(`/users/profile`, {
             headers: {
                 Authorization: `Bearer ${auth.token}`,
             },
         });
         return response.data.user;
     } catch (error) {
-        return rejectWithValue({message: error.response?.data?.message || "Could not load your profile. Please retry.", status: error.response?.status});
+        return rejectWithValue({message: apiErrorMessage(error, "Could not load your profile. Please retry."), status: error.response?.status});
     }
 });
 
@@ -71,14 +71,14 @@ export const updateProfile = createAsyncThunk(
     async (profileData, {getState, rejectWithValue}) => {
         try {
             const {auth} = getState();
-            const response = await axios.put(`${API_BASE_URL}/users/profile`, profileData, {
+            const response = await api.put(`/users/profile`, profileData, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.user;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to update profile");
+            return rejectWithValue(apiErrorMessage(error, "Failed to update profile"));
         }
     }
 );
@@ -88,14 +88,14 @@ export const changePassword = createAsyncThunk(
     async (passwordData, {getState, rejectWithValue}) => {
         try {
             const {auth} = getState();
-            await axios.put(`${API_BASE_URL}/users/change-password`, passwordData, {
+            await api.put(`/users/change-password`, passwordData, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return "Password changed successfully";
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to change password");
+            return rejectWithValue(apiErrorMessage(error, "Failed to change password"));
         }
     }
 );
@@ -105,14 +105,14 @@ export const deleteAccount = createAsyncThunk(
     async (_, {getState, rejectWithValue}) => {
         try {
             const {auth} = getState();
-            const response = await axios.delete(`${API_BASE_URL}/users/profile`, {
+            const response = await api.delete(`/users/profile`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.message;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to delete account");
+            return rejectWithValue(apiErrorMessage(error, "Failed to delete account"));
         }
     }
 );
@@ -125,6 +125,8 @@ const authSlice = createSlice({
             state.user = null;
             state.token = null;
             state.isAuthenticated = false;
+            state.profileStatus = "idle";
+            state.error = null;
             localStorage.removeItem("token");
         },
         clearError: (state) => {
@@ -178,14 +180,15 @@ const authSlice = createSlice({
 
         // Get Profile
         .addCase(getProfile.pending, (state) => {
-            state.loading = true;
+            state.profileStatus = "loading";
+            state.error = null;
         })
         .addCase(getProfile.fulfilled, (state, action) => {
-            state.loading = false;
+            state.profileStatus = "succeeded";
             state.user = action.payload;
         })
         .addCase(getProfile.rejected, (state, action) => {
-            state.loading = false;
+            state.profileStatus = "failed";
             state.error = action.payload?.message;
             if ([401, 403, 404].includes(action.payload?.status)) {
                 state.user = null;

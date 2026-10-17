@@ -1428,7 +1428,7 @@ th {
 /* Glassmorphic floating cards inside auth pages */
 .auth-visual {
     position: relative;
-    background: linear-gradient(135deg, #08111f, #1e293b, #0f4c5c) !important;
+    background: linear-gradient(135deg, #4c1d95, #7e22ce, #be185d);
 }
 
 .radial-glow-top {

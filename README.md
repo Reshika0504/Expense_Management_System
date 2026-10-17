@@ -306,15 +306,42 @@ CI=true npm run build --prefix client
 
 Tests never connect to the production database. The integration suite downloads a temporary MongoDB binary on first run.
 
-## Suggested development phases
+## Portfolio sprint: 19 October–13 December 2026
 
-These are planning estimates for roughly 6–8 hours per week, not a promise of a particular hiring result.
+Build one polished, defensible project in **8 weeks**, allowing about **10–12 focused hours per week**. Use 14–31 December for the portfolio, resume, demo and a smaller complementary project; the next year of switch preparation should not be spent on this project alone. DSA and interview practice continue separately throughout.
 
-1. **Weeks 1–2: Reliable foundation.** Finish real-browser login verification, exercise registration/session expiry/logout, keep CI green and document deployment/rollback. Done when both login methods work after refresh and both services deploy from the same `main` commit.
-2. **Months 1–3: Correct finance core.** Model money in integer minor units (paise/cents), validate pagination/filter inputs, add transaction ownership tests, reliable date/time-zone handling, budgets, recurring transactions, and CSV import/export with preview and duplicate detection. Done when statement totals reconcile and cross-user access tests pass.
-3. **Months 4–5: Engineering quality.** Consolidate API access/error handling, add meaningful loading/empty/retry states and accessibility checks, review dependencies, migrate the deprecated Create React App toolchain, and add request IDs, structured logs, database-aware readiness and backup/restore drills. Document architecture decisions and failure cases.
-4. **Months 6–8: AI with measurable value.** Begin with category suggestions and receipt extraction requiring user review. Add natural-language spending questions backed by server-computed totals. Use only the current user's records, treat imported text as untrusted, measure accuracy on a labelled sample, and track latency/cost. Keep AI disabled or use mocked/demo responses until a no-cost provider/local-model choice is agreed. Do not promise a free hosted LLM API.
-5. **Months 9–10: Performance and system design.** Profile actual slow queries, use query plans and targeted indexes, move heavy imports/reports into idempotent background jobs if measurements justify it, and load-test representative datasets. Record p95 latency and failure behavior; avoid adding infrastructure without a demonstrated need.
-6. **Months 11–12: Interview-ready evidence.** Publish an architecture diagram, API documentation, tested tradeoffs, performance measurements and a short demo using synthetic data. Prepare explanations of auth, data isolation, money precision, concurrency, AI evaluation and deployment recovery. Build resume bullets from measured results and continue DSA/system-design practice alongside the project.
+### Scope and completion criteria
 
-Immediate audit findings: the core already includes user-scoped transactions, category/budget reports and compound indexes. Money is currently stored as JavaScript/MongoDB numbers; recurring detection inspects only the latest 100 transactions; API URLs are duplicated across slices/pages; the old dependency tree has audit findings that need a separate upgrade review. Cosmetic dashboard counters are illustrative rather than real product usage statistics and should be labelled or replaced before portfolio publication.
+The finished Spendwise release includes email/password and Google authentication, reliable transaction CRUD, monthly budgets and reports, CSV import/export, one evaluated ML feature, a responsive interface, tests and reproducible deployment. A feature is complete when it has usable error/empty/loading states, a tested happy path and a short demo. Keep the scope fixed after week 6.
+
+| Week | Dates | Deliverable | Acceptance check |
+| --- | --- | --- | --- |
+| 1 | 19–25 Oct | Reliability and pink-purple UI | App entry links, sign-in, refresh and logout work; the API hostname redirects browser routes; slow startup has a visible message/retry; mobile navigation and contrast are checked. |
+| 2 | 26 Oct–1 Nov | Trustworthy finance core | Define money precision and migrate safely with a backup; validate amounts, date ranges and pagination; tests demonstrate one user cannot read/edit another user's transactions. Statement totals reconcile. |
+| 3 | 2–8 Nov | CSV import/export | Preview before importing, validate rows, reject duplicates, show row errors, and export the filtered dataset. Re-importing the same file does not double expenses. |
+| 4 | 9–15 Nov | Useful budgets and reporting | Complete category budgets and explicit recurring transaction tracking; test monthly boundaries and zero-data states. Monthly totals match the transaction list. |
+| 5 | 16–22 Nov | One real, no-paid-API ML feature | Train a small expense-category text classifier locally (for example TF-IDF + logistic regression). Export vocabulary and weights so the Node backend can run inference without Python or a hosted LLM. Build a labelled synthetic/consented dataset and a separate evaluation split. |
+| 6 | 23–29 Nov | Integrate and evaluate suggestions | Show category suggestions with confidence, let users correct them, and fall back to manual categorisation when uncertain. Report accuracy/coverage on held-out examples against a keyword baseline. Financial totals remain computed by normal code. |
+| 7 | 30 Nov–6 Dec | Quality and performance | Review dependency audit findings, keyboard/mobile flows, API errors and auth recovery; run ownership/integration tests and representative load tests. Record dataset size, environment and p95 latency without inventing benchmarks. |
+| 8 | 7–13 Dec | Portfolio release | Clean README, architecture diagram, documented API, synthetic demo data, short demo video, green CI, live deployment and a rollback exercise. Explain at least three technical decisions and their tradeoffs. |
+
+**Four-week fallback:** finish weeks 1–2, one evaluated category-suggestion feature and the portfolio release. Defer CSV import and recurring automation rather than rushing every feature. Freeze new features by 15 November for this shorter version.
+
+### Keep the project free and focused
+
+- Keep the existing free Render services and Firebase Google authentication. No SMS auth, paid LLM API, new paid database, or paid hosting upgrade is part of this plan.
+- ML training is local, inference uses the exported small model in the existing Node service. Start with synthetic records; never publish personal statements or transactions in the training dataset, repo, screenshots or demo.
+- A hosted language-model chatbot, receipt OCR, bank connections, microservices, Kubernetes, Redis and distributed job queues are outside this release. Add them later only for a specific measured need.
+- The ML deliverable is a real classifier with published evaluation results. Do not present canned demo responses as a live AI integration.
+
+### December portfolio checklist
+
+By 13 December: deployed Spendwise, a synthetic demo account/dataset, architecture and API docs, screenshots, a two-minute walkthrough and test/performance results. By 31 December: add it to the personal portfolio, prepare two or three evidence-based resume bullets and rehearse a five-minute walkthrough covering authentication, data isolation, precision, deployment and ML evaluation. Reserve the rest of the switch-preparation year for DSA, system design, applications and other projects.
+
+### Reliability notes
+
+The canonical website link is **https://expense-management-system-frontend-3o3i.onrender.com/**. The backend hostname is an API endpoint, not the website. Browser entry paths on it now redirect to the frontend when no compiled frontend is served by the backend; unknown API routes still return JSON 404 responses.
+
+The frontend uses a shared API client with a 75-second request timeout. Slow sign-ins show an explanation after 8 seconds. Failed session restoration offers a retry while preserving the token; expired sessions still return to sign-in. Render's free backend can sleep after 15 minutes of inactivity and take about a minute to wake up: https://render.com/docs/free#spinning-down-on-idle . These UI improvements do not remove that hosting limitation or create an uptime guarantee. No paid service or artificial keep-awake job is added.
+
+Immediate audit findings for the sprint: user-scoped transactions, reports and compound indexes already exist; money uses ordinary JavaScript/MongoDB numbers; recurring detection inspects only the latest 100 transactions; and the dependency tree needs a separate upgrade review. The former decorative usage counters were removed from authentication pages; landing-page financial examples are explicitly labelled sample data.

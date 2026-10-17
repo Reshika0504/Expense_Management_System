@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
+import api, {apiErrorMessage} from "../../services/api";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
 
 // Initial state
 const initialState = {
@@ -19,14 +18,14 @@ export const getCategories = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/categories?${queryParams}`, {
+            const response = await api.get(`/categories?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.categories;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch categories");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch categories"));
         }
     }
 );
@@ -37,14 +36,14 @@ export const getSystemCategories = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/categories/system?${queryParams}`, {
+            const response = await api.get(`/categories/system?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.categories;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch system categories");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch system categories"));
         }
     }
 );
@@ -54,14 +53,14 @@ export const createCategory = createAsyncThunk(
     async (categoryData, {getState, rejectWithValue}) => {
         try {
             const {auth} = getState();
-            const response = await axios.post(`${API_BASE_URL}/categories`, categoryData, {
+            const response = await api.post(`/categories`, categoryData, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.category;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to create category");
+            return rejectWithValue(apiErrorMessage(error, "Failed to create category"));
         }
     }
 );
@@ -69,28 +68,28 @@ export const createCategory = createAsyncThunk(
 export const updateCategory = createAsyncThunk("categories/update", async ({id, data}, {getState, rejectWithValue}) => {
     try {
         const {auth} = getState();
-        const response = await axios.put(`${API_BASE_URL}/categories/${id}`, data, {
+        const response = await api.put(`/categories/${id}`, data, {
             headers: {
                 Authorization: `Bearer ${auth.token}`,
             },
         });
         return response.data.category;
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Failed to update category");
+        return rejectWithValue(apiErrorMessage(error, "Failed to update category"));
     }
 });
 
 export const deleteCategory = createAsyncThunk("categories/delete", async (id, {getState, rejectWithValue}) => {
     try {
         const {auth} = getState();
-        await axios.delete(`${API_BASE_URL}/categories/${id}`, {
+        await api.delete(`/categories/${id}`, {
             headers: {
                 Authorization: `Bearer ${auth.token}`,
             },
         });
         return id;
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Failed to delete category");
+        return rejectWithValue(apiErrorMessage(error, "Failed to delete category"));
     }
 });
 
@@ -100,14 +99,14 @@ export const getCategoryStats = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/categories/stats/usage?${queryParams}`, {
+            const response = await api.get(`/categories/stats/usage?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.stats;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch category stats");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch category stats"));
         }
     }
 );

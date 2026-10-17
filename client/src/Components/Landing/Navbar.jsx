@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {motion, AnimatePresence} from "framer-motion";
 import {FiMenu, FiX} from "react-icons/fi";
-import logo from "../../assets/logo.jpeg";
+import Brand from "../Brand";
 
 const navLinks = [
     {label: "Features", href: "#features"},
@@ -31,11 +31,8 @@ const Navbar = () => {
             className={`landing-navbar ${isScrolled ? "landing-navbar-scrolled" : ""}`}
         >
             <div className="landing-nav-inner">
-                <Link to="/" className="landing-brand" aria-label="Expense Manager home">
-                    <img src={logo} alt="Expense Management System logo" className="landing-brand-logo" />
-                    <span>
-                        <strong>Expense Manager</strong>
-                    </span>
+                <Link to="/" className="landing-brand" aria-label="Spendwise home">
+                    <Brand />
                 </Link>
 
                 <nav className="landing-nav-links" aria-label="Landing page">
@@ -48,10 +45,10 @@ const Navbar = () => {
 
                 <div className="landing-nav-actions">
                     <Link to="/login" className="landing-btn landing-btn-secondary">
-                        Login
+                        Sign in
                     </Link>
                     <Link to="/register" className="landing-btn landing-btn-primary">
-                        Register
+                        Get started ↗
                     </Link>
                 </div>
 
@@ -82,10 +79,10 @@ const Navbar = () => {
                         ))}
                         <div className="landing-mobile-actions">
                             <Link to="/login" className="landing-btn landing-btn-secondary" onClick={closeMenu}>
-                                Login
+                                Sign in
                             </Link>
                             <Link to="/register" className="landing-btn landing-btn-primary" onClick={closeMenu}>
-                                Register
+                                Get started ↗
                             </Link>
                         </div>
                     </motion.div>

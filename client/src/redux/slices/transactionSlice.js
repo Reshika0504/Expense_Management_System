@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
+import api, {apiErrorMessage} from "../../services/api";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
 
 // Initial state
 const initialState = {
@@ -24,14 +23,14 @@ export const createTransaction = createAsyncThunk(
     async (transactionData, {getState, rejectWithValue}) => {
         try {
             const {auth} = getState();
-            const response = await axios.post(`${API_BASE_URL}/transactions`, transactionData, {
+            const response = await api.post(`/transactions`, transactionData, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.transaction;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to create transaction");
+            return rejectWithValue(apiErrorMessage(error, "Failed to create transaction"));
         }
     }
 );
@@ -42,14 +41,14 @@ export const getTransactions = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/transactions?${queryParams}`, {
+            const response = await api.get(`/transactions?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch transactions");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch transactions"));
         }
     }
 );
@@ -57,14 +56,14 @@ export const getTransactions = createAsyncThunk(
 export const getTransaction = createAsyncThunk("transactions/fetchOne", async (id, {getState, rejectWithValue}) => {
     try {
         const {auth} = getState();
-        const response = await axios.get(`${API_BASE_URL}/transactions/${id}`, {
+        const response = await api.get(`/transactions/${id}`, {
             headers: {
                 Authorization: `Bearer ${auth.token}`,
             },
         });
         return response.data.transaction;
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Failed to fetch transaction");
+        return rejectWithValue(apiErrorMessage(error, "Failed to fetch transaction"));
     }
 });
 
@@ -73,14 +72,14 @@ export const updateTransaction = createAsyncThunk(
     async ({id, data}, {getState, rejectWithValue}) => {
         try {
             const {auth} = getState();
-            const response = await axios.put(`${API_BASE_URL}/transactions/${id}`, data, {
+            const response = await api.put(`/transactions/${id}`, data, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.transaction;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to update transaction");
+            return rejectWithValue(apiErrorMessage(error, "Failed to update transaction"));
         }
     }
 );
@@ -88,14 +87,14 @@ export const updateTransaction = createAsyncThunk(
 export const deleteTransaction = createAsyncThunk("transactions/delete", async (id, {getState, rejectWithValue}) => {
     try {
         const {auth} = getState();
-        await axios.delete(`${API_BASE_URL}/transactions/${id}`, {
+        await api.delete(`/transactions/${id}`, {
             headers: {
                 Authorization: `Bearer ${auth.token}`,
             },
         });
         return id;
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Failed to delete transaction");
+        return rejectWithValue(apiErrorMessage(error, "Failed to delete transaction"));
     }
 });
 
@@ -105,14 +104,14 @@ export const getTransactionStats = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/transactions/stats/summary?${queryParams}`, {
+            const response = await api.get(`/transactions/stats/summary?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.stats;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch transaction stats");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch transaction stats"));
         }
     }
 );

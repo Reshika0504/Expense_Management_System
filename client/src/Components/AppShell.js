@@ -2,14 +2,15 @@ import React, {useEffect, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../redux/slices/authSlice";
-import logo from "../assets/logo.jpeg";
+import Brand from "./Brand";
+import {FiGrid, FiTrendingUp, FiRepeat, FiPieChart, FiUser, FiSun, FiMoon, FiLogOut} from "react-icons/fi";
 
 const navItems = [
-    {to: "/dashboard", label: "Dashboard"},
-    {to: "/income", label: "Income"},
-    {to: "/transactions", label: "Transactions"},
-    {to: "/reports", label: "Reports"},
-    {to: "/profile", label: "Profile"},
+    {to: "/dashboard", label: "Overview", icon: FiGrid},
+    {to: "/income", label: "Income", icon: FiTrendingUp},
+    {to: "/transactions", label: "Transactions", icon: FiRepeat},
+    {to: "/reports", label: "Reports", icon: FiPieChart},
+    {to: "/profile", label: "Your profile", icon: FiUser},
 ];
 
 const AppShell = ({title, children}) => {
@@ -42,12 +43,10 @@ const AppShell = ({title, children}) => {
         <div className="app-shell">
             <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`} aria-label="Primary navigation">
                 <div className="brand-lockup">
-                    <img src={logo} alt="Expense Manager" className="brand-mark brand-mark-logo" />
-                    <div>
-                        <h1>Expense Manager</h1>
-                    </div>
+                    <Brand />
                 </div>
 
+                <p className="sidebar-caption">YOUR SPACE</p>
                 <nav className="sidebar-nav">
                     {navItems.map((item) => (
                         <NavLink
@@ -56,13 +55,14 @@ const AppShell = ({title, children}) => {
                             className={({isActive}) => `nav-item ${isActive ? "nav-item-active" : ""}`}
                             onClick={() => setMenuOpen(false)}
                         >
-                            {item.label}
+                            <item.icon aria-hidden="true" /> {item.label}
                         </NavLink>
                     ))}
                 </nav>
 
-                <button type="button" className="ghost-button" onClick={() => setDarkMode((value) => !value)}>
-                    {darkMode ? "Light mode" : "Dark mode"}
+                <div className="sidebar-note"><span>Little steps, brighter days.</span><p>Your next money milestone starts with a little clarity.</p></div>
+                <button type="button" className="ghost-button theme-toggle" onClick={() => setDarkMode((value) => !value)}>
+                    {darkMode ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />} {darkMode ? "Light mode" : "Dark mode"}
                 </button>
             </aside>
 
@@ -86,7 +86,7 @@ const AppShell = ({title, children}) => {
                             <span>{user?.email || "Signed in"}</span>
                         </div>
                         <button type="button" className="logout-button" onClick={handleLogout}>
-                            Logout
+                            <FiLogOut aria-hidden="true" /> <span className="logout-label">Sign out</span>
                         </button>
                     </div>
                 </header>

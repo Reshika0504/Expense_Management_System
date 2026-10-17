@@ -8,6 +8,7 @@ const path = require("path");
 const connectDb = require("./config/connectDb");
 const {initializeSystemCategories} = require("./models/categoryModel");
 const {requireDb} = require("./middlewares/requireDb");
+const {browserRoutes, frontendRedirect} = require("./middlewares/frontendRedirect");
 
 dotenv.config();
 
@@ -59,6 +60,8 @@ dotenv.config();
         app.get(/^\/(?!api).*/, (req, res) => {
             res.sendFile(clientIndexPath);
         });
+    } else {
+        app.get(browserRoutes, frontendRedirect);
     }
 
     app.use((err, req, res, next) => {

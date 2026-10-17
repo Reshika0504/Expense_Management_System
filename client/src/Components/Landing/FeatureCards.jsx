@@ -50,11 +50,10 @@ const FeatureCards = () => {
     return (
         <section className="landing-features" id="features">
             <div className="landing-section-heading">
-                <span>Everything after the hero stays discoverable</span>
-                <h2>Built for daily expense clarity</h2>
+                <span>A LITTLE ORGANISATION. A LOT OF CLARITY.</span>
+                <h2>Good with money, one day at a time.</h2>
                 <p>
-                    The original informational sections are now organized into cleaner cards that are easier to scan on
-                    every screen size.
+                    From your first morning coffee to your next big goal, give every rupee a place in your plan.
                 </p>
             </div>
 

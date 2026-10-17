@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
+import {FiPlus, FiArrowDownLeft, FiArrowUpRight, FiBarChart2, FiTarget, FiStar} from "react-icons/fi";
 import {
     CartesianGrid,
     Cell,
@@ -24,7 +25,7 @@ import {createTransaction} from "../redux/slices/transactionSlice";
 import {getCategories} from "../redux/slices/categorySlice";
 import {clampPercent, formatCurrency, getMonthLabel} from "../utils/finance";
 
-const COLORS = ["#14b8a6", "#6366f1", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
+const COLORS = ["#a855f7", "#ec4899", "#fb923c", "#818cf8", "#e879f9", "#38bdf8"];
 
 // Helper to match category to an icon
 const getCategoryIcon = (categoryName = "", type = "expense") => {
@@ -49,7 +50,7 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {isAuthenticated, user} = useSelector((state) => state.auth);
-    const {overview, monthlySummary, categoryReport, topCategories, loading} = useSelector((state) => state.dashboard);
+    const {overview, monthlySummary, categoryReport, topCategories, loading, error} = useSelector((state) => state.dashboard);
     const {categories} = useSelector((state) => state.categories);
 
     // Quick Add Expense modal state
@@ -286,19 +287,33 @@ const Dashboard = () => {
                 </div>
             )}
 
+            <section className="dashboard-welcome">
+                <div>
+                    <span className="welcome-date"><FiStar aria-hidden="true" /> {new Date().toLocaleDateString("en-IN", {month: "long", year: "numeric"})} · YOUR MONEY STORY</span>
+                    <h2>A little clarity.<br /><span>A brighter month.</span></h2>
+                    <p>Make space for your plans, your progress, and the things you love.</p>
+                </div>
+                <div className="welcome-budget">
+                    <span>Your monthly budget</span>
+                    <strong>{metrics.budget > 0 ? formatCurrency(metrics.budget) : "Let's make a plan"}</strong>
+                    <div className="progress-track"><div className="progress-fill" style={{width: `${clampPercent(metrics.budgetUtilization)}%`}} /></div>
+                    <span>{metrics.budget > 0 ? `${Math.round(metrics.budgetUtilization)}% used this month` : "Set a budget in your profile to get started."}</span>
+                </div>
+            </section>
+            {error && <div className="connection-notice dashboard-error" role="alert"><span>{error}</span><button className="ghost-button" onClick={() => {dispatch(getDashboardOverview()); dispatch(getMonthlySummary()); dispatch(getCategoryReport({period: "month", type: "expense"})); dispatch(getTopCategories({type: "expense", limit: 5}));}}>Try again</button></div>}
             {/* Quick Actions Panel */}
             <section className="quick-actions-bar finance-card">
                 <button type="button" className="quick-action-btn" onClick={() => setShowQuickAdd(true)}>
-                    ➕ Add Expense
+                    <FiPlus aria-hidden="true" /> Add expense
                 </button>
                 <button type="button" className="quick-action-btn" onClick={() => navigate("/income")}>
-                    💰 Add Income
+                    <FiArrowDownLeft aria-hidden="true" /> Add income
                 </button>
                 <button type="button" className="quick-action-btn" onClick={() => navigate("/reports")}>
-                    📊 Generate Report
+                    <FiBarChart2 aria-hidden="true" /> View reports
                 </button>
                 <button type="button" className="quick-action-btn" onClick={() => navigate("/profile")}>
-                    🎯 Set Budgets
+                    <FiTarget aria-hidden="true" /> Set budgets
                 </button>
             </section>
 
@@ -308,15 +323,15 @@ const Dashboard = () => {
                 <>
                     {/* Key KPI cards */}
                     <section className="kpi-grid">
-                        <KpiCard label="Total Income" value={formatCurrency(metrics.effectiveIncome)} detail="Monthly Est. or Logged total" accent="teal" icon="💰" />
-                        <KpiCard label="Total Expenses" value={formatCurrency(metrics.expenses)} detail="Current Month Spending" accent="rose" icon="📉" />
-                        <KpiCard label="Net Savings" value={formatCurrency(metrics.savings)} detail="Current cash flow surplus" accent="indigo" icon="📈" />
+                        <KpiCard label="Total Income" value={formatCurrency(metrics.effectiveIncome)} detail="Monthly Est. or Logged total" accent="teal" icon={<FiArrowDownLeft />} />
+                        <KpiCard label="Total Expenses" value={formatCurrency(metrics.expenses)} detail="Current Month Spending" accent="rose" icon={<FiArrowUpRight />} />
+                        <KpiCard label="Net Savings" value={formatCurrency(metrics.savings)} detail="Current cash flow surplus" accent="indigo" icon={<FiStar />} />
                         <KpiCard
                             label="Budget Remaining"
                             value={metrics.budget > 0 ? formatCurrency(metrics.budgetRemaining) : "No Limit Set"}
                             detail="Remaining out of total budget limit"
                             accent={metrics.budgetRemaining < 0 ? "rose" : "amber"}
-                            icon="🎯"
+                            icon={<FiTarget />}
                         />
                     </section>
 

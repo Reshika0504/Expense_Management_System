@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
+import api, {apiErrorMessage} from "../../services/api";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
 
 // Initial state
 const initialState = {
@@ -17,14 +16,14 @@ const initialState = {
 export const getDashboardOverview = createAsyncThunk("dashboard/overview", async (_, {getState, rejectWithValue}) => {
     try {
         const {auth} = getState();
-        const response = await axios.get(`${API_BASE_URL}/dashboard/overview`, {
+        const response = await api.get(`/dashboard/overview`, {
             headers: {
                 Authorization: `Bearer ${auth.token}`,
             },
         });
         return response.data.overview;
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Failed to fetch dashboard overview");
+        return rejectWithValue(apiErrorMessage(error, "Failed to fetch dashboard overview"));
     }
 });
 
@@ -34,14 +33,14 @@ export const getMonthlySummary = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/dashboard/monthly-summary?${queryParams}`, {
+            const response = await api.get(`/dashboard/monthly-summary?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch monthly summary");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch monthly summary"));
         }
     }
 );
@@ -52,14 +51,14 @@ export const getCategoryReport = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/dashboard/category-report?${queryParams}`, {
+            const response = await api.get(`/dashboard/category-report?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch category report");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch category report"));
         }
     }
 );
@@ -70,14 +69,14 @@ export const getTopCategories = createAsyncThunk(
         try {
             const {auth} = getState();
             const queryParams = new URLSearchParams(params).toString();
-            const response = await axios.get(`${API_BASE_URL}/dashboard/top-categories?${queryParams}`, {
+            const response = await api.get(`/dashboard/top-categories?${queryParams}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
             return response.data.topCategories;
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch top categories");
+            return rejectWithValue(apiErrorMessage(error, "Failed to fetch top categories"));
         }
     }
 );

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
+import api from "../services/api";
 import toast from "react-hot-toast";
 import {
     Area,
@@ -26,7 +26,7 @@ import {getCategoryReport, getMonthlySummary} from "../redux/slices/dashboardSli
 import {updateProfile} from "../redux/slices/authSlice";
 import {formatCurrency} from "../utils/finance";
 
-const COLORS = ["#14b8a6", "#6366f1", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
+const COLORS = ["#a855f7", "#ec4899", "#fb923c", "#818cf8", "#e879f9", "#38bdf8"];
 
 const Reports = () => {
     const dispatch = useDispatch();
@@ -61,14 +61,13 @@ const Reports = () => {
     const fetchRolling12Months = useCallback(async () => {
         if (!token) return;
         try {
-            const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
             const currentYear = new Date().getFullYear();
             
             const [resCurr, resPrev] = await Promise.all([
-                axios.get(`${API_BASE_URL}/dashboard/monthly-summary?year=${currentYear}`, {
+                api.get(`/dashboard/monthly-summary?year=${currentYear}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 }),
-                axios.get(`${API_BASE_URL}/dashboard/monthly-summary?year=${currentYear - 1}`, {
+                api.get(`/dashboard/monthly-summary?year=${currentYear - 1}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 }),
             ]);
@@ -93,8 +92,7 @@ const Reports = () => {
     const fetchTransactionsForRecurring = useCallback(async () => {
         if (!token) return;
         try {
-            const API_BASE_URL = process.env.REACT_APP_API_URL || "/api/v1";
-            const res = await axios.get(`${API_BASE_URL}/transactions?limit=100`, {
+            const res = await api.get(`/transactions?limit=100`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setAllTransactions(res.data?.transactions || []);

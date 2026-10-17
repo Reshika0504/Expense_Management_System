@@ -1,26 +1,27 @@
-import React from "react";
-import {useSelector} from "react-redux";
-import {Navigate, useLocation} from "react-router-dom";
-import Spinner from "../Spinner";
+import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, Navigate, useLocation} from 'react-router-dom';
+import {getProfile} from '../../redux/slices/authSlice';
+import Spinner from '../Spinner';
+import ConnectionNotice from './ConnectionNotice';
 
-const ProtectedRoute = ({children}) => {
-    const {isAuthenticated, loading} = useSelector((state) => state.auth);
+export default function ProtectedRoute({children}) {
+    const {isAuthenticated, user, profileStatus, error} = useSelector((state) => state.auth);
     const location = useLocation();
-
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <Spinner />
+    const dispatch = useDispatch();
+    if (!isAuthenticated) return <Navigate to="/login" state={{from: location}} replace />;
+    if (!user) {
+        return <main className="connection-page">
+            <div className="finance-card connection-card">
+                {profileStatus === 'failed' ? <>
+                    <span className="connection-symbol" aria-hidden="true">↻</span>
+                    <h1>Let's try that again.</h1>
+                    <p role="alert">{error || 'We could not open your space just yet.'}</p>
+                    <button className="primary-button" onClick={() => dispatch(getProfile())}>Try again</button>
+                    <Link to="/">Back to home</Link>
+                </> : <><Spinner /><ConnectionNotice loading /></>}
             </div>
-        );
+        </main>;
     }
-
-    if (!isAuthenticated) {
-        // Redirect to login page with return url
-        return <Navigate to="/login" state={{from: location}} replace />;
-    }
-
     return children;
-};
-
-export default ProtectedRoute;
+}

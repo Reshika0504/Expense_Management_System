@@ -1,11 +1,13 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import Brand from "../Brand";
 
 const Footer = () => {
     return (
         <footer className="landing-footer">
-            <strong>Expense Management System</strong>
-            <span>Track • Manage • Save</span>
-            <p>© 2026 All Rights Reserved</p>
+            <Link to="/" aria-label="Spendwise home"><Brand /></Link>
+            <span>A brighter relationship with your money.</span>
+            <p>Made with care · © 2026 Spendwise</p>
         </footer>
     );
 };
