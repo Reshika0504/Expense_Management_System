@@ -2,6 +2,10 @@
 
 A comprehensive personal expense management application built with the MERN stack (MongoDB, Express.js, React, Node.js) that helps users track, categorize, and analyze their expenses with a clean, responsive interface.
 
+## Current engineering roadmap
+
+The [backend-first October–November roadmap](docs/SpendWise_Backend_First_Roadmap.md) is the active plan. Phase 0 audit: [architecture and baseline](docs/architecture/current-state.md), [current API contracts](docs/api/current-endpoints.md), [prioritized risks](docs/security/risk-register.md). Work proceeds one phase per prompt; AI is deferred until the finance backend is reliable. The older portfolio sprint below is retained as historical planning, not the current implementation schedule.
+
 ## Live Demo
 You can see the complete live demo of my application here:
 - https://expense-management-system-frontend-3o3i.onrender.com
@@ -306,7 +310,7 @@ CI=true npm run build --prefix client
 
 Tests never connect to the production database. The integration suite downloads a temporary MongoDB binary on first run.
 
-## Portfolio sprint: 19 October–13 December 2026
+## Earlier portfolio sprint (superseded): 19 October–13 December 2026
 
 Build one polished, defensible project in **8 weeks**, allowing about **10–12 focused hours per week**. Use 14–31 December for the portfolio, resume, demo and a smaller complementary project; the next year of switch preparation should not be spent on this project alone. DSA and interview practice continue separately throughout.
 

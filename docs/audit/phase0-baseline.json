@@ -1,0 +1,80 @@
+{
+  "auditDate": "2026-10-17",
+  "codeBaseline": "91915f2b540a8b14e8bdb4c430722327b5b23da3",
+  "node": "24.21.0",
+  "npm": "11.19.0",
+  "backendTests": {
+    "passed": 14,
+    "failed": 0
+  },
+  "frontendTests": {
+    "suites": 6,
+    "passed": 13,
+    "failed": 0
+  },
+  "productionBuild": "passed",
+  "dependencyAudit": {
+    "backend": {
+      "info": 0,
+      "low": 1,
+      "moderate": 12,
+      "high": 8,
+      "critical": 5,
+      "total": 26
+    },
+    "client": {
+      "info": 0,
+      "low": 6,
+      "moderate": 16,
+      "high": 84,
+      "critical": 4,
+      "total": 110
+    }
+  },
+  "syntheticObservations": [
+    {
+      "case": "aggregation-objectid",
+      "transactionSummary": 0,
+      "dashboardExpense": 12.34,
+      "expected": 12.34
+    },
+    {
+      "case": "category-lookup-isolation",
+      "rowCount": 2,
+      "total": 24.68,
+      "includesOtherUsersIcon": true,
+      "expectedRows": 1,
+      "expectedTotal": 12.34
+    },
+    {
+      "case": "cross-user-transaction-CRUD",
+      "read": 404,
+      "update": 404,
+      "delete": 404,
+      "expected": 404
+    },
+    {
+      "case": "query-boundaries",
+      "zeroLimitStatus": 200,
+      "invalidObjectIdStatus": 500,
+      "expected": 400
+    },
+    {
+      "case": "disabled-session",
+      "existingSessionStatus": 200,
+      "expected": 403
+    }
+  ],
+  "productionHealth": {
+    "path": "/api/health",
+    "status": 200,
+    "dependencyReadinessVerified": false
+  },
+  "secretReview": {
+    "trackedFiles": 95,
+    "reachableHistoryBlobs": 223,
+    "confirmedSecretMatches": 0,
+    "triagedFalsePositive": "server_out.log contains a masked MongoDB password",
+    "limitations": "Targeted pattern scan, not a dedicated scanner or proof that secrets never existed."
+  }
+}
