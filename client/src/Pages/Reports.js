@@ -26,7 +26,7 @@ import {getCategoryReport, getMonthlySummary} from "../redux/slices/dashboardSli
 import {updateProfile} from "../redux/slices/authSlice";
 import {formatCurrency} from "../utils/finance";
 
-const COLORS = ["#a855f7", "#ec4899", "#fb923c", "#818cf8", "#e879f9", "#38bdf8"];
+const COLORS = ["#e45a99", "#a855c9", "#fb923c", "#d98dc2", "#818cf8", "#38bdf8"];
 
 const Reports = () => {
     const dispatch = useDispatch();

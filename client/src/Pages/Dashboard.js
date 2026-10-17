@@ -25,7 +25,7 @@ import {createTransaction} from "../redux/slices/transactionSlice";
 import {getCategories} from "../redux/slices/categorySlice";
 import {clampPercent, formatCurrency, getMonthLabel} from "../utils/finance";
 
-const COLORS = ["#a855f7", "#ec4899", "#fb923c", "#818cf8", "#e879f9", "#38bdf8"];
+const COLORS = ["#e45a99", "#a855c9", "#fb923c", "#d98dc2", "#818cf8", "#38bdf8"];
 
 // Helper to match category to an icon
 const getCategoryIcon = (categoryName = "", type = "expense") => {
