@@ -1,0 +1,50 @@
+# Read-only legacy financial-data audit
+
+Application predicate pinned to `feb94f70efa58eaccdb91dea61a0e8c2d346b08d` (PR #1). Assessment branch `codex/phase-0-1-post-review-20261018`, task baseline `7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2`. Resolve the audit script's exact commit and hash before operator execution; the script records its SHA256 and the application predicate revision.
+
+## Actual access and result
+
+**BLOCKED — PRODUCTION AUDIT ACCESS REQUIRED**. [Structured results](audit-results.json) distinguish production counts (**null / unknown**) from executed synthetic checks. Inspected available local env filenames and variable-name/presence metadata only. No root `.env`, `.env.local`, `.env.production`, client `.env` or `.env.local` file and no process `MONGO_URL`, `MONGO_LOCAL_URL`, `SPENDWISE_AUDIT_URI` or `SPENDWISE_AUDIT_DATABASE` were present. Example/public production env files are not evidence of database permission. No production endpoint/DB connection, permissions change, credentials retrieval or record read/write was attempted. Existing cloud dashboard sessions are not proof of a scoped read-only database role.
+
+`config/connectDb.js` uses application credentials, a local fallback and Mongoose lifecycle; it is **not** an audit entrypoint. `server.js` can initialize indexes/categories. Existing `scripts/audit-phase0.cjs` creates/writes disposable test fixtures; it is not a production inventory. Do not run those against production.
+
+The new [operator script](../../../../scripts/read-only-legacy-inventory.cjs) uses only the existing MongoDB driver through Mongoose's export, with no models/bootstrap/dotenv/index initialization/fallback. It requires explicit operator configuration, checks authenticated privileges through `connectionStatus`, rejects writer/broad/unknown scope, then executes one counts-only aggregate on `transactions` with an internal existence-only `users` lookup. No names, IDs, dates, amounts, totals, URI, role output or financial details leave the database. Errors are fixed safe codes. No write stages, inserts, updates, deletes, index creation or application requests exist in the production CLI path.
+
+## Predicate and counting definitions
+
+`financeSummary` accepts numeric BSON amount types double/int/long/decimal, Decimal128-convertible amount >0 and <=1,000,000,000 with integral amount×100; BSON Date; income/expense type; non-empty string category. All owner history is validated before date/type filtering. Category whitespace is currently valid; do not silently strengthen the audit predicate. A number with non-zero fractional units beyond two places is overprecision; `33.3300` is not, and numeric strings are classified as unsupported monetary values rather than numeric precision. Conversion follows MongoDB's real double-to-decimal semantics, not JS `value*100` guesses.
+
+Output counters include total records, overprecision, nonnumeric/null/missing amounts, nonfinite/unconvertible numeric amounts, nonpositive/out-of-range values, union of invalid monetary records, invalid type/date/category, union failing the report predicate, affected distinct stored ObjectId owners, affected **existing** users, dangling-owner counts and invalid-owner records. Reason counters overlap; do not sum them into a distinct record count. The users lookup verifies existence only, including inactive users; it does not disclose or certify activity/identity. Malformed owner records may be unreachable by normal owner-scoped reports and are counted separately. Profile planned-income/budget fields are outside this report-validation audit, not certified.
+
+Also count existing owners whose valid full-history positive minor-unit sum exceeds JS safe integer range. This is an overflow-risk screen, not a date-window-specific calculation or scalability proof. Per-record invalidity blocks all report windows; valid full-history overflow may affect all-time overview while a smaller window remains valid. Numeric counts are safe nonnegative integers or the CLI refuses output.
+
+## Safe executable operator procedure — PROPOSED, NOT RUN ON PRODUCTION
+
+1. An authorized operator verifies the production cluster/database/collection names privately and selects a maintenance/read window. Confirm the actual report predicate still matches the pinned revision. Review the script/commit; never point a synthetic seed/test/server script at production.
+2. Use an **existing, independently authorized** narrowly scoped credential with only `find` on this database's `transactions` and `users` collections (a reviewed database `read` role can work if all its returned actions are allowlisted). No insert/update/remove/index/admin permissions. This task does not create accounts/roles or change network access. If no such credential exists, stop and request an authorized access workflow; do not reuse the application's readWrite account. Privilege inspection unavailable/ambiguous means stop, no bypass.
+3. Load `SPENDWISE_AUDIT_URI` and `SPENDWISE_AUDIT_DATABASE` privately through the operator's approved secret-injection mechanism; no shell-history literals, command-line URI, reports or chat credentials. Do not enable shell tracing, driver debug logging or environment dumps. Set `SPENDWISE_AUDIT_APPROVED=yes` only after target/access review. TLS and certificate validation are required. The optional `SPENDWISE_AUDIT_MAX_TIME_MS` defaults to 30000, allowed 1000–120000; start at default. One connection, no read retries, `allowDiskUse:false`; timeout/memory/permission error means incomplete, never zero findings.
+4. In the verified repository checkout, run these non-secret commands (do not overwrite earlier evidence):
+
+```sh
+git rev-parse HEAD
+node --check scripts/read-only-legacy-inventory.cjs
+node scripts/read-only-legacy-inventory.cjs
+```
+
+5. Only successful exit 0 with `EXECUTED_READ_ONLY` is an executed inventory. Save its complete sanitized JSON under a **new dated filename** in `docs/testing/phase-0.1/post-review/`, with the exact script commit, privately verified target reference/access attestation, operator/date and execution interval. The program emits only counts and hashes; inspect output before committing. Preserve unsuccessful results with BLOCKED status, no fabricated zero counts.
+6. Majority read concern is not a single snapshot across concurrently changing collections. Record write activity/window and repeat a read in a quiet window when necessary; do not disable writes/change production settings as part of this task. An exhaustive scan/group/lookup consumes CPU/memory even when read-only. Stop on load/time budget; do not add sampling or silently extrapolate exact counts. No production load benchmark was performed.
+7. If any invalid/overflow condition exists, **hold deployment** and obtain an approved compatibility/repair decision. If zero, record only this inventory's scope/time, then still satisfy browser/security/approval gates.
+
+## Executed safe reproduction
+
+`node --test tests/legacyInventory.test.js`: 5 tests passed using a separately created authenticated disposable MongoDB. A real reader with only scoped find privileges ran the inventory; a write attempt with that reader was denied in the synthetic database. An 11-record synthetic fixture yielded 3 overprecision numeric records, 7 invalid monetary records, 10 records failing report validation and 1 affected existing user; identities/details are synthetic and not production counts. Empty collection returned zeros. Before/after synthetic document equality passed. Eighteen monetary/type/date/category cases agree with the actual report service, including one invalid historical record outside the requested date range. Production-scale overflow/performance is not tested. [Test output](inventory-tests.txt).
+
+Invoking the CLI with audit configuration removed exited 1 with `AUTHORIZED_READ_ONLY_CONFIGURATION_REQUIRED`, no app-URI fallback and no connection attempt: [negative access evidence](audit-cli-no-access.json).
+
+## Endpoints and compatibility strategy
+
+Affected by per-owner invalidity: `GET /api/v1/transactions/stats/summary`, `/categories/stats/usage`, `/dashboard/overview`, `/dashboard/monthly-summary`, `/dashboard/category-report`, `/dashboard/top-categories`. Income/expense/net/category/daily/monthly/average calculations fail 422 `DATA_INTEGRITY_ERROR` instead of a fabricated successful zero. Transaction list/detail still work. One bad legacy field can therefore remove all dashboard/report availability, even outside the selected window. Some historical orphan/archive category names are deliberately allowed; existence is not this predicate.
+
+Proposed sequence: inventory -> classify cohorts using a separate authorized private process -> preserve original data/backup and reconciliation evidence -> decide per-class compatibility policy -> dry-run on a sanitized copy -> independent review/human approval -> separately authorized repair/deployment sequence. This task contains no repair code or migration. Never auto-round/truncate/delete: precision loss changes expense/income/net and historical reconciliation; currency/unit ambiguity, string conversions, orphan ownership and malformed dates require explicit policy. Retaining extra precision with versioned calculation rules versus approved corrected records are alternative designs requiring analysis, not changes applied here. Preserve original values privately and trace any approved adjustments; keep public evidence counts-only. Re-run the inventory and exact report/regression/restore checks after a separately authorized action. No silent repair or fake-zero fallback is acceptable.
+
+References: [MongoDB connection permissions command](https://www.mongodb.com/docs/manual/reference/command/connectionstatus/), [aggregation method and write-stage distinction](https://www.mongodb.com/docs/manual/reference/method/db.collection.aggregate/).

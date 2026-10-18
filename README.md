@@ -103,9 +103,9 @@ expense-management-system/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 24 (24.12 or newer)
+- Node.js >=24.12.0 and <25 (the supported Node 24 release line)
 - MongoDB (local or Atlas)
-- npm or yarn package manager
+- npm **11.19.0**, matching both packageManager declarations and CI; npm 10 is not supported for this lockfile. Verify `node --version` and `npm --version` before installation.
 
 ### Installation
 

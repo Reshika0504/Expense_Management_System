@@ -18,8 +18,10 @@
       "report": "docs/engineering-reports/2026-10-18-phase-0-1-remediation.md",
       "verification": "docs/testing/phase-0.1/README.md",
       "history": "docs/reviews/phase-0.1/history.md",
-      "primaryStatus": "IMPLEMENTATION COMPLETE — AWAITING CLAUDE REVIEW",
-      "claudeReviewReports": [],
+      "primaryStatus": "REVIEW FINDINGS OPEN — FIXES REQUIRED",
+      "claudeReviewReports": [
+        "docs/reviews/phase-0.1/2026-10-18-claude-review-feb94f7.md"
+      ],
       "humanAcceptance": "PENDING",
       "openEngineeringRisks": [
         "localStorage JWT XSS exposure",
@@ -37,7 +39,11 @@
         "client/src/redux/sessionGuard.js"
       ],
       "apiContract": "docs/API_CONTRACT.md",
-      "ciEvidence": "docs/testing/phase-0.1/ci-result.json"
+      "ciEvidence": "docs/testing/phase-0.1/ci-result.json",
+      "latestClaudeVerdict": "CONDITIONAL PASS",
+      "latestReviewedHead": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+      "remediationTracker": "docs/reviews/phase-0.1/post-review-remediation-tracker.md",
+      "acceptanceChecklist": "docs/reviews/phase-0.1/post-review-acceptance-checklist.md"
     },
     {
       "id": "centralized-review-handoff",
@@ -71,6 +77,35 @@
       "apiChanges": "NONE; documentation only relative to taskBaseline",
       "implementationCommit": "ee071cf7d20bbbdd7c0d5741e70fd0ef17a4f14e",
       "ciResolution": "Use PR #2 Checks and verify its live head SHA; historical Phase 0.1 run 39127433829 does not certify this task."
+    },
+    {
+      "id": "phase-0.1-post-review",
+      "scope": "Assessment, read-only inventory tooling/synthetic tests and documentation; no application auth/dependency changes",
+      "branch": "codex/phase-0-1-post-review-20261018",
+      "baseBranch": "main",
+      "taskBaseline": "7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2",
+      "reviewedApplicationHead": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+      "submittedHead": null,
+      "headResolution": "Resolve live assessment PR head; pin verdict/evidence to that full revision. PR #1 is unchanged.",
+      "pullRequest": null,
+      "dependsOn": [
+        "phase-0.1",
+        "centralized-review-handoff"
+      ],
+      "request": "docs/reviews/phase-0.1/post-review-request.md",
+      "report": "docs/engineering-reports/2026-10-18-phase-0-1-post-review-assessment.md",
+      "verification": "docs/testing/phase-0.1/post-review/verification.md",
+      "history": "docs/reviews/phase-0.1/history.md",
+      "primaryStatus": "BLOCKED — HUMAN DECISION REQUIRED",
+      "deliveryStatus": "BLOCKED — PRODUCTION AUDIT ACCESS REQUIRED",
+      "claudeReviewReports": [],
+      "humanAcceptance": "PENDING",
+      "openEngineeringRisks": [
+        "Production audit counts unknown; verified read-only target/credential unavailable",
+        "Real-browser matched-preview smoke not executed",
+        "F-01/F-03 residuals unaccepted; auth implementation excluded",
+        "Assessment tools/evidence require independent re-review"
+      ]
     }
   ]
 }

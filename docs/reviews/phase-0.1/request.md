@@ -1,6 +1,6 @@
 # Phase 0.1 independent review request
 
-Status: **IMPLEMENTATION COMPLETE — AWAITING CLAUDE REVIEW**. No actual Claude findings or final acceptance have been received.
+Status: **REVIEW FINDINGS OPEN — FIXES REQUIRED**. The [actual Claude review](2026-10-18-claude-review-feb94f7.md) gives CONDITIONAL PASS at the submitted head; see the [tracker](post-review-remediation-tracker.md) and [acceptance gates](post-review-acceptance-checklist.md). Final acceptance and re-review remain pending.
 
 - Repository: https://github.com/Reshika0504/Expense_Management_System
 - [Draft PR #1](https://github.com/Reshika0504/Expense_Management_System/pull/1), target main.

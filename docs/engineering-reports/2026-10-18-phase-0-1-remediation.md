@@ -193,3 +193,7 @@ Self-review is complete; Claude review is **not** claimed. No merge/main push/de
 **IMPLEMENTATION COMPLETE — AWAITING CLAUDE REVIEW**
 
 Phase0.1 engineering assessment: **CONDITIONAL PASS** — the three defects have tested remediations and the review/documentation work is delivered, with explicit residual security/release blockers and unavailable real-provider/deployment evidence. This is not VERIFIED, full production readiness or permission to begin Phase1. User's next action: supply the review package to Claude, return its findings, then authorize any required fixes. Final merge approval is requested only after required review/security gates are actually met.
+
+## Post-review historical addendum — 18 October 2026
+
+The implementation report above is preserved as a creation-time snapshot. An actual [Claude review](../reviews/phase-0.1/2026-10-18-claude-review-feb94f7.md) later gave CONDITIONAL PASS on feb94f7; see the [post-review tracker](../reviews/phase-0.1/post-review-remediation-tracker.md) for open gates, not merge approval. Clarification F-07: the baseline log's 10 expected failures include newly added route/validation contracts as well as original A/B/C defect reproductions; they are not ten independent proofs of the original three defects. No baseline evidence was rewritten or rerun for this clarification.

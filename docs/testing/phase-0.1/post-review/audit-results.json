@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-18",
+  "reviewedApplicationCommit": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+  "taskBaseline": "7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2",
+  "branch": "codex/phase-0-1-post-review-20261018",
+  "productionAudit": {
+    "status": "BLOCKED \u2014 PRODUCTION AUDIT ACCESS REQUIRED",
+    "executed": false,
+    "counts": null,
+    "reason": "No SPENDWISE_AUDIT_URI, SPENDWISE_AUDIT_DATABASE, MONGO_URL or MONGO_LOCAL_URL in process environment; no local .env/.env.local/.env.production root or client .env/.env.local files; no verified production read-only role/target/permission available. No production connection attempted.",
+    "privilegesVerified": false,
+    "productionRecordsRead": false,
+    "productionWritesExecuted": false
+  },
+  "syntheticAudit": {
+    "status": "PASSED",
+    "fixtureRecords": 11,
+    "overPrecisionNumericRecords": 3,
+    "nonNumericAmountRecords": 2,
+    "nonFiniteOrUnconvertibleNumericRecords": 1,
+    "invalidMonetaryRecords": 7,
+    "recordsFailingReportValidation": 10,
+    "affectedExistingUsers": 1,
+    "affectedMissingUserOwners": 1,
+    "invalidOwnerRecords": 1,
+    "tests": 5,
+    "predicateParityCases": 18,
+    "isolatedAuthenticatedMongo": true,
+    "dataUnchanged": true
+  },
+  "browserSmoke": {
+    "status": "NOT RUN",
+    "applicationShaTested": null,
+    "candidateSha": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+    "reason": "No matched preview deployed; user requested checklist, not deployment. No real identity/browser execution performed."
+  },
+  "reviewEvidence": {
+    "path": "docs/reviews/phase-0.1/2026-10-18-claude-review-feb94f7.md",
+    "sha256": "5dae349aad8a42b24a7f2b390cc459d8f97fd181436b41ed0b2a6fdf4775ef7b",
+    "verdict": "CONDITIONAL PASS",
+    "mergeApproval": false
+  },
+  "preservedManifestsAndLocks": {
+    "package.json": "93156ed4b4c5164ac469aceade1942ca0f25aa993738a1e1e7a3758ff5824aaa",
+    "package-lock.json": "0576de1c6aa52cf9c468c4ecc22f4c6b3a40eb4a2936469371377bc2a09c5367",
+    "client/package.json": "0d4146a4484dfcf34720ec334731afd01d4876e85922e250bff3308537b73f6d",
+    "client/package-lock.json": "e1bf81dbe3c6af5eed434ae42bcc6709feec5277e62da0dac8f91f38e69d9c64"
+  }
+}
