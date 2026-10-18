@@ -2,7 +2,7 @@
 
 Date: 18 October 2026. Source baseline: `33f7e7ef017ab8bd8c12cb4cd990ad96405e2013`.
 Branch: `codex/phase-0-1-remediation-20261018`.
-Implementation revision: **working tree prepared for commit; recorded with the final implementation hash after commit**. This report describes this branch's implementation, not live production. No independent Claude review has occurred.
+Implementation revision: `3b8d388847976e7c8eaeb763cb8650b949d65b08` (implementation commit; subsequent report-only commit changes no runtime source). This report describes this branch's implementation, not live production. No independent Claude review has occurred.
 
 ## 1. Executive summary
 
