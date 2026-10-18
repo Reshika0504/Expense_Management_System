@@ -1,0 +1,22 @@
+Baseline application code: 33f7e7e. New 12 regression tests run against an isolated archive of the old application using temporary MongoDB. Results below are expected failures proving defective behavior, not unresolved final test failures.
+
+✖ category report, usage and top categories preserve two-user totals and metadata (639.531417ms)
+✖ default categories, orphan and archived history retain totals without foreign metadata (10.693583ms)
+✖ transaction category references must be active, visible and type compatible (9.842542ms)
+✔ empty reports and empty summary are explicit successful zeros (8.803792ms)
+✖ summary uses exact income/expense totals and changes after edit and delete (5.94825ms)
+✖ UTC date-only range includes final millisecond and excludes next month (4.835208ms)
+✖ malformed financial records fail safely rather than appearing as zero (5.970458ms)
+✖ invalid queries, IDs, amounts and unsupported refund/transfer writes return 400 (4.503417ms)
+✖ disabled valid-token accounts are denied consistently across protected route groups (4.633958ms)
+✖ deleted user, expired, invalid and missing tokens cannot access records (5.476ms)
+✖ logout revokes existing sessions and fresh active sessions still work (4.235ms)
+✔ foreign transaction read/update/delete and foreign category mutation remain inaccessible (8.100083ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 2
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1232.42775

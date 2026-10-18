@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../redux/slices/authSlice";
+import {logoutUser} from "../redux/slices/authSlice";
+import toast from 'react-hot-toast';
 import Brand from "./Brand";
 import {FiGrid, FiTrendingUp, FiRepeat, FiPieChart, FiUser, FiSun, FiMoon, FiLogOut} from "react-icons/fi";
 
@@ -34,9 +35,12 @@ const AppShell = ({title, children}) => {
         localStorage.setItem("theme", darkMode ? "dark" : "light");
     }, [darkMode]);
 
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate("/login");
+    const [signingOut,setSigningOut]=useState(false);
+    const handleLogout = async () => {
+        setSigningOut(true);
+        try {await dispatch(logoutUser()).unwrap(); navigate('/login');}
+        catch(error){toast.error(error || 'Unable to sign out. Please retry.');}
+        finally {setSigningOut(false);}
     };
 
     return (
@@ -85,7 +89,7 @@ const AppShell = ({title, children}) => {
                             <strong>{user?.name || "User"}</strong>
                             <span>{user?.email || "Signed in"}</span>
                         </div>
-                        <button type="button" className="logout-button" onClick={handleLogout}>
+                        <button type="button" className="logout-button" onClick={handleLogout} disabled={signingOut}>
                             <FiLogOut aria-hidden="true" /> <span className="logout-label">Sign out</span>
                         </button>
                     </div>

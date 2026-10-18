@@ -5,6 +5,8 @@ import api, {apiErrorMessage} from "../../services/api";
 // Initial state
 const initialState = {
     overview: null,
+    overviewStatus: "idle",
+    overviewError: null,
     monthlySummary: null,
     categoryReport: null,
     topCategories: null,
@@ -21,7 +23,11 @@ export const getDashboardOverview = createAsyncThunk("dashboard/overview", async
                 Authorization: `Bearer ${auth.token}`,
             },
         });
-        return response.data.overview;
+        const overview=response.data?.overview;
+        if(!overview || !['totalIncome','totalExpenses','netBalance','transactionCount'].every(key=>typeof overview.currentMonth?.[key]==='number' && Number.isFinite(overview.currentMonth[key]))) {
+            return rejectWithValue('Recorded totals are unavailable. Please try again.');
+        }
+        return overview;
     } catch (error) {
         return rejectWithValue(apiErrorMessage(error, "Failed to fetch dashboard overview"));
     }
@@ -99,14 +105,17 @@ const dashboardSlice = createSlice({
         builder
         // Dashboard overview
         .addCase(getDashboardOverview.pending, (state) => {
+            state.overviewStatus='loading'; state.overviewError=null;
             state.loading = true;
             state.error = null;
         })
         .addCase(getDashboardOverview.fulfilled, (state, action) => {
+            state.overviewStatus='succeeded'; state.overviewError=null;
             state.loading = false;
             state.overview = action.payload;
         })
         .addCase(getDashboardOverview.rejected, (state, action) => {
+            state.overviewStatus='failed'; state.overviewError=action.payload;
             state.loading = false;
             state.error = action.payload;
         })
