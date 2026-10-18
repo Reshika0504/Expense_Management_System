@@ -45,10 +45,9 @@
       "branch": "codex/centralized-review-handoff-20261018",
       "baseBranch": "main",
       "taskBaseline": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
-      "submittedHead": null,
-      "headResolution": "Resolve full headRefOid from the open PR matching this exact branch; report-only follow-ups also need current CI. No self-referential commit hash is embedded.",
-      "pullRequest": null,
-      "pullRequestResolution": "Find open PR by exact branch and base main; verify URL and head through GitHub.",
+      "submittedHead": "ee071cf7d20bbbdd7c0d5741e70fd0ef17a4f14e",
+      "headResolution": "submittedHead records the first PR submission only. Resolve the live headRefOid from PR #2; later delivery-metadata commits are not included in that historical submission SHA.",
+      "pullRequest": "https://github.com/Reshika0504/Expense_Management_System/pull/2",
       "dependsOn": [
         "phase-0.1"
       ],
@@ -69,7 +68,9 @@
         "docs/CLAUDE_MASTER_REVIEW_PROMPT.md",
         "docs/reviews/tasks.json"
       ],
-      "apiChanges": "NONE; documentation only relative to taskBaseline"
+      "apiChanges": "NONE; documentation only relative to taskBaseline",
+      "implementationCommit": "ee071cf7d20bbbdd7c0d5741e70fd0ef17a4f14e",
+      "ciResolution": "Use PR #2 Checks and verify its live head SHA; historical Phase 0.1 run 39127433829 does not certify this task."
     }
   ]
 }

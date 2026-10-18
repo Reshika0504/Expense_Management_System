@@ -25,7 +25,7 @@ The Python checks used the staged changed-file list from Git. They resolved rela
 
 Phase 0.1 run [39127433829](https://github.com/Reshika0504/Expense_Management_System/actions/runs/39127433829) was rechecked with `gh run view 39127433829 --json headSha,status,conclusion,url`: completed / success, exact Phase 0.1 submitted head. [Saved evidence](phase-0.1/README.md) includes 39 backend / 22 frontend / production build.
 
-For the documentation task, resolve the current PR by branch, then its CI without assuming it reuses the Phase 0.1 run:
+For the documentation task, [draft PR #2](https://github.com/Reshika0504/Expense_Management_System/pull/2) was created from initial implementation `ee071cf7d20bbbdd7c0d5741e70fd0ef17a4f14e`. Resolve its current head and CI without assuming it reuses the Phase 0.1 run:
 
 ```sh
 gh pr list --repo Reshika0504/Expense_Management_System --head codex/centralized-review-handoff-20261018 --base main --json number,url,headRefOid
