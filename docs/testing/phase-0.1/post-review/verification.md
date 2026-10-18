@@ -1,5 +1,6 @@
 # Post-review verification — executed checks and limits
 
+First assessment implementation: `c596f0c5cb902dabfea2975129d8b01677efb283`; [draft PR #3](https://github.com/Reshika0504/Expense_Management_System/pull/3). Later delivery metadata commits require resolving the live PR head; this historical submission pin is not an approval.
 Source: application PR #1 `feb94f70efa58eaccdb91dea61a0e8c2d346b08d`; assessment baseline `7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2`; branch `codex/phase-0-1-post-review-20261018`. Commands below executed locally on 2026-10-18, Node 24.21.0/npm 11.19.0. Resolve the live assessment PR full head before relying on current CI. New5 audit tests are on the assessment branch, not on unchanged PR #1.
 
 | Actual command/check | Result / evidence |

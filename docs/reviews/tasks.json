@@ -85,9 +85,9 @@
       "baseBranch": "main",
       "taskBaseline": "7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2",
       "reviewedApplicationHead": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
-      "submittedHead": null,
-      "headResolution": "Resolve live assessment PR head; pin verdict/evidence to that full revision. PR #1 is unchanged.",
-      "pullRequest": null,
+      "submittedHead": "c596f0c5cb902dabfea2975129d8b01677efb283",
+      "headResolution": "submittedHead pins first assessment submission; resolve live PR #3 headRefOid for subsequent metadata commits and latest CI/re-review.",
+      "pullRequest": "https://github.com/Reshika0504/Expense_Management_System/pull/3",
       "dependsOn": [
         "phase-0.1",
         "centralized-review-handoff"
@@ -105,7 +105,8 @@
         "Real-browser matched-preview smoke not executed",
         "F-01/F-03 residuals unaccepted; auth implementation excluded",
         "Assessment tools/evidence require independent re-review"
-      ]
+      ],
+      "implementationCommit": "c596f0c5cb902dabfea2975129d8b01677efb283"
     }
   ]
 }

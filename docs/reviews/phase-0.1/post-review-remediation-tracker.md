@@ -1,5 +1,6 @@
 # Phase 0.1 post-Claude remediation tracker
 
+First assessment implementation: `c596f0c5cb902dabfea2975129d8b01677efb283`; [draft PR #3](https://github.com/Reshika0504/Expense_Management_System/pull/3). Later delivery metadata commits require resolving the live PR head; this historical submission pin is not an approval.
 Reviewed PR #1 full head: `feb94f70efa58eaccdb91dea61a0e8c2d346b08d`; [actual Claude report](2026-10-18-claude-review-feb94f7.md), verdict **CONDITIONAL PASS**, not merge approval. Assessment branch `codex/phase-0-1-post-review-20261018`, baseline `7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2` (inherits pending PRs #1/#2). Live assessment head must be resolved from its own PR; PR #1 remains unchanged. [Acceptance checklist](post-review-acceptance-checklist.md).
 
 The request says four Low findings; the actual report has **five: F-05 through F-09**. All are dispositioned here. No High risk has been accepted by Codex.

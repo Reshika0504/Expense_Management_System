@@ -45,5 +45,8 @@
     "package-lock.json": "0576de1c6aa52cf9c468c4ecc22f4c6b3a40eb4a2936469371377bc2a09c5367",
     "client/package.json": "0d4146a4484dfcf34720ec334731afd01d4876e85922e250bff3308537b73f6d",
     "client/package-lock.json": "e1bf81dbe3c6af5eed434ae42bcc6709feec5277e62da0dac8f91f38e69d9c64"
-  }
+  },
+  "firstAssessmentImplementation": "c596f0c5cb902dabfea2975129d8b01677efb283",
+  "assessmentPullRequest": "https://github.com/Reshika0504/Expense_Management_System/pull/3",
+  "auditToolSha256": "539dd7abb5e4222b05c002d9a7cf96381d6f30c24d81044a832bca15b4c8ef7f"
 }

@@ -1,5 +1,6 @@
 # Phase 0.1 acceptance checklist after Claude review
 
+First assessment implementation: `c596f0c5cb902dabfea2975129d8b01677efb283`; [draft PR #3](https://github.com/Reshika0504/Expense_Management_System/pull/3). Later delivery metadata commits require resolving the live PR head; this historical submission pin is not an approval.
 No merge/deploy approval. Reviewed application PR #1 `feb94f70efa58eaccdb91dea61a0e8c2d346b08d`, base main `33f7e7ef017ab8bd8c12cb4cd990ad96405e2013`. Assessment branch `codex/phase-0-1-post-review-20261018`, task baseline `7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2`; resolve its live full head through the assessment PR/registry. Do not attach this branch's added test count to unchanged PR #1's source or verdict. Follow-up delivery history pins the first assessment implementation SHA; a later metadata head still needs current CI/review.
 
 ## Completed assessment evidence
