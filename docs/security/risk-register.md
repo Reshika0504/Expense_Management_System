@@ -1,5 +1,7 @@
 # Prioritized defect and risk register — Phase 0
 
+> Historical Phase 0 baseline. For the remediation branch, consult [API_CONTRACT.md](../API_CONTRACT.md) and the latest Phase 0.1 engineering report. Findings here are preserved as originally audited.
+
 Date: 17 October 2026. Code baseline: `91915f2`. **Open findings, not fixed in this audit.** Priority is engineering triage, not a formal CVSS score. P1 = fix before a release is called trustworthy; P2 = planned correctness/reliability work. Paths/line numbers refer to that baseline.
 
 ## P1 findings

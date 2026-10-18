@@ -1,7 +1,8 @@
-export const formatCurrency = (value = 0) =>
-    `Rs ${Number(value || 0).toLocaleString("en-IN", {
-        maximumFractionDigits: 0,
-    })}`;
+// Existing records are single-currency major-unit numbers; do not hide cents or invalid data.
+export const formatCurrency = (value = 0) => {
+    if(typeof value !== 'number' || !Number.isFinite(value))return 'Unavailable';
+    return `Rs ${value.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+};
 
 export const formatPercent = (value = 0) => `${Number(value || 0).toFixed(1)}%`;
 

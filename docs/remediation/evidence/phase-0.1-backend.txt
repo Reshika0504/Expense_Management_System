@@ -1,0 +1,51 @@
+
+> expense-mnagement-system@1.0.0 test
+> node --test tests/*.test.js
+
+✔ registers normalized email, hashes password and returns a working JWT (809.030666ms)
+✔ logs in with whitespace and mixed-case email (110.534375ms)
+✔ unknown email and incorrect password both return the same 401 response (107.048292ms)
+✔ rejects invalid input and duplicate normalized email (54.27075ms)
+✔ Google sign-in creates an account without a local password and reuses it (5.7435ms)
+✔ Google links an existing Gmail account without losing its id or password (104.050583ms)
+✔ rejects expired, forged, unverified and non-Google identities (2.636166ms)
+✔ keeps existing third-party-email accounts separate until ownership can be linked (51.747792ms)
+✔ rejects disabled users for both login methods (54.827083ms)
+✔ returns actionable 503 when Google configuration is missing (0.959792ms)
+✔ provider outage is 503, unexpected errors are safe 500 and active app sessions remain usable (53.578333ms)
+✔ password change revokes both current and other existing sessions (251.180416ms)
+✔ real Firebase verifier rejects missing configuration and forged tokens (2.157292ms)
+✔ opening the API service in a browser redirects to the actual app (16.239916ms)
+✔ redirects use a configured trusted frontend, never a query-provided host (2.383959ms)
+✔ API and unknown paths retain their API behavior (3.056833ms)
+✔ category report, usage and top categories preserve two-user totals and metadata (722.766958ms)
+✔ default categories, orphan and archived history retain totals without foreign metadata (14.218917ms)
+✔ transaction category references must be active, visible and type compatible (9.043458ms)
+✔ empty reports and empty summary are explicit successful zeros (5.843625ms)
+✔ summary uses exact income/expense totals and changes after edit and delete (13.562584ms)
+✔ UTC date-only range includes final millisecond and excludes next month (26.842875ms)
+✔ malformed financial records fail safely rather than appearing as zero (14.241625ms)
+✔ invalid queries, IDs, amounts and unsupported refund/transfer writes return 400 (13.222042ms)
+✔ disabled valid-token accounts are denied consistently across protected route groups (5.971416ms)
+✔ deleted user, expired, invalid and missing tokens cannot access records (4.606083ms)
+✔ logout revokes existing sessions and fresh active sessions still work (14.032042ms)
+✔ foreign transaction read/update/delete and foreign category mutation remain inaccessible (7.267458ms)
+✔ legacy unversioned active tokens work until the first explicit revocation (4.200459ms)
+✔ full application middleware handles CORS, body errors, DB outage and avoids credentials (8.889583ms)
+✔ category metadata cannot be borrowed from another transaction type or misowned system category (7.552791ms)
+✔ archived historical records can be corrected without enabling unauthorized category changes (8.5425ms)
+✔ API money fields agree with the fixture consumed by the actual frontend dashboard (7.573292ms)
+✔ income-only, expense-only, zero-net periods and malformed date filters remain distinct (9.311542ms)
+✔ password mutation validates types and bcrypt byte limits before modifying credentials (5.563208ms)
+✔ machine-readable contract matches every implemented GET response and ownership boundary (26.482042ms)
+✔ a user without custom categories can record and report genuine global defaults (4.803208ms)
+✔ timestamp offsets normalize to UTC and pagination is stable with literal regex characters (9.590291ms)
+✔ missing signing configuration cannot create accounts and malformed disabled state fails closed (3.637208ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2025.11125

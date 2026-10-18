@@ -81,7 +81,7 @@ test('Google links an existing Gmail account without losing its id or password',
     assert.equal((await request(app).post('/users/login').send({email: identity.email, password})).status, 200);
 });
 test('rejects expired, forged, unverified and non-Google identities', async () => {
-    verify.mock.mockImplementation(async () => { throw new Error('invalid signature'); });
+    verify.mock.mockImplementation(async () => { const error=new Error('invalid signature'); error.code='auth/invalid-id-token'; throw error; });
     assert.equal((await google()).status, 401);
     verify.mock.mockImplementation(async () => ({...identity, email_verified: false}));
     assert.equal((await google()).status, 401);
@@ -103,4 +103,21 @@ test('rejects disabled users for both login methods', async () => {
 test('returns actionable 503 when Google configuration is missing', async () => {
     verify.mock.mockImplementation(async () => { const error = new Error('Google sign-in is not configured'); error.status = 503; throw error; });
     assert.equal((await google()).status, 503);
+});
+test('provider outage is 503, unexpected errors are safe 500 and active app sessions remain usable', async () => {
+    const session=await register();
+    verify.mock.mockImplementation(async()=>{const error=new Error('private upstream detail');error.code='app/network-error';throw error;});
+    const outage=await google();assert.equal(outage.status,503);assert.ok(!JSON.stringify(outage.body).includes('private upstream'));
+    const profile=await request(app).get('/users/profile').set('Authorization',`Bearer ${session.body.token}`);
+    assert.equal(profile.status,200);
+    verify.mock.mockImplementation(async()=>{throw new Error('private unexpected detail');});
+    const failure=await google();assert.equal(failure.status,500);assert.ok(!JSON.stringify(failure.body).includes('private unexpected'));
+});
+test('password change revokes both current and other existing sessions', async()=>{
+    const registered=await register();
+    const login=await request(app).post('/users/login').send({email:identity.email,password});
+    const changed=await request(app).put('/users/change-password').set('Authorization',`Bearer ${registered.body.token}`).send({currentPassword:password,newPassword:'Another-test-password!'});
+    assert.equal(changed.status,200);
+    for(const old of [registered.body.token,login.body.token])assert.equal((await request(app).get('/users/profile').set('Authorization',`Bearer ${old}`)).status,401);
+    assert.equal((await request(app).post('/users/login').send({email:identity.email,password:'Another-test-password!'})).status,200);
 });

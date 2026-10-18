@@ -236,7 +236,7 @@ const Profile = () => {
         try {
             await dispatch(changePassword(passwords)).unwrap();
             setPasswords({currentPassword: "", newPassword: ""});
-            toast.success("Password changed successfully");
+            toast.success("Password changed. Please sign in again.");
         } catch (error) {
             toast.error(error || "Failed to change password");
         }

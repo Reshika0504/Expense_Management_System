@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/Reshika0504/Expense_Management_System",
+  "updatedAt": "2026-10-18",
+  "defaultApplicationReviewTask": "phase-0.1",
+  "revisionPolicy": "Resolve live PR head and base. submittedHead is historical; a null value must be resolved from the branch/PR, never treated as an approved revision.",
+  "tasks": [
+    {
+      "id": "phase-0.1",
+      "scope": "application remediation",
+      "branch": "codex/phase-0-1-remediation-20261018",
+      "baseBranch": "main",
+      "taskBaseline": "33f7e7ef017ab8bd8c12cb4cd990ad96405e2013",
+      "submittedHead": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+      "implementationCommit": "136140b0cbc28462437edf82565d049656e30850",
+      "pullRequest": "https://github.com/Reshika0504/Expense_Management_System/pull/1",
+      "request": "docs/reviews/phase-0.1/request.md",
+      "report": "docs/engineering-reports/2026-10-18-phase-0-1-remediation.md",
+      "verification": "docs/testing/phase-0.1/README.md",
+      "history": "docs/reviews/phase-0.1/history.md",
+      "primaryStatus": "IMPLEMENTATION COMPLETE — AWAITING CLAUDE REVIEW",
+      "claudeReviewReports": [],
+      "humanAcceptance": "PENDING",
+      "openEngineeringRisks": [
+        "localStorage JWT XSS exposure",
+        "87 frontend dependency findings including 67 high; no blanket acceptance",
+        "Real Google/browser E2E not run at this revision"
+      ],
+      "relevantSourcePaths": [
+        "controllers/categoryController.js",
+        "controllers/dashboardController.js",
+        "controllers/transactionController.js",
+        "middlewares/authMiddleware.js",
+        "services/financeSummary.js",
+        "tests/stabilization.test.js",
+        "client/src/Pages/Dashboard.js",
+        "client/src/redux/sessionGuard.js"
+      ],
+      "apiContract": "docs/API_CONTRACT.md",
+      "ciEvidence": "docs/testing/phase-0.1/ci-result.json"
+    },
+    {
+      "id": "centralized-review-handoff",
+      "scope": "documentation only relative to taskBaseline; inherits pending Phase 0.1",
+      "branch": "codex/centralized-review-handoff-20261018",
+      "baseBranch": "main",
+      "taskBaseline": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+      "submittedHead": "ee071cf7d20bbbdd7c0d5741e70fd0ef17a4f14e",
+      "headResolution": "submittedHead records the first PR submission only. Resolve the live headRefOid from PR #2; later delivery-metadata commits are not included in that historical submission SHA.",
+      "pullRequest": "https://github.com/Reshika0504/Expense_Management_System/pull/2",
+      "dependsOn": [
+        "phase-0.1"
+      ],
+      "request": "docs/reviews/centralized-review-handoff/request.md",
+      "report": "docs/engineering-reports/2026-10-18-centralized-review-handoff.md",
+      "verification": "docs/testing/centralized-review-handoff.md",
+      "history": "docs/reviews/centralized-review-handoff/history.md",
+      "primaryStatus": "IMPLEMENTATION COMPLETE — AWAITING CLAUDE REVIEW",
+      "claudeReviewReports": [],
+      "humanAcceptance": "PENDING",
+      "openEngineeringRisks": [
+        "No automatic Claude integration or review execution",
+        "Inherited Phase 0.1 risks remain open; do not merge dependent PR before review/approval"
+      ],
+      "relevantSourcePaths": [
+        "docs/ENGINEERING_WORKFLOW.md",
+        "docs/CLAUDE_REVIEW_GUIDE.md",
+        "docs/CLAUDE_MASTER_REVIEW_PROMPT.md",
+        "docs/reviews/tasks.json"
+      ],
+      "apiChanges": "NONE; documentation only relative to taskBaseline",
+      "implementationCommit": "ee071cf7d20bbbdd7c0d5741e70fd0ef17a4f14e",
+      "ciResolution": "Use PR #2 Checks and verify its live head SHA; historical Phase 0.1 run 39127433829 does not certify this task."
+    }
+  ]
+}

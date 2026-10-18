@@ -4,6 +4,10 @@ A comprehensive personal expense management application built with the MERN stac
 
 ## Current engineering roadmap
 
+Start with the [documentation index](docs/README.md), [pending review registry](docs/reviews/README.md), [Claude guide](docs/CLAUDE_REVIEW_GUIDE.md) and [single reusable review prompt](docs/CLAUDE_MASTER_REVIEW_PROMPT.md). Repository paths and exact revisions provide the review handoff; Claude still needs an authorized connection or folder access.
+
+Follow [the engineering workflow](docs/ENGINEERING_WORKFLOW.md) for dedicated branches, reports, independent Claude review and human merge approval. The [current API contract](docs/API_CONTRACT.md) supersedes old endpoint examples below.
+
 The [backend-first October–November roadmap](docs/SpendWise_Backend_First_Roadmap.md) is the active plan. Phase 0 audit: [architecture and baseline](docs/architecture/current-state.md), [current API contracts](docs/api/current-endpoints.md), [prioritized risks](docs/security/risk-register.md). Work proceeds one phase per prompt; AI is deferred until the finance backend is reliable. The older portfolio sprint below is retained as historical planning, not the current implementation schedule.
 
 ## Live Demo
@@ -280,6 +284,7 @@ The app supports **email/password** and **Continue with Google**. Phone/SMS logi
 - Add the frontend hostname under Firebase Authentication → Settings → Authorized domains. Enable popups in your browser. The existing project is `spendwise-2d716`.
 - The frontend signs in with Firebase and exchanges the verified Google ID token at `POST /api/v1/users/firebase` for the same application JWT used by email login. Only verified Google identities are accepted. Existing Gmail accounts retain their user ID, password and transactions when linked. Other existing email accounts must continue using their password until an explicit account-linking flow is added.
 - Email addresses are trimmed and lowercased before lookup. Email aliases and long domain suffixes are accepted. Password hashes are excluded from normal queries and responses.
+- On the Phase 0.1 remediation branch, protected APIs check local account status and session version; acknowledged logout revokes existing app sessions and password changes require re-login. The persistent Bearer token remains under security review; see [session review](docs/security/session-review-phase-0.1.md).
 - Temporary network/503 profile failures preserve the session. Invalid, forbidden or deleted-account responses clear it.
 - Auth endpoints allow 30 attempts per 15 minutes per API instance. A shared limiter store is needed if the backend later scales to multiple instances.
 
