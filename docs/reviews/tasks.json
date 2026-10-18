@@ -111,7 +111,11 @@
       "previousAssessmentReport": "docs/engineering-reports/2026-10-18-phase-0-1-post-review-assessment.md",
       "atlasAuditEvidence": "docs/testing/phase-0.1/post-review/2026-10-18-atlas-inventory-results.json",
       "browserEvidence": "docs/testing/phase-0.1/post-review/2026-10-18-browser-smoke-results.md",
-      "followupBaseline": "e8cd35688f870e90379362c1e1ccad1575aa9cf4"
+      "followupBaseline": "e8cd35688f870e90379362c1e1ccad1575aa9cf4",
+      "followupImplementationCommit": "a70100fa8ae68c018ecfceced2ccb25b2c3547b7",
+      "followupCiEvidence": "docs/testing/phase-0.1/post-review/2026-10-18-followup-ci-result.json",
+      "authorizedRepository": "Reshika0504/Expense_Management_System",
+      "authorizedRenderServiceId": "srv-d7eloh0sfn5c738en960"
     }
   ]
 }

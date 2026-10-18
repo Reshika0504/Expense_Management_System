@@ -10,7 +10,7 @@ No merge/deploy approval. Reviewed application PR #1 `feb94f70efa58eaccdb91dea61
 - [x] Read-only operator inventory/procedure, safe failure behavior and synthetic parity tests delivered.
 - [x] Authentication threat/target/migration plan delivered; no auth code change.
 - [x] Fresh audit evidence and all 67 high package paths/exposure/fix/compatibility triage delivered; manifests/locks unchanged.
-- [x] Manual browser checklist with expected vs actual fields and exact revision requirement delivered; no browser pass asserted.
+- [x] Manual browser checklist delivered, with dated partial executed results and exact revision references; no blanket browser pass asserted.
 
 ## Data gate evidence and remaining approval gates
 

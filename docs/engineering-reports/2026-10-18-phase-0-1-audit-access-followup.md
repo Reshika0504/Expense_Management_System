@@ -32,10 +32,10 @@ Because all 12 financial records satisfy the candidate predicate, neither roundi
 
 | Repository-relative path | Change / reason | Verification |
 | --- | --- | --- |
-| `scripts/read-only-legacy-inventory.cjs` | Add atlasInventoryPipeline: convert driver Decimal 128 constants into JSON $convert expressions; no predicate or CLI permission change | 18 real-Mongo parity cases against driver and actual finance service |
+| `scripts/read-only-legacy-inventory.cjs` | Add atlasInventoryPipeline: convert driver Decimal128 constants into JSON $convert expressions; no predicate or CLI permission change | 18 real-Mongo parity cases against driver and actual finance service |
 | `tests/legacyInventory.test.js` | Compare Atlas JSON results with native driver results for existing 18 cases | 5 dedicated tests/full 44 backend pass |
 | `scripts/local-browser-smoke.cjs` | Explicit --build/--serve manual harness: fixed public config source, loopback only, random ephemeral signing key, always disposable MongoMemoryServer, no external DB env/bootstrap | Build and actual browser run; syntax/cleanup checked. Final path/report-key corrections do not alter app runtime |
-| `docs/testing/phase-0.1/post-review/atlas-read-only-inventory.pipeline.json` | Reproducible exact JSON query, no write stages | SHA 256 in dated result; synthetic parity and actual Atlas Run |
+| `docs/testing/phase-0.1/post-review/atlas-read-only-inventory.pipeline.json` | Reproducible exact JSON query, no write stages | SHA256 in dated result; synthetic parity and actual Atlas Run |
 | `docs/testing/phase-0.1/post-review/2026-10-18-atlas-inventory-results.json` | Actual 18 counters, private target attestation, method/permission/limit/time/snapshot/reset boundaries | UI result verified twice; collection count 12 agrees |
 | `docs/testing/phase-0.1/post-review/2026-10-18-browser-smoke-results.md`, same-name JSON | Expected/actual local browser subset and explicit remaining cases/known issues | Actual UI events, no invented full E 2E pass |
 | `docs/testing/phase-0.1/post-review/local-browser-build.json`, `local-browser-build.txt` | Matched local API/public-config build provenance, no public config values in report | Build executed successfully at e8cd356 |
@@ -104,6 +104,12 @@ No database access block remains for this inventory. F-04 partially evidenced; F
 ## 15. Re-review package
 
 Draft PR #3/current full head; follow-up diff from e8cd356, original Claude review unchanged, [actual Atlas result](../testing/phase-0.1/post-review/2026-10-18-atlas-inventory-results.json), exact JSON query, 18-case parity tests, manual harness/build provenance, [browser result table](../testing/phase-0.1/post-review/2026-10-18-browser-smoke-results.md), [tracker](../reviews/phase-0.1/post-review-remediation-tracker.md) and [acceptance checklist](../reviews/phase-0.1/post-review-acceptance-checklist.md). Inspect operation-vs-principal permissions distinction, source/config identity and partial-not-full browser claims. No automatic Claude execution/score or fabricated verdict.
+
+## Delivery evidence and scope confirmation
+
+Follow-up implementation was pushed as `a70100fa8ae68c018ecfceced2ccb25b2c3547b7` to the existing task branch. [CI run 39137014579](https://github.com/Reshika0504/Expense_Management_System/actions/runs/39137014579) completed successfully on that exact head: 44 backend tests, 22 frontend tests in 8 suites and production build. [Repository evidence](../testing/phase-0.1/post-review/2026-10-18-followup-ci-result.json) contains the run/head/steps and actual log assertions. This delivery metadata has its own subsequent commit; resolve and check that final head through PR #3 rather than transferring the earlier CI approval.
+
+The owner explicitly restricted ongoing work to personal `Reshika0504/Expense_Management_System` and its previously verified SpendWise Render service `srv-d7eloh0sfn5c738en960`. All GitHub commands in this delivery use that exact repository. No unrelated repository/account/service is inspected or modified. No new Render action is required for this assessment delivery.
 
 ## 16. Final status
 
