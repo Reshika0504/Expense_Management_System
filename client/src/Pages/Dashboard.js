@@ -50,7 +50,7 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {isAuthenticated, user} = useSelector((state) => state.auth);
-    const {overview, monthlySummary, categoryReport, topCategories, loading, error} = useSelector((state) => state.dashboard);
+    const {overview, monthlySummary, categoryReport, topCategories, loading, error, overviewStatus, overviewError} = useSelector((state) => state.dashboard);
     const {categories} = useSelector((state) => state.categories);
 
     // Quick Add Expense modal state
@@ -74,6 +74,8 @@ const Dashboard = () => {
         }
     }, [dispatch, isAuthenticated]);
 
+    const reportError=overviewError || error;
+
     // Set default category when categories load
     useEffect(() => {
         const expenseCats = categories.filter((c) => c.type === "expense");
@@ -85,10 +87,10 @@ const Dashboard = () => {
     const metrics = useMemo(() => {
         const income = overview?.currentMonth?.totalIncome ?? 0;
         const configuredIncome = user?.monthlyIncome ?? 0;
-        const effectiveIncome = income || configuredIncome;
+        const effectiveIncome = income;
         const expenses = overview?.currentMonth?.totalExpenses ?? 0;
         const budget = user?.monthlyBudget ?? 0;
-        const savings = effectiveIncome - expenses;
+        const savings = overview?.currentMonth?.netBalance ?? 0;
         const savingsGoal = user?.monthlySavingsGoal ?? 0;
         const dayOfMonth = new Date().getDate();
         const budgetUtilization = budget > 0 ? (expenses / budget) * 100 : 0;
@@ -297,10 +299,10 @@ const Dashboard = () => {
                     <span>Your monthly budget</span>
                     <strong>{metrics.budget > 0 ? formatCurrency(metrics.budget) : "Let's make a plan"}</strong>
                     <div className="progress-track"><div className="progress-fill" style={{width: `${clampPercent(metrics.budgetUtilization)}%`}} /></div>
-                    <span>{metrics.budget > 0 ? `${Math.round(metrics.budgetUtilization)}% used this month` : "Set a budget in your profile to get started."}</span>
+                    <span>{!overview ? 'Budget usage unavailable until totals load.' : metrics.budget > 0 ? `${Math.round(metrics.budgetUtilization)}% used this month` : "Set a budget in your profile to get started."}</span>
                 </div>
             </section>
-            {error && <div className="connection-notice dashboard-error" role="alert"><span>{error}</span><button className="ghost-button" onClick={() => {dispatch(getDashboardOverview()); dispatch(getMonthlySummary()); dispatch(getCategoryReport({period: "month", type: "expense"})); dispatch(getTopCategories({type: "expense", limit: 5}));}}>Try again</button></div>}
+            {reportError && <div className="connection-notice dashboard-error" role="alert"><span>{reportError}</span><button className="ghost-button" onClick={() => {dispatch(getDashboardOverview()); dispatch(getMonthlySummary()); dispatch(getCategoryReport({period: "month", type: "expense"})); dispatch(getTopCategories({type: "expense", limit: 5}));}}>Try again</button></div>}
             {/* Quick Actions Panel */}
             <section className="quick-actions-bar finance-card">
                 <button type="button" className="quick-action-btn" onClick={() => setShowQuickAdd(true)}>
@@ -317,13 +319,15 @@ const Dashboard = () => {
                 </button>
             </section>
 
-            {loading ? (
+            {!overview && overviewStatus==='failed' ? (
+                <EmptyState title="Your recorded totals are unavailable" message="Use Try again above to reload your report. No zero totals have been assumed." />
+            ) : loading || !overview ? (
                 <Skeleton rows={6} />
             ) : (
                 <>
                     {/* Key KPI cards */}
                     <section className="kpi-grid">
-                        <KpiCard label="Total Income" value={formatCurrency(metrics.effectiveIncome)} detail="Monthly Est. or Logged total" accent="teal" icon={<FiArrowDownLeft />} />
+                        <KpiCard label="Total Income" value={formatCurrency(metrics.effectiveIncome)} detail="Recorded income this month" accent="teal" icon={<FiArrowDownLeft />} />
                         <KpiCard label="Total Expenses" value={formatCurrency(metrics.expenses)} detail="Current Month Spending" accent="rose" icon={<FiArrowUpRight />} />
                         <KpiCard label="Net Savings" value={formatCurrency(metrics.savings)} detail="Current cash flow surplus" accent="indigo" icon={<FiStar />} />
                         <KpiCard

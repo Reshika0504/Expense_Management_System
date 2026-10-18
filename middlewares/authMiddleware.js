@@ -1,91 +1,59 @@
 const jwt = require("jsonwebtoken");
-
-// JWT verification middleware
+const mongoose = require("mongoose");
+const users = require("../models/userModel");
+const { ApiError, fail } = require("../utils/apiError");
+async function authenticate(req) {
+    if (!process.env.JWT_SECRET)
+        throw new ApiError(503, "AUTH_UNAVAILABLE", "Authentication is temporarily unavailable.");
+    const header = req.headers.authorization;
+    if (typeof header !== "string" || !/^Bearer [^\s]+$/.test(header))
+        throw new ApiError(401, "UNAUTHENTICATED", "A valid sign-in is required.");
+    let decoded;
+    try {
+        decoded = jwt.verify(header.slice(7), process.env.JWT_SECRET, {
+            algorithms: ["HS256"],
+        });
+    } catch {
+        throw new ApiError(401, "UNAUTHENTICATED", "Sign-in expired or invalid. Please sign in again.");
+    }
+    if (!mongoose.isObjectIdOrHexString(decoded.user?.id))
+        throw new ApiError(401, "UNAUTHENTICATED", "Invalid session identity.");
+    let account;
+    try {
+        account = await users.findById(decoded.user.id).select("_id email role isActive sessionVersion").lean();
+    } catch {
+        throw new ApiError(503, "AUTH_UNAVAILABLE", "Authentication is temporarily unavailable. Please retry.");
+    }
+    if (!account) throw new ApiError(401, "UNAUTHENTICATED", "This session is no longer valid.");
+    if (account.isActive !== true) throw new ApiError(403, "ACCOUNT_DISABLED", "Account is deactivated.");
+    if ((decoded.ver ?? 0) !== (account.sessionVersion ?? 0))
+        throw new ApiError(401, "SESSION_REVOKED", "This session has ended. Please sign in again.");
+    req.user = {
+        id: String(account._id),
+        email: account.email,
+        role: account.role,
+    };
+}
 const protect = async (req, res, next) => {
     try {
-        let token;
-
-        // Check for token in Authorization header
-        if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-            try {
-                // Get token from header
-                token = req.headers.authorization.split(" ")[1];
-
-                // Verify token
-                const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-                // Add user info to request object
-                req.user = decoded.user;
-                next();
-            } catch (error) {
-                console.error("Token verification error:", error);
-                return res.status(401).json({
-                    success: false,
-                    message: "Not authorized, token failed",
-                });
-            }
-        }
-
-        if (!token) {
-            return res.status(401).json({
-                success: false,
-                message: "Not authorized, no token",
-            });
-        }
+        await authenticate(req);
+        return next();
     } catch (error) {
-        console.error("Auth middleware error:", error);
-        return res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
+        return fail(res, error);
     }
 };
-
-// Admin authorization middleware
-const admin = async (req, res, next) => {
-    try {
-        if (req.user && req.user.role === "admin") {
-            next();
-        } else {
-            return res.status(403).json({
-                success: false,
-                message: "Access denied. Admin rights required.",
-            });
-        }
-    } catch (error) {
-        console.error("Admin middleware error:", error);
-        return res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
-    }
-};
-
-// Optional authentication middleware (doesn't require token but adds user info if present)
+const admin = (req, res, next) =>
+    req.user?.role === "admin" ? next() : fail(res, new ApiError(403, "FORBIDDEN", "Admin rights required."));
 const optionalAuth = async (req, res, next) => {
     try {
-        let token;
-
-        if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-            token = req.headers.authorization.split(" ")[1];
-
-            try {
-                const decoded = jwt.verify(token, process.env.JWT_SECRET);
-                req.user = decoded.user;
-            } catch (error) {
-                // Token invalid, but we don't reject the request
-                req.user = null;
-            }
-        } else {
-            req.user = null;
-        }
-
-        next();
-    } catch (error) {
-        console.error("Optional auth middleware error:", error);
+        await authenticate(req);
+    } catch {
         req.user = null;
-        next();
     }
+    return next();
 };
-
-module.exports = {protect, admin, optionalAuth};
+const requireSigningKey = (req, res, next) =>
+    process.env.JWT_SECRET
+        ? next()
+        : fail(res, new ApiError(503, "AUTH_UNAVAILABLE", "Authentication is temporarily unavailable."));
+module.exports = { protect, admin, optionalAuth, requireSigningKey };

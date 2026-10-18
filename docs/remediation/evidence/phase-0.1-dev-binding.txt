@@ -1,0 +1,1 @@
+PASSED: installed CRA start script defaults to all interfaces. Loading installed CRA environment configuration from client cwd with NODE_ENV=development selects loopback HOST from client/.env.development.

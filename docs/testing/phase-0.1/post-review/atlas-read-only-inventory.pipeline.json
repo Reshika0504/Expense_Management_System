@@ -1,0 +1,638 @@
+[
+  {
+    "$set": {
+      "_decimal": {
+        "$convert": {
+          "input": "$amount",
+          "to": "decimal",
+          "onError": null,
+          "onNull": null
+        }
+      }
+    }
+  },
+  {
+    "$set": {
+      "_minor": {
+        "$multiply": [
+          "$_decimal",
+          100
+        ]
+      },
+      "_finite": {
+        "$and": [
+          {
+            "$in": [
+              {
+                "$type": "$amount"
+              },
+              [
+                "double",
+                "int",
+                "long",
+                "decimal"
+              ]
+            ]
+          },
+          {
+            "$ne": [
+              "$_decimal",
+              null
+            ]
+          },
+          {
+            "$not": [
+              {
+                "$in": [
+                  "$_decimal",
+                  [
+                    {
+                      "$convert": {
+                        "input": "NaN",
+                        "to": "decimal",
+                        "onError": null,
+                        "onNull": null
+                      }
+                    },
+                    {
+                      "$convert": {
+                        "input": "Infinity",
+                        "to": "decimal",
+                        "onError": null,
+                        "onNull": null
+                      }
+                    },
+                    {
+                      "$convert": {
+                        "input": "-Infinity",
+                        "to": "decimal",
+                        "onError": null,
+                        "onNull": null
+                      }
+                    }
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "$set": {
+      "_valid": {
+        "$and": [
+          {
+            "$in": [
+              {
+                "$type": "$amount"
+              },
+              [
+                "double",
+                "int",
+                "long",
+                "decimal"
+              ]
+            ]
+          },
+          {
+            "$gt": [
+              "$_decimal",
+              0
+            ]
+          },
+          {
+            "$lte": [
+              "$_decimal",
+              1000000000
+            ]
+          },
+          {
+            "$eq": [
+              "$_minor",
+              {
+                "$trunc": "$_minor"
+              }
+            ]
+          },
+          {
+            "$eq": [
+              {
+                "$type": "$date"
+              },
+              "date"
+            ]
+          },
+          {
+            "$in": [
+              "$type",
+              [
+                "income",
+                "expense"
+              ]
+            ]
+          },
+          {
+            "$eq": [
+              {
+                "$type": "$category"
+              },
+              "string"
+            ]
+          },
+          {
+            "$ne": [
+              "$category",
+              ""
+            ]
+          }
+        ]
+      },
+      "_overPrecision": {
+        "$and": [
+          "$_finite",
+          {
+            "$ne": [
+              "$_minor",
+              {
+                "$trunc": "$_minor"
+              }
+            ]
+          }
+        ]
+      },
+      "_nonNumeric": {
+        "$not": [
+          {
+            "$in": [
+              {
+                "$type": "$amount"
+              },
+              [
+                "double",
+                "int",
+                "long",
+                "decimal"
+              ]
+            ]
+          }
+        ]
+      },
+      "_nonFinite": {
+        "$and": [
+          {
+            "$in": [
+              {
+                "$type": "$amount"
+              },
+              [
+                "double",
+                "int",
+                "long",
+                "decimal"
+              ]
+            ]
+          },
+          {
+            "$not": [
+              "$_finite"
+            ]
+          }
+        ]
+      },
+      "_nonPositive": {
+        "$and": [
+          "$_finite",
+          {
+            "$lte": [
+              "$_decimal",
+              0
+            ]
+          }
+        ]
+      },
+      "_aboveMax": {
+        "$and": [
+          "$_finite",
+          {
+            "$gt": [
+              "$_decimal",
+              1000000000
+            ]
+          }
+        ]
+      },
+      "_badType": {
+        "$not": [
+          {
+            "$in": [
+              "$type",
+              [
+                "income",
+                "expense"
+              ]
+            ]
+          }
+        ]
+      },
+      "_badDate": {
+        "$ne": [
+          {
+            "$type": "$date"
+          },
+          "date"
+        ]
+      },
+      "_badCategory": {
+        "$or": [
+          {
+            "$ne": [
+              {
+                "$type": "$category"
+              },
+              "string"
+            ]
+          },
+          {
+            "$eq": [
+              "$category",
+              ""
+            ]
+          }
+        ]
+      },
+      "_badOwner": {
+        "$ne": [
+          {
+            "$type": "$userId"
+          },
+          "objectId"
+        ]
+      }
+    }
+  },
+  {
+    "$set": {
+      "_badMoney": {
+        "$or": [
+          "$_nonNumeric",
+          "$_nonFinite",
+          "$_nonPositive",
+          "$_aboveMax",
+          "$_overPrecision"
+        ]
+      }
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "$cond": [
+          "$_badOwner",
+          null,
+          "$userId"
+        ]
+      },
+      "totalRecords": {
+        "$sum": 1
+      },
+      "overPrecisionNumericRecords": {
+        "$sum": {
+          "$cond": [
+            "$_overPrecision",
+            1,
+            0
+          ]
+        }
+      },
+      "nonNumericAmountRecords": {
+        "$sum": {
+          "$cond": [
+            "$_nonNumeric",
+            1,
+            0
+          ]
+        }
+      },
+      "nonFiniteOrUnconvertibleNumericRecords": {
+        "$sum": {
+          "$cond": [
+            "$_nonFinite",
+            1,
+            0
+          ]
+        }
+      },
+      "nonPositiveAmountRecords": {
+        "$sum": {
+          "$cond": [
+            "$_nonPositive",
+            1,
+            0
+          ]
+        }
+      },
+      "aboveMaximumAmountRecords": {
+        "$sum": {
+          "$cond": [
+            "$_aboveMax",
+            1,
+            0
+          ]
+        }
+      },
+      "invalidMonetaryRecords": {
+        "$sum": {
+          "$cond": [
+            "$_badMoney",
+            1,
+            0
+          ]
+        }
+      },
+      "invalidTypeRecords": {
+        "$sum": {
+          "$cond": [
+            "$_badType",
+            1,
+            0
+          ]
+        }
+      },
+      "invalidDateRecords": {
+        "$sum": {
+          "$cond": [
+            "$_badDate",
+            1,
+            0
+          ]
+        }
+      },
+      "invalidCategoryRecords": {
+        "$sum": {
+          "$cond": [
+            "$_badCategory",
+            1,
+            0
+          ]
+        }
+      },
+      "recordsFailingReportValidation": {
+        "$sum": {
+          "$cond": [
+            {
+              "$not": [
+                "$_valid"
+              ]
+            },
+            1,
+            0
+          ]
+        }
+      },
+      "invalidOwnerRecords": {
+        "$sum": {
+          "$cond": [
+            "$_badOwner",
+            1,
+            0
+          ]
+        }
+      },
+      "_sumMinor": {
+        "$sum": {
+          "$cond": [
+            "$_valid",
+            "$_minor",
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "$lookup": {
+      "from": "users",
+      "let": {
+        "owner": "$_id"
+      },
+      "pipeline": [
+        {
+          "$match": {
+            "$expr": {
+              "$and": [
+                {
+                  "$ne": [
+                    "$$owner",
+                    null
+                  ]
+                },
+                {
+                  "$eq": [
+                    "$_id",
+                    "$$owner"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "$limit": 1
+        },
+        {
+          "$project": {
+            "_id": 1
+          }
+        }
+      ],
+      "as": "_existing"
+    }
+  },
+  {
+    "$set": {
+      "_exists": {
+        "$gt": [
+          {
+            "$size": "$_existing"
+          },
+          0
+        ]
+      },
+      "_affected": {
+        "$gt": [
+          "$recordsFailingReportValidation",
+          0
+        ]
+      }
+    }
+  },
+  {
+    "$group": {
+      "_id": null,
+      "totalRecords": {
+        "$sum": "$totalRecords"
+      },
+      "overPrecisionNumericRecords": {
+        "$sum": "$overPrecisionNumericRecords"
+      },
+      "nonNumericAmountRecords": {
+        "$sum": "$nonNumericAmountRecords"
+      },
+      "nonFiniteOrUnconvertibleNumericRecords": {
+        "$sum": "$nonFiniteOrUnconvertibleNumericRecords"
+      },
+      "nonPositiveAmountRecords": {
+        "$sum": "$nonPositiveAmountRecords"
+      },
+      "aboveMaximumAmountRecords": {
+        "$sum": "$aboveMaximumAmountRecords"
+      },
+      "invalidMonetaryRecords": {
+        "$sum": "$invalidMonetaryRecords"
+      },
+      "invalidTypeRecords": {
+        "$sum": "$invalidTypeRecords"
+      },
+      "invalidDateRecords": {
+        "$sum": "$invalidDateRecords"
+      },
+      "invalidCategoryRecords": {
+        "$sum": "$invalidCategoryRecords"
+      },
+      "recordsFailingReportValidation": {
+        "$sum": "$recordsFailingReportValidation"
+      },
+      "invalidOwnerRecords": {
+        "$sum": "$invalidOwnerRecords"
+      },
+      "affectedStoredObjectIdOwners": {
+        "$sum": {
+          "$cond": [
+            {
+              "$and": [
+                "$_affected",
+                {
+                  "$ne": [
+                    "$_id",
+                    null
+                  ]
+                }
+              ]
+            },
+            1,
+            0
+          ]
+        }
+      },
+      "affectedExistingUsers": {
+        "$sum": {
+          "$cond": [
+            {
+              "$and": [
+                "$_affected",
+                "$_exists"
+              ]
+            },
+            1,
+            0
+          ]
+        }
+      },
+      "affectedMissingUserOwners": {
+        "$sum": {
+          "$cond": [
+            {
+              "$and": [
+                "$_affected",
+                {
+                  "$ne": [
+                    "$_id",
+                    null
+                  ]
+                },
+                {
+                  "$not": [
+                    "$_exists"
+                  ]
+                }
+              ]
+            },
+            1,
+            0
+          ]
+        }
+      },
+      "precisionAffectedExistingUsers": {
+        "$sum": {
+          "$cond": [
+            {
+              "$and": [
+                "$_exists",
+                {
+                  "$gt": [
+                    "$overPrecisionNumericRecords",
+                    0
+                  ]
+                }
+              ]
+            },
+            1,
+            0
+          ]
+        }
+      },
+      "monetaryAffectedExistingUsers": {
+        "$sum": {
+          "$cond": [
+            {
+              "$and": [
+                "$_exists",
+                {
+                  "$gt": [
+                    "$invalidMonetaryRecords",
+                    0
+                  ]
+                }
+              ]
+            },
+            1,
+            0
+          ]
+        }
+      },
+      "existingUsersAtFullHistoryOverflowRisk": {
+        "$sum": {
+          "$cond": [
+            {
+              "$and": [
+                "$_exists",
+                {
+                  "$gt": [
+                    "$_sumMinor",
+                    {
+                      "$convert": {
+                        "input": "9007199254740991",
+                        "to": "decimal",
+                        "onError": null,
+                        "onNull": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": 0
+    }
+  }
+]

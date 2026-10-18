@@ -1,0 +1,56 @@
+
+> expense-mnagement-system@1.0.0 test
+> node --test tests/*.test.js
+
+✔ registers normalized email, hashes password and returns a working JWT (892.731334ms)
+✔ logs in with whitespace and mixed-case email (116.366125ms)
+✔ unknown email and incorrect password both return the same 401 response (117.329125ms)
+✔ rejects invalid input and duplicate normalized email (58.70575ms)
+✔ Google sign-in creates an account without a local password and reuses it (6.961417ms)
+✔ Google links an existing Gmail account without losing its id or password (112.615291ms)
+✔ rejects expired, forged, unverified and non-Google identities (3.218708ms)
+✔ keeps existing third-party-email accounts separate until ownership can be linked (58.24875ms)
+✔ rejects disabled users for both login methods (59.937041ms)
+✔ returns actionable 503 when Google configuration is missing (1.124542ms)
+✔ provider outage is 503, unexpected errors are safe 500 and active app sessions remain usable (57.4515ms)
+✔ password change revokes both current and other existing sessions (271.980459ms)
+✔ real Firebase verifier rejects missing configuration and forged tokens (2.854625ms)
+✔ opening the API service in a browser redirects to the actual app (17.231959ms)
+✔ redirects use a configured trusted frontend, never a query-provided host (2.115209ms)
+✔ API and unknown paths retain their API behavior (5.876083ms)
+✔ permission gate rejects absent, writer, broad or wrong-scope permissions (805.000208ms)
+✔ CLI refuses missing authorized configuration without exposing app URI or raw driver errors (122.526417ms)
+✔ inventory pipeline has no database-write stages or raw output projection (1.264208ms)
+✔ actual scoped reader returns counts only and does not change synthetic documents (65.466125ms)
+✔ inventory validation matches actual report service, including invalid data outside requested dates (43.400958ms)
+✔ category report, usage and top categories preserve two-user totals and metadata (817.677916ms)
+✔ default categories, orphan and archived history retain totals without foreign metadata (15.129625ms)
+✔ transaction category references must be active, visible and type compatible (17.5545ms)
+✔ empty reports and empty summary are explicit successful zeros (7.9085ms)
+✔ summary uses exact income/expense totals and changes after edit and delete (18.680417ms)
+✔ UTC date-only range includes final millisecond and excludes next month (16.09725ms)
+✔ malformed financial records fail safely rather than appearing as zero (16.908542ms)
+✔ invalid queries, IDs, amounts and unsupported refund/transfer writes return 400 (17.9935ms)
+✔ disabled valid-token accounts are denied consistently across protected route groups (6.957875ms)
+✔ deleted user, expired, invalid and missing tokens cannot access records (4.803917ms)
+✔ logout revokes existing sessions and fresh active sessions still work (13.187875ms)
+✔ foreign transaction read/update/delete and foreign category mutation remain inaccessible (8.556166ms)
+✔ legacy unversioned active tokens work until the first explicit revocation (6.558625ms)
+✔ full application middleware handles CORS, body errors, DB outage and avoids credentials (11.125375ms)
+✔ category metadata cannot be borrowed from another transaction type or misowned system category (9.605375ms)
+✔ archived historical records can be corrected without enabling unauthorized category changes (9.550375ms)
+✔ API money fields agree with the fixture consumed by the actual frontend dashboard (9.301417ms)
+✔ income-only, expense-only, zero-net periods and malformed date filters remain distinct (16.105833ms)
+✔ password mutation validates types and bcrypt byte limits before modifying credentials (6.724ms)
+✔ machine-readable contract matches every implemented GET response and ownership boundary (30.902125ms)
+✔ a user without custom categories can record and report genuine global defaults (5.911083ms)
+✔ timestamp offsets normalize to UTC and pagination is stable with literal regex characters (11.413875ms)
+✔ missing signing configuration cannot create accounts and malformed disabled state fails closed (3.690833ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 44
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2243.412959

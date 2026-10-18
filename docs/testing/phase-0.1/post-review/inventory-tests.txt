@@ -1,0 +1,13 @@
+✔ permission gate rejects absent, writer, broad or wrong-scope permissions (545.81825ms)
+✔ CLI refuses missing authorized configuration without exposing app URI or raw driver errors (91.765292ms)
+✔ inventory pipeline has no database-write stages or raw output projection (1.017875ms)
+✔ actual scoped reader returns counts only and does not change synthetic documents (42.801ms)
+✔ inventory validation matches actual report service, including invalid data outside requested dates (31.791167ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1048.239125

@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema(
             minlength: 6,
         },
         firebaseUid: {type: String},
+        sessionVersion: {type: Number, default: 0, min: 0, select: false},
         role: {
             type: String,
             enum: ["user", "admin"],

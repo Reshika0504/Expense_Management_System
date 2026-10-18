@@ -1,0 +1,3071 @@
+{
+  "date": "2026-10-18",
+  "reviewedApplicationCommit": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+  "auditCommand": "npm audit --prefix client --json",
+  "auditExitCode": 1,
+  "nodeVersion": "24.21.0",
+  "npmVersion": "11.19.0",
+  "lockfileSha256": "e1bf81dbe3c6af5eed434ae42bcc6709feec5277e62da0dac8f91f38e69d9c64",
+  "auditCounts": {
+    "info": 0,
+    "low": 5,
+    "moderate": 15,
+    "high": 67,
+    "critical": 0,
+    "total": 87
+  },
+  "classificationCounts": {
+    "Firebase SDK dependency graph": 4,
+    "CRA build/test/development toolchain": 63
+  },
+  "method": "Resolve dependencies/optionalDependencies from each direct root using existing package-lock installed-path resolution; retain a representative complete chain per root per audited node. These are audited package findings, not unique CVEs or exploits. Peer-only edges are not expanded; inspect concrete advisory inheritance and nodes too.",
+  "findings": [
+    {
+      "package": "@firebase/firestore",
+      "severity": "high",
+      "classification": "Firebase SDK dependency graph",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@firebase/firestore",
+          "version": "4.18.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "firebase"
+          ],
+          "representativeDependencyChains": {
+            "firebase": [
+              "firebase@13.0.0",
+              "@firebase/firestore@4.18.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@grpc/grpc-js"
+      ],
+      "exposure": "Installed via Firebase umbrella; browser app imports app/auth. Current emitted-map check recorded separately; absence in maps does not certify SDK/package safety. No observed Firestore/gRPC server use.",
+      "fixAvailability": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "firebase@9.14.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject unreviewed Firebase 13-to-9 downgrade; evaluate supported modular Auth packaging/parent patch after compatibility review.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@firebase/firestore-compat",
+      "severity": "high",
+      "classification": "Firebase SDK dependency graph",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@firebase/firestore-compat",
+          "version": "0.4.15",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "firebase"
+          ],
+          "representativeDependencyChains": {
+            "firebase": [
+              "firebase@13.0.0",
+              "@firebase/firestore-compat@0.4.15"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@firebase/firestore"
+      ],
+      "exposure": "Installed via Firebase umbrella; browser app imports app/auth. Current emitted-map check recorded separately; absence in maps does not certify SDK/package safety. No observed Firestore/gRPC server use.",
+      "fixAvailability": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "firebase@9.14.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject unreviewed Firebase 13-to-9 downgrade; evaluate supported modular Auth packaging/parent patch after compatibility review.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@grpc/grpc-js",
+      "severity": "high",
+      "classification": "Firebase SDK dependency graph",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@grpc/grpc-js",
+          "version": "1.9.16",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "firebase"
+          ],
+          "representativeDependencyChains": {
+            "firebase": [
+              "firebase@13.0.0",
+              "@firebase/firestore@4.18.0",
+              "@grpc/grpc-js@1.9.16"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1240623,
+          "name": "@grpc/grpc-js",
+          "dependency": "@grpc/grpc-js",
+          "title": "@grpc/grpc-js: In certain configurations, getAuthContext can return unauthorized certificates as though they were authorized",
+          "url": "https://github.com/advisories/GHSA-m9gg-hp2v-232j",
+          "severity": "high",
+          "cwe": [
+            "CWE-295"
+          ],
+          "cvss": {
+            "score": 7.4,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N"
+          },
+          "range": "<1.13.6"
+        },
+        {
+          "source": 1240625,
+          "name": "@grpc/grpc-js",
+          "dependency": "@grpc/grpc-js",
+          "title": "@grpc/grpc-js: The server transmits some error messages thrown by method handlers to the client in status messages",
+          "url": "https://github.com/advisories/GHSA-f596-whhp-79r4",
+          "severity": "low",
+          "cwe": [
+            "CWE-550"
+          ],
+          "cvss": {
+            "score": 3.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
+          },
+          "range": "<1.13.6"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Installed via Firebase umbrella; browser app imports app/auth. Current emitted-map check recorded separately; absence in maps does not certify SDK/package safety. No observed Firestore/gRPC server use.",
+      "fixAvailability": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "firebase@9.14.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject unreviewed Firebase 13-to-9 downgrade; evaluate supported modular Auth packaging/parent patch after compatibility review.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/console",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/console",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "@jest/console@27.5.1"
+            ]
+          }
+        },
+        {
+          "installedPath": "node_modules/jest-watch-typeahead/node_modules/@jest/console",
+          "version": "28.1.3",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest-watch-typeahead@1.1.0",
+              "jest-watcher@28.1.3",
+              "@jest/test-result@28.1.3",
+              "@jest/console@28.1.3"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "jest-message-util"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/core",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/core",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/console",
+        "@jest/reporters",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-config",
+        "jest-haste-map",
+        "jest-message-util",
+        "jest-resolve",
+        "jest-resolve-dependencies",
+        "jest-runner",
+        "jest-runtime",
+        "jest-snapshot",
+        "jest-watcher",
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/environment",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/environment",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-runner@27.5.1",
+              "@jest/environment@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/fake-timers"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/fake-timers",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/fake-timers",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-runtime@27.5.1",
+              "@jest/fake-timers@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "jest-message-util"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/globals",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/globals",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-runtime@27.5.1",
+              "@jest/globals@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "expect"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/reporters",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/reporters",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "@jest/reporters@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/console",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-haste-map",
+        "jest-resolve"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/test-result",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/test-result",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "@jest/test-result@27.5.1"
+            ]
+          }
+        },
+        {
+          "installedPath": "node_modules/jest-watch-typeahead/node_modules/@jest/test-result",
+          "version": "28.1.3",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest-watch-typeahead@1.1.0",
+              "jest-watcher@28.1.3",
+              "@jest/test-result@28.1.3"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/console"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/test-sequencer",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/test-sequencer",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-config@27.5.1",
+              "@jest/test-sequencer@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/test-result",
+        "jest-haste-map",
+        "jest-runtime"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@jest/transform",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@jest/transform",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "babel-jest@27.5.1",
+              "@jest/transform@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "babel-plugin-istanbul",
+        "jest-haste-map",
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@svgr/plugin-svgo",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@svgr/plugin-svgo",
+          "version": "5.5.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "@svgr/webpack@5.5.0",
+              "@svgr/plugin-svgo@5.5.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "svgo"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@svgr/webpack",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@svgr/webpack",
+          "version": "5.5.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "@svgr/webpack@5.5.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@svgr/plugin-svgo"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@typescript-eslint/eslint-plugin",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@typescript-eslint/eslint-plugin",
+          "version": "5.62.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1",
+              "@typescript-eslint/eslint-plugin@5.62.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/parser",
+        "@typescript-eslint/type-utils",
+        "@typescript-eslint/utils"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@typescript-eslint/experimental-utils",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@typescript-eslint/experimental-utils",
+          "version": "5.62.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1",
+              "eslint-plugin-jest@25.7.0",
+              "@typescript-eslint/experimental-utils@5.62.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/utils"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@typescript-eslint/parser",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@typescript-eslint/parser",
+          "version": "5.62.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1",
+              "@typescript-eslint/parser@5.62.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/typescript-estree"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@typescript-eslint/type-utils",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@typescript-eslint/type-utils",
+          "version": "5.62.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1",
+              "@typescript-eslint/eslint-plugin@5.62.0",
+              "@typescript-eslint/type-utils@5.62.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/typescript-estree",
+        "@typescript-eslint/utils"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@typescript-eslint/typescript-estree",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@typescript-eslint/typescript-estree",
+          "version": "5.62.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1",
+              "@typescript-eslint/parser@5.62.0",
+              "@typescript-eslint/typescript-estree@5.62.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "globby"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "@typescript-eslint/utils",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/@typescript-eslint/utils",
+          "version": "5.62.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1",
+              "@typescript-eslint/eslint-plugin@5.62.0",
+              "@typescript-eslint/utils@5.62.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/typescript-estree"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "babel-jest",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/babel-jest",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "babel-jest@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/transform",
+        "babel-plugin-istanbul"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "bfj",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/bfj",
+          "version": "7.1.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "bfj@7.1.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "jsonpath"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "braces",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/braces",
+          "version": "3.0.3",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-webpack-plugin@3.2.0",
+              "micromatch@4.0.8",
+              "braces@3.0.3"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1240992,
+          "name": "braces",
+          "dependency": "braces",
+          "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+          "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+          "severity": "high",
+          "cwe": [
+            "CWE-674"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<=3.0.3"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "chokidar",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/chokidar",
+          "version": "3.6.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "tailwindcss@3.4.19",
+              "chokidar@3.6.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "braces"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "css-select",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/svgo/node_modules/css-select",
+          "version": "2.1.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "@svgr/webpack@5.5.0",
+              "@svgr/plugin-svgo@5.5.0",
+              "svgo@1.3.2",
+              "css-select@2.1.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "nth-check"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "eslint-config-react-app",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/eslint-config-react-app",
+          "version": "7.0.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/parser"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "eslint-plugin-testing-library",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/eslint-plugin-testing-library",
+          "version": "5.11.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-config-react-app@7.0.1",
+              "eslint-plugin-testing-library@5.11.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/utils"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "eslint-webpack-plugin",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/eslint-webpack-plugin",
+          "version": "3.2.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-webpack-plugin@3.2.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "expect",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/expect",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-snapshot@27.5.1",
+              "expect@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "jest-message-util"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "fast-glob",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/fast-glob",
+          "version": "3.3.3",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "tailwindcss@3.4.19",
+              "fast-glob@3.3.3"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "firebase",
+      "severity": "high",
+      "classification": "Firebase SDK dependency graph",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/firebase",
+          "version": "13.0.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "firebase"
+          ],
+          "representativeDependencyChains": {
+            "firebase": [
+              "firebase@13.0.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@firebase/firestore",
+        "@firebase/firestore-compat"
+      ],
+      "exposure": "Installed via Firebase umbrella; browser app imports app/auth. Current emitted-map check recorded separately; absence in maps does not certify SDK/package safety. No observed Firestore/gRPC server use.",
+      "fixAvailability": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "firebase@9.14.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject unreviewed Firebase 13-to-9 downgrade; evaluate supported modular Auth packaging/parent patch after compatibility review.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "fork-ts-checker-webpack-plugin",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/fork-ts-checker-webpack-plugin",
+          "version": "6.5.3",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "react-dev-utils@12.0.1",
+              "fork-ts-checker-webpack-plugin@6.5.3"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "chokidar"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "globby",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/globby",
+          "version": "11.1.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "react-dev-utils@12.0.1",
+              "globby@11.1.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "fast-glob"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "http-proxy-middleware",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/http-proxy-middleware",
+          "version": "2.0.10",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "webpack-dev-server@4.15.2",
+              "http-proxy-middleware@2.0.10"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/core",
+        "jest-cli"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-circus",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-circus",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-config@27.5.1",
+              "jest-circus@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/test-result",
+        "expect",
+        "jest-message-util",
+        "jest-runtime",
+        "jest-snapshot"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-cli",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-cli",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "jest-cli@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/core",
+        "@jest/test-result",
+        "jest-config"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-config",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-config",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-config@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/test-sequencer",
+        "babel-jest",
+        "jest-circus",
+        "jest-environment-jsdom",
+        "jest-environment-node",
+        "jest-jasmine2",
+        "jest-resolve",
+        "jest-runner",
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-environment-jsdom",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-environment-jsdom",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-config@27.5.1",
+              "jest-environment-jsdom@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/fake-timers",
+        "jsdom"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-environment-node",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-environment-node",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-config@27.5.1",
+              "jest-environment-node@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/fake-timers"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-haste-map",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-haste-map",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest-resolve@27.5.1",
+              "jest-haste-map@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-jasmine2",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-jasmine2",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-config@27.5.1",
+              "jest-jasmine2@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/test-result",
+        "expect",
+        "jest-message-util",
+        "jest-runtime",
+        "jest-snapshot"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-message-util",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-message-util",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-message-util@27.5.1"
+            ]
+          }
+        },
+        {
+          "installedPath": "node_modules/jest-watch-typeahead/node_modules/jest-message-util",
+          "version": "28.1.3",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest-watch-typeahead@1.1.0",
+              "jest-watcher@28.1.3",
+              "@jest/test-result@28.1.3",
+              "@jest/console@28.1.3",
+              "jest-message-util@28.1.3"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-resolve",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-resolve",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest-resolve@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "jest-haste-map"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-resolve-dependencies",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-resolve-dependencies",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-resolve-dependencies@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "jest-snapshot"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-runner",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-runner",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-runner@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/console",
+        "@jest/environment",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-environment-jsdom",
+        "jest-environment-node",
+        "jest-haste-map",
+        "jest-message-util",
+        "jest-resolve",
+        "jest-runtime"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-runtime",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-runtime",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-runtime@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/fake-timers",
+        "@jest/globals",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-haste-map",
+        "jest-message-util",
+        "jest-resolve",
+        "jest-snapshot"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-snapshot",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-snapshot",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-snapshot@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/transform",
+        "expect",
+        "jest-haste-map",
+        "jest-message-util"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-watch-typeahead",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-watch-typeahead",
+          "version": "1.1.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest-watch-typeahead@1.1.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "jest",
+        "jest-watcher"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jest-watcher",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jest-watch-typeahead/node_modules/jest-watcher",
+          "version": "28.1.3",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest-watch-typeahead@1.1.0",
+              "jest-watcher@28.1.3"
+            ]
+          }
+        },
+        {
+          "installedPath": "node_modules/jest-watcher",
+          "version": "27.5.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "jest@27.5.1",
+              "@jest/core@27.5.1",
+              "jest-watcher@27.5.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@jest/test-result"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "jsonpath",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/jsonpath",
+          "version": "1.3.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "bfj@7.1.0",
+              "jsonpath@1.3.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "underscore"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "micromatch",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/micromatch",
+          "version": "4.0.8",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "eslint-webpack-plugin@3.2.0",
+              "micromatch@4.0.8"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "braces"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "node-forge",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/node-forge",
+          "version": "1.4.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "webpack-dev-server@4.15.2",
+              "selfsigned@2.4.1",
+              "node-forge@1.4.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1240912,
+          "name": "node-forge",
+          "dependency": "node-forge",
+          "title": "node-forge RSA PKCS#1 v1.5 signature verification accepts extra nested DigestAlgorithm elements",
+          "url": "https://github.com/advisories/GHSA-86w9-cpqp-85rv",
+          "severity": "high",
+          "cwe": [
+            "CWE-347"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+          },
+          "range": "<=1.4.0"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "nth-check",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/svgo/node_modules/nth-check",
+          "version": "1.0.2",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "@svgr/webpack@5.5.0",
+              "@svgr/plugin-svgo@5.5.0",
+              "svgo@1.3.2",
+              "css-select@2.1.0",
+              "nth-check@1.0.2"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1095141,
+          "name": "nth-check",
+          "dependency": "nth-check",
+          "title": "Inefficient Regular Expression Complexity in nth-check",
+          "url": "https://github.com/advisories/GHSA-rp65-9cf3-cjxr",
+          "severity": "high",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<2.0.1"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "postcss",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/resolve-url-loader/node_modules/postcss",
+          "version": "7.0.39",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "resolve-url-loader@4.0.0",
+              "postcss@7.0.39"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1109574,
+          "name": "postcss",
+          "dependency": "postcss",
+          "title": "PostCSS line return parsing error",
+          "url": "https://github.com/advisories/GHSA-7fh5-64p2-3v2j",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-74",
+            "CWE-144"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": "<8.4.31"
+        },
+        {
+          "source": 1117015,
+          "name": "postcss",
+          "dependency": "postcss",
+          "title": "PostCSS has XSS via Unescaped </style> in its CSS Stringify Output",
+          "url": "https://github.com/advisories/GHSA-qx2v-qp2m-jg93",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 6.1,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+          },
+          "range": "<8.5.10"
+        },
+        {
+          "source": 1124252,
+          "name": "postcss",
+          "dependency": "postcss",
+          "title": "PostCSS: Arbitrary file read and information disclosure via attacker-controlled sourceMappingURL in CSS comments",
+          "url": "https://github.com/advisories/GHSA-6g55-p6wh-862q",
+          "severity": "high",
+          "cwe": [
+            "CWE-22",
+            "CWE-200"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=8.5.11"
+        },
+        {
+          "source": 1130709,
+          "name": "postcss",
+          "dependency": "postcss",
+          "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q \u2014 attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset",
+          "url": "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-22",
+            "CWE-200"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<=8.5.22"
+        },
+        {
+          "source": 1139510,
+          "name": "postcss",
+          "dependency": "postcss",
+          "title": "PostCSS: Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary .map File Disclosure",
+          "url": "https://github.com/advisories/GHSA-r28c-9q8g-f849",
+          "severity": "high",
+          "cwe": [
+            "CWE-22"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=8.5.17"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "react-dev-utils",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/react-dev-utils",
+          "version": "12.0.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "react-dev-utils@12.0.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "fork-ts-checker-webpack-plugin",
+        "globby"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "react-scripts",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/react-scripts",
+          "version": "5.0.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "@svgr/webpack",
+        "babel-jest",
+        "css-minimizer-webpack-plugin",
+        "eslint-config-react-app",
+        "eslint-webpack-plugin",
+        "jest",
+        "jest-resolve",
+        "jest-watch-typeahead",
+        "react-dev-utils",
+        "resolve-url-loader",
+        "webpack-dev-server",
+        "workbox-webpack-plugin"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "rollup-plugin-terser",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/rollup-plugin-terser",
+          "version": "7.0.2",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "workbox-webpack-plugin@6.6.0",
+              "workbox-build@6.6.0",
+              "rollup-plugin-terser@7.0.2"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "serialize-javascript"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "selfsigned",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/selfsigned",
+          "version": "2.4.1",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "webpack-dev-server@4.15.2",
+              "selfsigned@2.4.1"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "node-forge"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "serialize-javascript",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/rollup-plugin-terser/node_modules/serialize-javascript",
+          "version": "4.0.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "workbox-webpack-plugin@6.6.0",
+              "workbox-build@6.6.0",
+              "rollup-plugin-terser@7.0.2",
+              "serialize-javascript@4.0.0"
+            ]
+          }
+        },
+        {
+          "installedPath": "node_modules/serialize-javascript",
+          "version": "6.0.2",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "css-minimizer-webpack-plugin@3.4.1",
+              "serialize-javascript@6.0.2"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1113686,
+          "name": "serialize-javascript",
+          "dependency": "serialize-javascript",
+          "title": "Serialize JavaScript is Vulnerable to RCE via RegExp.flags and Date.prototype.toISOString()",
+          "url": "https://github.com/advisories/GHSA-5c6j-r48x-rmvq",
+          "severity": "high",
+          "cwe": [
+            "CWE-96"
+          ],
+          "cvss": {
+            "score": 8.1,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+          },
+          "range": "<=7.0.2"
+        },
+        {
+          "source": 1119440,
+          "name": "serialize-javascript",
+          "dependency": "serialize-javascript",
+          "title": "Serialize JavaScript has CPU Exhaustion Denial of Service via crafted array-like objects",
+          "url": "https://github.com/advisories/GHSA-qj8w-gfj5-8c6v",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400",
+            "CWE-834"
+          ],
+          "cvss": {
+            "score": 5.9,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=5.0.0 <7.0.5"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "svgo",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/postcss-svgo/node_modules/svgo",
+          "version": "2.8.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "css-minimizer-webpack-plugin@3.4.1",
+              "cssnano@5.1.15",
+              "cssnano-preset-default@5.2.14",
+              "postcss-svgo@5.1.0",
+              "svgo@2.8.0"
+            ]
+          }
+        },
+        {
+          "installedPath": "node_modules/svgo",
+          "version": "1.3.2",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "@svgr/webpack@5.5.0",
+              "@svgr/plugin-svgo@5.5.0",
+              "svgo@1.3.2"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1114152,
+          "name": "svgo",
+          "dependency": "svgo",
+          "title": "SVGO DoS through entity expansion in DOCTYPE (Billion Laughs)",
+          "url": "https://github.com/advisories/GHSA-xpqw-6gx7-v673",
+          "severity": "high",
+          "cwe": [
+            "CWE-776"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=2.1.0 <2.8.1"
+        },
+        {
+          "source": 1139520,
+          "name": "svgo",
+          "dependency": "svgo",
+          "title": "SVGO removeScripts plugin leaves some executable scripts intact",
+          "url": "https://github.com/advisories/GHSA-2p49-hgcm-8545",
+          "severity": "high",
+          "cwe": [
+            "CWE-79",
+            "CWE-184"
+          ],
+          "cvss": {
+            "score": 8.2,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N"
+          },
+          "range": ">=1.0.0 <2.8.3"
+        },
+        {
+          "source": 1193737,
+          "name": "svgo",
+          "dependency": "svgo",
+          "title": "SVGO: removeScripts allows executable links through namespace and control-character bypasses",
+          "url": "https://github.com/advisories/GHSA-w27v-7q3p-w38r",
+          "severity": "high",
+          "cwe": [
+            "CWE-79",
+            "CWE-184"
+          ],
+          "cvss": {
+            "score": 8.2,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N"
+          },
+          "range": ">=1.0.0 <2.8.4"
+        },
+        {
+          "source": 1193740,
+          "name": "svgo",
+          "dependency": "svgo",
+          "title": "SVGO: removeScripts incompletely sanitizes executable HTML in SVG foreignObject elements",
+          "url": "https://github.com/advisories/GHSA-4vpr-x523-8j87",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 6.1,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+          },
+          "range": ">=1.0.0 <2.8.4"
+        }
+      ],
+      "inheritedVia": [
+        "css-select",
+        "js-yaml"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "tailwindcss",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/react-scripts/node_modules/tailwindcss",
+          "version": "3.4.19",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "tailwindcss@3.4.19"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "chokidar",
+        "fast-glob",
+        "micromatch"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "underscore",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/underscore",
+          "version": "1.13.6",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "bfj@7.1.0",
+              "jsonpath@1.3.0",
+              "underscore@1.13.6"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1117689,
+          "name": "underscore",
+          "dependency": "underscore",
+          "title": "Underscore has unlimited recursion in _.flatten and _.isEqual, potential for DoS attack",
+          "url": "https://github.com/advisories/GHSA-qpx9-hpmf-5gmw",
+          "severity": "high",
+          "cwe": [
+            "CWE-674",
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 5.9,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<=1.13.7"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": true,
+      "fixInterpretation": "npm marks a fix available but does not name its target version here",
+      "compatibilityRisk": "Unverified: true does not prove no downgrade, peer breakage or safe batch resolution.",
+      "proposedRemediation": "Inspect exact parent/leaf release and peer ranges in a disposable approved change; run targeted regressions and full CI. No fix applied.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "webpack-dev-middleware",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/webpack-dev-middleware",
+          "version": "5.3.4",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "webpack-dev-server@4.15.2",
+              "webpack-dev-middleware@5.3.4"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1240027,
+          "name": "webpack-dev-middleware",
+          "dependency": "webpack-dev-middleware",
+          "title": "webpack-dev-middleware vulnerable to Path Traversal via non-slash-terminated publicPath",
+          "url": "https://github.com/advisories/GHSA-g84c-rxfj-3j2c",
+          "severity": "high",
+          "cwe": [
+            "CWE-22"
+          ],
+          "cvss": {
+            "score": 7.4,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N"
+          },
+          "range": "<7.4.5"
+        }
+      ],
+      "inheritedVia": [],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "webpack-dev-server",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/webpack-dev-server",
+          "version": "4.15.2",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "webpack-dev-server@4.15.2"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [
+        {
+          "source": 1108429,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site with non-Chromium based browser",
+          "url": "https://github.com/advisories/GHSA-9jgg-88mc-972h",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-346"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=5.2.0"
+        },
+        {
+          "source": 1108430,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site",
+          "url": "https://github.com/advisories/GHSA-4v9v-hfq4-rm2v",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-749"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=5.2.0"
+        },
+        {
+          "source": 1119074,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server vulnerable to cross-origin source code exposure on non-HTTPS origins",
+          "url": "https://github.com/advisories/GHSA-79cf-xcqc-c78w",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-749"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=5.2.3"
+        },
+        {
+          "source": 1121087,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server vulnerable to HMR WebSocket interception via permissive user proxies",
+          "url": "https://github.com/advisories/GHSA-mx8g-39q3-5c79",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-346",
+            "CWE-441"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<5.2.5"
+        },
+        {
+          "source": 1123965,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server vulnerable to cross-site request forgery via internal developer endpoints",
+          "url": "https://github.com/advisories/GHSA-f5vj-f2hx-8m93",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-352",
+            "CWE-749"
+          ],
+          "cvss": {
+            "score": 4.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:N/I:N/A:L"
+          },
+          "range": "<=5.2.5"
+        },
+        {
+          "source": 1123966,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server vulnerable to denial of service via a malformed Host or Origin header",
+          "url": "https://github.com/advisories/GHSA-m28w-2pqf-7qgj",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-20",
+            "CWE-248"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<=5.2.5"
+        }
+      ],
+      "inheritedVia": [
+        "chokidar",
+        "http-proxy-middleware",
+        "selfsigned",
+        "sockjs",
+        "webpack-dev-middleware"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "workbox-build",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/workbox-build",
+          "version": "6.6.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "workbox-webpack-plugin@6.6.0",
+              "workbox-build@6.6.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "rollup-plugin-terser"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    },
+    {
+      "package": "workbox-webpack-plugin",
+      "severity": "high",
+      "classification": "CRA build/test/development toolchain",
+      "dependencyNodes": [
+        {
+          "installedPath": "node_modules/workbox-webpack-plugin",
+          "version": "6.6.0",
+          "npmDevFlag": false,
+          "reachableDirectDependencies": [
+            "react-scripts"
+          ],
+          "representativeDependencyChains": {
+            "react-scripts": [
+              "react-scripts@5.0.1",
+              "workbox-webpack-plugin@6.6.0"
+            ]
+          }
+        }
+      ],
+      "concreteAdvisories": [],
+      "inheritedVia": [
+        "workbox-build"
+      ],
+      "exposure": "Developer/CI build, test or dev-server process; not the Node backend or a process served by the static production site. Untrusted source/assets and malicious browser origins can still attack tooling.",
+      "fixAvailability": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "fixInterpretation": "react-scripts@0.0.0",
+      "compatibilityRisk": "High: semver-major proposed parent replacement; not a compatible approved fix.",
+      "proposedRemediation": "Reject react-scripts@0.0.0; plan reviewed CRA replacement or independently verified compatible leaf/parent patch.",
+      "disposition": "OPEN \u2014 NO OWNER RISK ACCEPTANCE",
+      "owner": "SpendWise maintainer; independent re-review required"
+    }
+  ]
+}

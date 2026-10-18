@@ -1,0 +1,6 @@
+test-and-build	Run npm test	2026-10-18T12:29:18.2650676Z ℹ tests 39
+test-and-build	Run npm test	2026-10-18T12:29:18.2651096Z ℹ pass 39
+test-and-build	Run npm test	2026-10-18T12:29:18.2651285Z ℹ fail 0
+test-and-build	Run npm test --prefix client -- --watchAll=false --runInBand	2026-10-18T12:29:20.6516560Z Test Suites: 8 passed, 8 total
+test-and-build	Run npm test --prefix client -- --watchAll=false --runInBand	2026-10-18T12:29:20.6517135Z Tests:       22 passed, 22 total
+test-and-build	Run npm run build --prefix client	2026-10-18T12:29:38.3208072Z Compiled successfully.

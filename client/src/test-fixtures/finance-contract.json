@@ -1,0 +1,13 @@
+{
+  "stats": {
+    "overall": {"totalIncome": 10, "totalExpenses": 0.3, "transactionCount": 3, "avgTransactionAmount": 3.43, "netBalance": 9.7},
+    "netBalance": 9.7
+  },
+  "overview": {
+    "totals": {"totalIncome": 10, "totalExpenses": 0.3, "transactionCount": 3},
+    "currentMonth": {"totalIncome": 10, "totalExpenses": 0.3, "netBalance": 9.7, "transactionCount": 3},
+    "previousMonth": {"totalIncome": 0, "totalExpenses": 0, "netBalance": 0},
+    "trends": {"incomeChange": 100, "expenseChange": 100, "balanceChange": 100},
+    "recentTransactions": []
+  }
+}

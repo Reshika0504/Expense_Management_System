@@ -1,5 +1,7 @@
 # Current endpoint contracts — Phase 0
 
+> Historical Phase 0 baseline. For the remediation branch, consult [API_CONTRACT.md](../API_CONTRACT.md) and the latest Phase 0.1 engineering report. Findings here are preserved as originally audited.
+
 Audited 17 October 2026 at application commit `91915f2`. This describes **existing behavior**, including defects; it is not the proposed Phase 1 API or an OpenAPI specification. Sources: `server.js`, `routes/*Route.js`, `controllers/*Controller.js`, `models/*.js`.
 
 ## Transport and common conventions
