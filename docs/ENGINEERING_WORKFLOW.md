@@ -30,6 +30,8 @@ Before implementing any task, inspect and read the applicable project documents,
 - `docs/API_CONTRACT.md`, if it exists
 - The latest relevant reports in `docs/engineering-reports/`
 - The original task prompt and its acceptance criteria
+- `docs/README.md`, `docs/reviews/README.md` and `docs/reviews/tasks.json` for task-specific revision/evidence discovery
+- `docs/CLAUDE_REVIEW_GUIDE.md` and `docs/CLAUDE_MASTER_REVIEW_PROMPT.md` for independent review
 
 Locate the Phase 0 audit report and relevant previous review findings when the task requires them. If a referenced file is unavailable, locate it within the accessible repository or ask me to supply it.
 
@@ -69,7 +71,7 @@ Before creating the branch:
 
 - Confirm the exact repository and remote.
 - Fetch remote references.
-- Verify the intended starting commit from remote `main`.
+- Verify remote `main` and the intended full starting commit. If the task depends on an unmerged branch, record its exact task baseline and dependency explicitly; distinguish the task diff from inherited changes in the PR targeting main. Never integrate unreviewed inherited work.
 - Check whether the working tree contains unrelated changes.
 - Preserve all existing user work.
 - Avoid reusing a branch that contains unrelated changes.
@@ -212,6 +214,12 @@ Use a descriptive filename such as:
 
 Do not overwrite unrelated historical reports. Preserve the report history and identify the commit or revision that the report describes.
 
+Use the verified existing repository root. Save project documentation directly in `docs/` on the same task branch: `engineering-reports/` for implementation, `reviews/<task-id>/` for requests and actual independent history, `testing/` for plans/verification, and `security/` for security/dependency evidence. Preserve equivalent established paths such as `docs/remediation/evidence/`; link them instead of copying their contents. Keep roadmap and API contracts aligned. Do not create a duplicate project or arbitrary Downloads/outputs/temp report copies.
+
+Each task must update the review registry with task ID, branch, base branch, full task baseline, submitted full head when available, real PR URL, engineering report, verification summary, relevant API/source paths, review history, residual risks and primary status. If recording a commit within that commit would be self-referential, explicitly resolve the live full head through the PR and bind evidence/verdicts to an observed SHA; do not invent one. A later metadata-only commit still needs current CI. Store changed-file/API lists in the report; the exact Git comparison is authoritative.
+
+Before handoff, make a test/verification summary with actual commands, statuses, environment, revision and limitations; retain sanitized supporting evidence or link existing records. Large or unsafe-to-commit evidence needs a verified location, access owner and safe access procedure, never credentials or private financial data in Git.
+
 Every report must contain the following sections.
 
 ### 1. Executive summary
@@ -324,7 +332,7 @@ Provide:
 
 - Original task and acceptance criteria.
 - Final changed-file list.
-- Actual diff or a safe, reviewable patch.
+- Exact task-baseline and PR-head references plus the accessible Git/PR diff; generate a patch only if the review environment actually lacks diff access.
 - Relevant source paths.
 - API and database changes.
 - Test commands and output summaries.
@@ -332,7 +340,7 @@ Provide:
 - Unresolved risks.
 - Specific questions for the independent reviewer.
 
-Ensure the reviewer can access the actual code. A report alone is not proof of implementation correctness.
+Record these paths and references in `docs/reviews/<task-id>/request.md` and `docs/reviews/tasks.json`, together with a history file. The package is a repository manifest, not a duplicated source ZIP. Use the connected repository or exposed local folder first; request only missing evidence. Ensure actual source access before claiming review coverage. A report alone is not proof of implementation correctness.
 
 ### 16. Final status
 
@@ -343,7 +351,7 @@ Choose exactly one primary status:
 - VERIFIED — ACCEPTANCE CRITERIA SATISFIED
 - BLOCKED — HUMAN DECISION REQUIRED
 
-Use VERIFIED only after the relevant evidence and review requirements have been satisfied.
+Use VERIFIED only after the relevant evidence and review requirements have been satisfied. Report existence and green CI never imply VERIFIED. Set REVIEW FINDINGS OPEN when actual findings require fixes; BLOCKED only for a real human decision/access blocker. Independent verdicts (PASS / CONDITIONAL PASS / FAIL) and Codex engineering assessments are separate from these primary statuses. Record unresolved risks and any explicit acceptance owner/evidence. A verified task still needs the human's specific merge approval.
 
 ## 5. Keep API documentation aligned with implementation
 
@@ -363,7 +371,9 @@ Never allow the frontend to depend on undocumented field names, inconsistent err
 
 After Codex completes the implementation and creates its report, the task must remain in review status until independent verification is completed.
 
-Prepare the report and actual code diff for Claude.
+Prepare a repository-path review manifest, original task, engineering report, changed-file/API list, exact task baseline and PR head, testing/security evidence, current PR/CI links and known risks. Follow `docs/CLAUDE_REVIEW_GUIDE.md`; reuse `docs/CLAUDE_MASTER_REVIEW_PROMPT.md`. The review index must distinguish multiple pending tasks and dependent PRs; newest report date is not a task selector.
+
+Repository-aware handoff reduces manual file collection but does not automatically invoke Claude or grant it access. A connected repository integration exposes only its authorized repository operations; a folder attachment exposes only supplied files, possibly without Git history or ignored/unpushed content. A URL is not private-repository or local-filesystem permission. Discover the live branch/full PR head/base through actual access, compare to the submitted revision, then inspect source/diff at that exact revision. Request only missing access, diff or evidence. Do not require routine ZIP/patch uploads if repository access is sufficient. GitHub-only review cannot see uncommitted/unpushed local changes.
 
 Claude's review must cover:
 
@@ -378,7 +388,9 @@ Claude's review must cover:
 - Documentation accuracy.
 - Whether the reported test results are supported by evidence.
 
-Do not assume Claude has access to local files or GitHub unless access is actually available. Provide the necessary report, diff and source material.
+Do not assume Claude has access to local files or GitHub unless access is actually available. Never claim automatic Claude execution, inspected files or executed tests without evidence. Distinguish reviewer-executed checks from inspected supplied logs and verify CI head SHA.
+
+When Claude actually reviews, keep the complete dated report under `docs/reviews/<task-id>/` only through an authorized write workflow. A read-only reviewer returns the complete report and states that it was not saved; an authorized workflow records it later. Do not create fabricated findings or a PASS placeholder. Record actual review full SHA, verdict, access limits, finding IDs/severity/file references/evidence, disposition, fix commits, re-test evidence, re-reviewed SHA and final human decision. Preserve earlier reviews rather than replacing them. Permission to save a review is not permission to implement source fixes, push, post messages or change settings.
 
 When I provide Claude's findings:
 
@@ -386,10 +398,10 @@ When I provide Claude's findings:
 2. Investigate it against the actual code.
 3. Fix confirmed findings within the approved scope.
 4. Add regression tests where appropriate.
-5. Update the engineering report.
+5. Update the engineering report, verification summary, review registry and finding/remediation history with exact source revisions and evidence.
 6. Rerun affected tests and relevant broader checks.
 7. Commit and push the corrected changes to the same task branch.
-8. Prepare the updated diff for another independent review.
+8. Prepare the updated repository manifest/diff for independent re-review of the current head and affected prior findings.
 
 Repeat this cycle until the required acceptance criteria pass.
 
@@ -425,9 +437,9 @@ The pull request must include:
 
 - Task description.
 - Acceptance criteria.
-- Engineering report link.
+- Engineering report and repository review-manifest links, exact task baseline and dependency PRs where applicable.
 - Summary of changed files.
-- Actual test results.
+- Actual test results and CI run links bound to the current head; refresh after material or metadata-only follow-up commits.
 - Relevant API and database changes.
 - Security considerations.
 - Known risks and outstanding issues.
@@ -524,7 +536,7 @@ Always tell me:
 6. Which risks or blockers remain.
 7. Which branch and commit contain the changes.
 8. Whether the branch was pushed or a pull request was created.
-9. What evidence Claude needs to review.
+9. The repository review-manifest/guide/master-prompt paths, exact review revision and any missing evidence or access; do not send routine duplicate ZIPs.
 10. The exact next action required from me.
 
 Do not automatically start another phase after completing a task.

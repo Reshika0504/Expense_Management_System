@@ -4,6 +4,8 @@ A comprehensive personal expense management application built with the MERN stac
 
 ## Current engineering roadmap
 
+Start with the [documentation index](docs/README.md), [pending review registry](docs/reviews/README.md), [Claude guide](docs/CLAUDE_REVIEW_GUIDE.md) and [single reusable review prompt](docs/CLAUDE_MASTER_REVIEW_PROMPT.md). Repository paths and exact revisions provide the review handoff; Claude still needs an authorized connection or folder access.
+
 Follow [the engineering workflow](docs/ENGINEERING_WORKFLOW.md) for dedicated branches, reports, independent Claude review and human merge approval. The [current API contract](docs/API_CONTRACT.md) supersedes old endpoint examples below.
 
 The [backend-first October–November roadmap](docs/SpendWise_Backend_First_Roadmap.md) is the active plan. Phase 0 audit: [architecture and baseline](docs/architecture/current-state.md), [current API contracts](docs/api/current-endpoints.md), [prioritized risks](docs/security/risk-register.md). Work proceeds one phase per prompt; AI is deferred until the finance backend is reliable. The older portfolio sprint below is retained as historical planning, not the current implementation schedule.
