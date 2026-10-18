@@ -12,6 +12,22 @@ const initialState = {
     error: null,
 };
 
+// Server acknowledgement is required before calling logout successful.
+export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, { getState, dispatch, rejectWithValue }) => {
+    const token = getState().auth.token;
+    try {
+        if (token) await api.post("/users/logout", {}, { headers: { Authorization: `Bearer ${token}` } });
+        dispatch(logout());
+        return true;
+    } catch (error) {
+        dispatch(logout()); // Device privacy must not depend on the network being available.
+        if ([401, 403].includes(error.response?.status)) return true;
+        return rejectWithValue(
+            "Signed out on this device. We could not confirm server session revocation. Reconnect and sign in to end other sessions.",
+        );
+    }
+});
+
 // Async thunks
 export const firebaseLogin = createAsyncThunk("auth/firebase", async (credentials, {rejectWithValue}) => {
     try {
@@ -219,6 +235,10 @@ const authSlice = createSlice({
         })
         .addCase(changePassword.fulfilled, (state) => {
             state.loading = false;
+            state.user = null;
+            state.token = null;
+            state.isAuthenticated = false;
+            localStorage.removeItem("token");
         })
         .addCase(changePassword.rejected, (state, action) => {
             state.loading = false;

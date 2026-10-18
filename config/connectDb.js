@@ -11,8 +11,7 @@ const connectDb = async () => {
             return false;
         }
 
-        const urlWithoutPassword = primaryUrl.replace(/\/\/([^:]+):([^@]+)@/, "//$1:***@");
-        console.log(`Attempting to connect to: ${urlWithoutPassword}`.cyan);
+        // Never log connection strings, including masked credentials/host metadata.
 
         const connectionOptions = {
             serverSelectionTimeoutMS: 5000,
@@ -23,10 +22,10 @@ const connectDb = async () => {
 
         console.log("Connecting to MongoDB...".yellow);
         await mongoose.connect(primaryUrl, connectionOptions);
-        console.log(`MongoDB Connected: ${mongoose.connection.host}`.bgGreen.white);
+        console.log("MongoDB connected".bgGreen.white);
 
         mongoose.connection.on("error", (err) => {
-            console.log(`MongoDB connection error: ${err}`.bgRed.white);
+            console.log("MongoDB connection error".bgRed.white);
         });
 
         mongoose.connection.on("disconnected", () => {
@@ -39,16 +38,16 @@ const connectDb = async () => {
 
         return true;
     } catch (error) {
-        console.log(`MongoDB Connection Error: ${error.message}`.bgRed.white);
+        console.log("MongoDB connection failed".bgRed.white);
 
         if (primaryUrl.startsWith("mongodb+srv://")) {
             try {
                 console.log("Trying local MongoDB fallback...".yellow);
                 await mongoose.connect(localFallbackUrl);
-                console.log(`MongoDB Connected (local fallback): ${mongoose.connection.host}`.bgGreen.white);
+                console.log("MongoDB connected using local fallback".bgGreen.white);
                 return true;
             } catch (fallbackError) {
-                console.log(`Local fallback failed: ${fallbackError.message}`.red);
+                console.log("Local fallback failed".red);
             }
         }
 

@@ -1,0 +1,20 @@
+PASSED: node --check
+config/connectDb.js
+controllers/categoryController.js
+controllers/dashboardController.js
+controllers/transactionController.js
+controllers/userController.js
+middlewares/authMiddleware.js
+middlewares/requireDb.js
+models/userModel.js
+routes/userRoute.js
+server.js
+tests/auth.test.js
+app.js
+services/categoryAccess.js
+services/financeSummary.js
+tests/stabilization.test.js
+utils/apiError.js
+utils/finance.js
+utils/requestValidation.js
+scripts/audit-phase0.cjs

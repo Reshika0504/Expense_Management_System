@@ -1,23 +1,31 @@
 const userModel = require("../models/userModel");
 const transactionModel = require("../models/transactionModel");
-const {categoryModel} = require("../models/categoryModel");
+const { categoryModel } = require("../models/categoryModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
-const {verifyFirebaseToken} = require("../services/firebaseAuth");
+const { fail, ApiError } = require("../utils/apiError");
+const { verifyFirebaseToken } = require("../services/firebaseAuth");
 
 // Generate JWT token
 const generateToken = (user) => {
-    return jwt.sign({user: {id: user._id, email: user.email, role: user.role}}, process.env.JWT_SECRET, {
-        expiresIn: "7d",
-    });
+    return jwt.sign(
+        { user: { id: user._id, email: user.email, role: user.role }, ver: user.sessionVersion || 0 },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "7d",
+        },
+    );
 };
 
 // Validation schemas
 const registerSchema = Joi.object({
     name: Joi.string().min(2).max(50).required().trim(),
     email: Joi.string().email().required().trim().lowercase(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string()
+        .min(6)
+        .custom((value, helpers) => (Buffer.byteLength(value, "utf8") <= 72 ? value : helpers.error("any.invalid")))
+        .required(),
     phone: Joi.string().optional().allow("").trim(),
 });
 
@@ -56,13 +64,14 @@ const formatUserResponse = (user) => ({
     occupation: user.occupation,
     currency: user.currency,
     themePreference: user.themePreference,
-    categoryBudgets: user.categoryBudgets instanceof Map ? Object.fromEntries(user.categoryBudgets) : user.categoryBudgets || {},
+    categoryBudgets:
+        user.categoryBudgets instanceof Map ? Object.fromEntries(user.categoryBudgets) : user.categoryBudgets || {},
 });
 
 // Register callback
 const registerController = async (req, res) => {
     try {
-        const {error, value} = registerSchema.validate(req.body);
+        const { error, value } = registerSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -70,9 +79,9 @@ const registerController = async (req, res) => {
             });
         }
 
-        const {name, email, password, phone} = value;
+        const { name, email, password, phone } = value;
 
-        const existingUser = await userModel.findOne({email});
+        const existingUser = await userModel.findOne({ email });
         if (existingUser) {
             return res.status(400).json({
                 success: false,
@@ -100,19 +109,14 @@ const registerController = async (req, res) => {
             user: formatUserResponse(newUser),
         });
     } catch (error) {
-        console.error("Register Error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Registration failed",
-            error: error.message,
-        });
+        return fail(res, error);
     }
 };
 
 // Login callback
 const loginController = async (req, res) => {
     try {
-        const {error, value} = loginSchema.validate(req.body);
+        const { error, value } = loginSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -120,8 +124,8 @@ const loginController = async (req, res) => {
             });
         }
 
-        const {email, password} = value;
-        const user = await userModel.findOne({email}).select("+password");
+        const { email, password } = value;
+        const user = await userModel.findOne({ email }).select("+password +sessionVersion");
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -136,7 +140,7 @@ const loginController = async (req, res) => {
             });
         }
 
-        const isMatch = user.password && await bcrypt.compare(password, user.password);
+        const isMatch = user.password && (await bcrypt.compare(password, user.password));
         if (!isMatch) {
             return res.status(401).json({
                 success: false,
@@ -155,41 +159,68 @@ const loginController = async (req, res) => {
             user: formatUserResponse(user),
         });
     } catch (error) {
-        console.error("Login Error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Login failed",
-            error: error.message,
-        });
+        return fail(res, error);
     }
 };
 
 // Exchange a provider-verified identity for the existing application session.
 const firebaseLoginController = async (req, res) => {
-    const {error, value} = Joi.object({idToken: Joi.string().max(10000).required()}).validate(req.body);
-    if (error) return res.status(400).json({success: false, message: "A valid identity token is required"});
+    const { error, value } = Joi.object({ idToken: Joi.string().max(10000).required() }).validate(req.body);
+    if (error) return res.status(400).json({ success: false, message: "A valid identity token is required" });
     let identity;
     try {
         identity = await verifyFirebaseToken(value.idToken);
     } catch (error) {
-        return res.status(error.status || 401).json({success: false,
-            message: error.status === 503 ? error.message : "Sign-in expired or invalid. Please try again."});
+        const invalidCodes = [
+            "auth/argument-error",
+            "auth/invalid-id-token",
+            "auth/id-token-expired",
+            "auth/id-token-revoked",
+            "auth/user-disabled",
+        ];
+        const unavailable =
+            error.status === 503 ||
+            ["app/network-error", "auth/internal-error", "app/invalid-credential"].includes(error.code);
+        return fail(
+            res,
+            new ApiError(
+                unavailable ? 503 : invalidCodes.includes(error.code) ? 401 : 500,
+                unavailable
+                    ? "AUTH_UNAVAILABLE"
+                    : invalidCodes.includes(error.code)
+                      ? "UNAUTHENTICATED"
+                      : "INTERNAL_ERROR",
+                unavailable
+                    ? "Google sign-in is temporarily unavailable. Please retry or use email and password."
+                    : invalidCodes.includes(error.code)
+                      ? "Sign-in expired or invalid. Please try again."
+                      : "Unable to complete Google sign-in. Please try again.",
+            ),
+        );
     }
     const provider = identity.firebase?.sign_in_provider;
     if (provider !== "google.com" || !identity.email_verified || !identity.email) {
-        return res.status(401).json({success: false, message: "A verified Google account is required"});
+        return res.status(401).json({ success: false, message: "A verified Google account is required" });
     }
     try {
-        let user = await userModel.findOne({firebaseUid: identity.uid});
+        let user = await userModel.findOne({ firebaseUid: identity.uid }).select("+sessionVersion");
         const email = identity.email?.trim().toLowerCase();
         if (!user) {
-            user = await userModel.findOne({email});
+            user = await userModel.findOne({ email }).select("+sessionVersion");
             // Only Google-authoritative addresses may link automatically.
             if (user && !email.endsWith("@gmail.com") && !identity.hd) {
-                return res.status(409).json({success: false, message: "An email/password account already uses this email. Please sign in with your password."});
+                return res
+                    .status(409)
+                    .json({
+                        success: false,
+                        message:
+                            "An email/password account already uses this email. Please sign in with your password.",
+                    });
             }
             if (user?.firebaseUid && user.firebaseUid !== identity.uid) {
-                return res.status(409).json({success: false, message: "This email is linked to another sign-in identity."});
+                return res
+                    .status(409)
+                    .json({ success: false, message: "This email is linked to another sign-in identity." });
             }
         }
         if (!user) {
@@ -200,14 +231,21 @@ const firebaseLoginController = async (req, res) => {
                 avatar: identity.picture || "",
             });
         }
-        if (!user.isActive) return res.status(403).json({success: false, message: "Account is deactivated"});
+        if (!user.isActive) return res.status(403).json({ success: false, message: "Account is deactivated" });
         user.firebaseUid = identity.uid;
         user.lastLogin = new Date();
         await user.save();
-        return res.json({success: true, token: generateToken(user), user: formatUserResponse(user)});
+        return res.json({ success: true, token: generateToken(user), user: formatUserResponse(user) });
     } catch (error) {
-        return res.status(error.code === 11000 ? 409 : 500).json({success: false,
-            message: error.code === 11000 ? "This identity is already registered. Please try signing in again." : "Unable to finish sign-in. Please try again."});
+        return res
+            .status(error.code === 11000 ? 409 : 500)
+            .json({
+                success: false,
+                message:
+                    error.code === 11000
+                        ? "This identity is already registered. Please try signing in again."
+                        : "Unable to finish sign-in. Please try again.",
+            });
     }
 };
 
@@ -227,19 +265,14 @@ const getProfileController = async (req, res) => {
             user: formatUserResponse(user),
         });
     } catch (error) {
-        console.error("Get Profile Error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch profile",
-            error: error.message,
-        });
+        return fail(res, error);
     }
 };
 
 // Update profile
 const updateProfileController = async (req, res) => {
     try {
-        const {error, value} = profileSchema.validate(req.body);
+        const { error, value } = profileSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -291,35 +324,31 @@ const updateProfileController = async (req, res) => {
             user: formatUserResponse(user),
         });
     } catch (error) {
-        console.error("Update Profile Error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Failed to update profile",
-            error: error.message,
-        });
+        return fail(res, error);
     }
 };
 
 // Change password
 const changePasswordController = async (req, res) => {
     try {
-        const {currentPassword, newPassword} = req.body;
+        const { value, error } = Joi.object({
+            currentPassword: Joi.string().max(1024).required(),
+            newPassword: Joi.string()
+                .min(6)
+                .custom((value, helpers) =>
+                    Buffer.byteLength(value, "utf8") <= 72 ? value : helpers.error("any.invalid"),
+                )
+                .required(),
+        }).validate(req.body);
+        if (error)
+            throw new ApiError(
+                400,
+                "VALIDATION_ERROR",
+                "Use the current password and a new password of at least 6 characters and at most 72 UTF-8 bytes.",
+            );
+        const { currentPassword, newPassword } = value;
 
-        if (!currentPassword || !newPassword) {
-            return res.status(400).json({
-                success: false,
-                message: "Current password and new password are required",
-            });
-        }
-
-        if (newPassword.length < 6) {
-            return res.status(400).json({
-                success: false,
-                message: "New password must be at least 6 characters long",
-            });
-        }
-
-        const user = await userModel.findById(req.user.id).select("+password");
+        const user = await userModel.findById(req.user.id).select("+password +sessionVersion");
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -327,7 +356,7 @@ const changePasswordController = async (req, res) => {
             });
         }
 
-        const isMatch = user.password && await bcrypt.compare(currentPassword, user.password);
+        const isMatch = user.password && (await bcrypt.compare(currentPassword, user.password));
         if (!isMatch) {
             return res.status(400).json({
                 success: false,
@@ -338,20 +367,18 @@ const changePasswordController = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-        user.password = hashedPassword;
-        await user.save();
+        // Atomic increment preserves revocation if password changes race with logout.
+        await userModel.updateOne(
+            { _id: user._id },
+            { $set: { password: hashedPassword }, $inc: { sessionVersion: 1 } },
+        );
 
         res.status(200).json({
             success: true,
             message: "Password changed successfully",
         });
     } catch (error) {
-        console.error("Change Password Error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Failed to change password",
-            error: error.message,
-        });
+        return fail(res, error);
     }
 };
 
@@ -361,10 +388,10 @@ const deleteAccountController = async (req, res) => {
         const userId = req.user.id;
 
         // Cascade delete transactions
-        await transactionModel.deleteMany({userId});
+        await transactionModel.deleteMany({ userId });
 
         // Cascade delete custom categories
-        await categoryModel.deleteMany({userId});
+        await categoryModel.deleteMany({ userId });
 
         // Delete user
         await userModel.findByIdAndDelete(userId);
@@ -374,16 +401,21 @@ const deleteAccountController = async (req, res) => {
             message: "Account and associated data deleted successfully",
         });
     } catch (error) {
-        console.error("Delete Account Error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Failed to delete account",
-            error: error.message,
-        });
+        return fail(res, error);
+    }
+};
+
+const logoutController = async (req, res) => {
+    try {
+        await userModel.updateOne({ _id: req.user.id }, { $inc: { sessionVersion: 1 } });
+        return res.json({ success: true, message: "Signed out. Existing sessions have been revoked." });
+    } catch (error) {
+        return fail(res, error);
     }
 };
 
 module.exports = {
+    logoutController,
     registerController,
     loginController,
     firebaseLoginController,

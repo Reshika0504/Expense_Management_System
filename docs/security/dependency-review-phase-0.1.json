@@ -1,0 +1,2722 @@
+{
+  "date": "2026-10-18",
+  "before": {
+    "backend": {
+      "info": 0,
+      "low": 1,
+      "moderate": 12,
+      "high": 8,
+      "critical": 5,
+      "total": 26
+    },
+    "client": {
+      "info": 0,
+      "low": 6,
+      "moderate": 16,
+      "high": 84,
+      "critical": 4,
+      "total": 110
+    }
+  },
+  "after": {
+    "backend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "client": {
+      "info": 0,
+      "low": 5,
+      "moderate": 15,
+      "high": 67,
+      "critical": 0,
+      "total": 87
+    }
+  },
+  "lockfileVersionChanges": {
+    "backend": [
+      {
+        "path": "node_modules/body-parser",
+        "from": "2.2.0",
+        "to": "2.3.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/content-disposition",
+        "from": "1.0.0",
+        "to": "2.0.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/content-type",
+        "from": "1.0.5",
+        "to": "2.1.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/cors",
+        "from": "2.8.5",
+        "to": "2.8.6",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/express",
+        "from": "5.1.0",
+        "to": "5.3.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/http-errors",
+        "from": "2.0.0",
+        "to": "2.0.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/iconv-lite",
+        "from": "0.6.3",
+        "to": "0.7.3",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/joi",
+        "from": "18.0.2",
+        "to": "18.3.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/lodash",
+        "from": "4.17.23",
+        "to": "4.18.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/media-typer",
+        "from": "1.1.0",
+        "to": "1.1.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/mongodb",
+        "from": "6.17.0",
+        "to": "6.20.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/mongoose",
+        "from": "8.16.1",
+        "to": "8.24.5",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/morgan",
+        "from": "1.10.0",
+        "to": "1.12.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/on-headers",
+        "from": "1.0.2",
+        "to": "1.1.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/path-to-regexp",
+        "from": "8.2.0",
+        "to": "8.4.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/proxy-addr",
+        "from": "2.0.7",
+        "to": "2.0.8",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/raw-body",
+        "from": "3.0.0",
+        "to": "3.0.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/shell-quote",
+        "from": "1.8.3",
+        "to": "1.12.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/type-is",
+        "from": "2.0.1",
+        "to": "2.1.0",
+        "declaredDev": false
+      }
+    ],
+    "client": [
+      {
+        "path": "node_modules/@babel/code-frame",
+        "from": "7.27.1",
+        "to": "7.29.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/generator",
+        "from": "7.27.5",
+        "to": "7.29.8",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/helper-module-imports",
+        "from": "7.27.1",
+        "to": "7.29.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/helper-module-transforms",
+        "from": "7.27.3",
+        "to": "7.29.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/helper-plugin-utils",
+        "from": "7.27.1",
+        "to": "7.29.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/helper-string-parser",
+        "from": "7.27.1",
+        "to": "7.29.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/helper-validator-identifier",
+        "from": "7.27.1",
+        "to": "7.29.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/parser",
+        "from": "7.27.5",
+        "to": "7.29.9",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/plugin-transform-modules-systemjs",
+        "from": "7.27.1",
+        "to": "7.29.8",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/template",
+        "from": "7.27.2",
+        "to": "7.29.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/traverse",
+        "from": "7.27.4",
+        "to": "7.29.10",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@babel/types",
+        "from": "7.27.6",
+        "to": "7.29.8",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@eslint/eslintrc/node_modules/js-yaml",
+        "from": "4.1.0",
+        "to": "4.3.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@jridgewell/gen-mapping",
+        "from": "0.3.8",
+        "to": "0.3.13",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/@jridgewell/trace-mapping",
+        "from": "0.3.25",
+        "to": "0.3.31",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/axios",
+        "from": "1.13.4",
+        "to": "1.20.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/axios/node_modules/form-data",
+        "from": "4.0.5",
+        "to": "4.0.6",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/baseline-browser-mapping",
+        "from": "2.9.19",
+        "to": "2.11.29",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/body-parser",
+        "from": "1.20.3",
+        "to": "1.20.8",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/brace-expansion",
+        "from": "1.1.12",
+        "to": "1.1.21",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/browserslist",
+        "from": "4.28.1",
+        "to": "4.29.3",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/caniuse-lite",
+        "from": "1.0.30001766",
+        "to": "1.0.30001816",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/compression",
+        "from": "1.8.0",
+        "to": "1.8.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/electron-to-chromium",
+        "from": "1.5.279",
+        "to": "1.5.459",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/eslint/node_modules/js-yaml",
+        "from": "4.1.0",
+        "to": "4.3.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/express",
+        "from": "4.21.2",
+        "to": "4.22.3",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/fast-uri",
+        "from": "3.0.6",
+        "to": "3.1.8",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/filelist/node_modules/brace-expansion",
+        "from": "2.0.2",
+        "to": "2.1.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/filelist/node_modules/minimatch",
+        "from": "5.1.6",
+        "to": "5.1.9",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/flatted",
+        "from": "3.3.3",
+        "to": "3.4.4",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/follow-redirects",
+        "from": "1.15.9",
+        "to": "1.16.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/form-data",
+        "from": "3.0.3",
+        "to": "3.0.5",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/hasown",
+        "from": "2.0.2",
+        "to": "2.0.4",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/http-proxy-middleware",
+        "from": "2.0.9",
+        "to": "2.0.10",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/js-yaml",
+        "from": "3.14.1",
+        "to": "3.15.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/jsonpath",
+        "from": "1.1.1",
+        "to": "1.3.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/jsonpath/node_modules/esprima",
+        "from": "1.2.2",
+        "to": "1.2.5",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/lodash",
+        "from": "4.17.21",
+        "to": "4.18.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/minimatch",
+        "from": "3.1.2",
+        "to": "3.1.5",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/nanoid",
+        "from": "3.3.11",
+        "to": "3.3.20",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/node-forge",
+        "from": "1.3.1",
+        "to": "1.4.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/node-releases",
+        "from": "2.0.27",
+        "to": "2.0.59",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/on-headers",
+        "from": "1.0.2",
+        "to": "1.1.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/path-to-regexp",
+        "from": "0.1.12",
+        "to": "0.1.13",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/picomatch",
+        "from": "2.3.1",
+        "to": "2.3.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/postcss",
+        "from": "8.5.6",
+        "to": "8.5.30",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/proxy-addr",
+        "from": "2.0.7",
+        "to": "2.0.8",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/proxy-from-env",
+        "from": "1.1.0",
+        "to": "2.1.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/qs",
+        "from": "6.13.0",
+        "to": "6.16.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/raw-body",
+        "from": "2.5.2",
+        "to": "2.5.3",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/react-router",
+        "from": "7.6.2",
+        "to": "7.18.4",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/react-router-dom",
+        "from": "7.6.2",
+        "to": "7.18.4",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/react-router/node_modules/cookie",
+        "from": "1.0.2",
+        "to": "1.1.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/rollup",
+        "from": "2.79.2",
+        "to": "2.80.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/set-cookie-parser",
+        "from": "2.7.1",
+        "to": "2.7.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/shell-quote",
+        "from": "1.8.3",
+        "to": "1.12.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/side-channel",
+        "from": "1.1.0",
+        "to": "1.1.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/side-channel-list",
+        "from": "1.0.0",
+        "to": "1.0.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/source-map-js",
+        "from": "1.2.1",
+        "to": "1.2.2",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/static-eval",
+        "from": "2.0.2",
+        "to": "2.1.1",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/tinyglobby/node_modules/picomatch",
+        "from": "4.0.3",
+        "to": "4.0.7",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/underscore",
+        "from": "1.12.1",
+        "to": "1.13.6",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/update-browserslist-db",
+        "from": "1.2.3",
+        "to": "1.3.4",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/webpack-dev-server/node_modules/ws",
+        "from": "8.18.2",
+        "to": "8.22.0",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/websocket-driver",
+        "from": "0.7.4",
+        "to": "0.7.5",
+        "declaredDev": false
+      },
+      {
+        "path": "node_modules/ws",
+        "from": "7.5.10",
+        "to": "7.5.13",
+        "declaredDev": false
+      }
+    ]
+  },
+  "residualFindings": [
+    {
+      "workspace": "client",
+      "package": "@babel/core",
+      "severity": "low",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@babel/core"
+      ],
+      "advisories": [
+        {
+          "title": "@babel/core: Arbitrary File Read via sourceMappingURL Comment",
+          "url": "https://github.com/advisories/GHSA-4x5r-pxfx-6jf8",
+          "range": "<=7.29.0",
+          "severity": "low"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@firebase/firestore",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@firebase/firestore"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@grpc/grpc-js"
+      ],
+      "auditProposedFix": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "Browser app imports Firebase app/auth only; gRPC/Firestore paths are not in this app bundle. Not a claim of package safety.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@firebase/firestore-compat",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@firebase/firestore-compat"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@firebase/firestore"
+      ],
+      "auditProposedFix": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "Browser app imports Firebase app/auth only; gRPC/Firestore paths are not in this app bundle. Not a claim of package safety.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@grpc/grpc-js",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@grpc/grpc-js"
+      ],
+      "advisories": [
+        {
+          "title": "@grpc/grpc-js: In certain configurations, getAuthContext can return unauthorized certificates as though they were authorized",
+          "url": "https://github.com/advisories/GHSA-m9gg-hp2v-232j",
+          "range": "<1.13.6",
+          "severity": "high"
+        },
+        {
+          "title": "@grpc/grpc-js: The server transmits some error messages thrown by method handlers to the client in status messages",
+          "url": "https://github.com/advisories/GHSA-f596-whhp-79r4",
+          "range": "<1.13.6",
+          "severity": "low"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "Browser app imports Firebase app/auth only; gRPC/Firestore paths are not in this app bundle. Not a claim of package safety.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@istanbuljs/load-nyc-config",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@istanbuljs/load-nyc-config"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "js-yaml"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/console",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/console",
+        "node_modules/jest-watch-typeahead/node_modules/@jest/console"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "jest-message-util"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/core",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/core"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/console",
+        "@jest/reporters",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-config",
+        "jest-haste-map",
+        "jest-message-util",
+        "jest-resolve",
+        "jest-resolve-dependencies",
+        "jest-runner",
+        "jest-runtime",
+        "jest-snapshot",
+        "jest-watcher",
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/environment",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/environment"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/fake-timers"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/fake-timers",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/fake-timers"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "jest-message-util"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/globals",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/globals"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "expect"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/reporters",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/reporters"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/console",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-haste-map",
+        "jest-resolve"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/test-result",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/test-result",
+        "node_modules/jest-watch-typeahead/node_modules/@jest/test-result"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/console"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/test-sequencer",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/test-sequencer"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/test-result",
+        "jest-haste-map",
+        "jest-runtime"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@jest/transform",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@jest/transform"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "babel-plugin-istanbul",
+        "jest-haste-map",
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@svgr/plugin-svgo",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@svgr/plugin-svgo"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "svgo"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@svgr/webpack",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@svgr/webpack"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@svgr/plugin-svgo"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@tootallnate/once",
+      "severity": "low",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@tootallnate/once"
+      ],
+      "advisories": [
+        {
+          "title": "@tootallnate/once vulnerable to Incorrect Control Flow Scoping",
+          "url": "https://github.com/advisories/GHSA-vpq2-c234-7xj6",
+          "range": "<2.0.1",
+          "severity": "low"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@typescript-eslint/eslint-plugin",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@typescript-eslint/eslint-plugin"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/parser",
+        "@typescript-eslint/type-utils",
+        "@typescript-eslint/utils"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@typescript-eslint/experimental-utils",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@typescript-eslint/experimental-utils"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/utils"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@typescript-eslint/parser",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@typescript-eslint/parser"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/typescript-estree"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@typescript-eslint/type-utils",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@typescript-eslint/type-utils"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/typescript-estree",
+        "@typescript-eslint/utils"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@typescript-eslint/typescript-estree",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@typescript-eslint/typescript-estree"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "globby"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "@typescript-eslint/utils",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/@typescript-eslint/utils"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/typescript-estree"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "ajv",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/ajv",
+        "node_modules/ajv-formats/node_modules/ajv",
+        "node_modules/schema-utils/node_modules/ajv",
+        "node_modules/workbox-build/node_modules/ajv"
+      ],
+      "advisories": [
+        {
+          "title": "ajv has ReDoS when using `$data` option",
+          "url": "https://github.com/advisories/GHSA-2g4f-4pwh-qvx6",
+          "range": "<6.14.0",
+          "severity": "moderate"
+        },
+        {
+          "title": "ajv has ReDoS when using `$data` option",
+          "url": "https://github.com/advisories/GHSA-2g4f-4pwh-qvx6",
+          "range": ">=7.0.0-alpha.0 <8.18.0",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "argparse",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/argparse"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "sprintf-js"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "babel-jest",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/babel-jest"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/transform",
+        "babel-plugin-istanbul"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "babel-plugin-istanbul",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/babel-plugin-istanbul"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@istanbuljs/load-nyc-config"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "bfj",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/bfj"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "jsonpath"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "braces",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/braces"
+      ],
+      "advisories": [
+        {
+          "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+          "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+          "range": "<=3.0.3",
+          "severity": "high"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "chokidar",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/chokidar"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "braces"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "colord",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/colord"
+      ],
+      "advisories": [
+        {
+          "title": "Colord: Slow rejection of oversized malformed color strings",
+          "url": "https://github.com/advisories/GHSA-2wm5-q62r-hmrv",
+          "range": "<2.9.4",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "css-minimizer-webpack-plugin",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/css-minimizer-webpack-plugin"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "serialize-javascript"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "css-select",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/svgo/node_modules/css-select"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "nth-check"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "eslint-config-react-app",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/eslint-config-react-app"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/parser"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "eslint-plugin-testing-library",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/eslint-plugin-testing-library"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@typescript-eslint/utils"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "eslint-webpack-plugin",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/eslint-webpack-plugin"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "expect",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/expect"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "jest-message-util"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "fast-glob",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/fast-glob"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "firebase",
+      "severity": "high",
+      "directDependency": true,
+      "paths": [
+        "node_modules/firebase"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@firebase/firestore",
+        "@firebase/firestore-compat"
+      ],
+      "auditProposedFix": {
+        "name": "firebase",
+        "version": "9.14.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "Browser app imports Firebase app/auth only; gRPC/Firestore paths are not in this app bundle. Not a claim of package safety.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "fork-ts-checker-webpack-plugin",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/fork-ts-checker-webpack-plugin"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "chokidar"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "globby",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/globby"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "fast-glob"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "http-proxy-agent",
+      "severity": "low",
+      "directDependency": false,
+      "paths": [
+        "node_modules/http-proxy-agent"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@tootallnate/once"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "http-proxy-middleware",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/http-proxy-middleware"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/core",
+        "jest-cli"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-circus",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-circus"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/test-result",
+        "expect",
+        "jest-message-util",
+        "jest-runtime",
+        "jest-snapshot"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-cli",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-cli"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/core",
+        "@jest/test-result",
+        "jest-config"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-config",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-config"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/test-sequencer",
+        "babel-jest",
+        "jest-circus",
+        "jest-environment-jsdom",
+        "jest-environment-node",
+        "jest-jasmine2",
+        "jest-resolve",
+        "jest-runner",
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-environment-jsdom",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-environment-jsdom"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/fake-timers",
+        "jsdom"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-environment-node",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-environment-node"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/fake-timers"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-haste-map",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-haste-map"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-jasmine2",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-jasmine2"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/test-result",
+        "expect",
+        "jest-message-util",
+        "jest-runtime",
+        "jest-snapshot"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-message-util",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-message-util",
+        "node_modules/jest-watch-typeahead/node_modules/jest-message-util"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-resolve",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-resolve"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "jest-haste-map"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-resolve-dependencies",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-resolve-dependencies"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "jest-snapshot"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-runner",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-runner"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/console",
+        "@jest/environment",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-environment-jsdom",
+        "jest-environment-node",
+        "jest-haste-map",
+        "jest-message-util",
+        "jest-resolve",
+        "jest-runtime"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-runtime",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-runtime"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/environment",
+        "@jest/fake-timers",
+        "@jest/globals",
+        "@jest/test-result",
+        "@jest/transform",
+        "jest-haste-map",
+        "jest-message-util",
+        "jest-resolve",
+        "jest-snapshot"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-snapshot",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-snapshot"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/transform",
+        "expect",
+        "jest-haste-map",
+        "jest-message-util"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-watch-typeahead",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-watch-typeahead"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "jest",
+        "jest-watcher"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jest-watcher",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jest-watch-typeahead/node_modules/jest-watcher",
+        "node_modules/jest-watcher"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@jest/test-result"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "js-yaml",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/js-yaml"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "argparse"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jsdom",
+      "severity": "low",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jsdom"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "http-proxy-agent"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "jsonpath",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/jsonpath"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "underscore"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "launch-editor",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/launch-editor"
+      ],
+      "advisories": [
+        {
+          "title": "launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows",
+          "url": "https://github.com/advisories/GHSA-v6wh-96g9-6wx3",
+          "range": "<=2.14.0",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "micromatch",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/micromatch"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "braces"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "node-forge",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/node-forge"
+      ],
+      "advisories": [
+        {
+          "title": "node-forge RSA PKCS#1 v1.5 signature verification accepts extra nested DigestAlgorithm elements",
+          "url": "https://github.com/advisories/GHSA-86w9-cpqp-85rv",
+          "range": "<=1.4.0",
+          "severity": "high"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "nth-check",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/svgo/node_modules/nth-check"
+      ],
+      "advisories": [
+        {
+          "title": "Inefficient Regular Expression Complexity in nth-check",
+          "url": "https://github.com/advisories/GHSA-rp65-9cf3-cjxr",
+          "range": "<2.0.1",
+          "severity": "high"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "postcss",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/resolve-url-loader/node_modules/postcss"
+      ],
+      "advisories": [
+        {
+          "title": "PostCSS line return parsing error",
+          "url": "https://github.com/advisories/GHSA-7fh5-64p2-3v2j",
+          "range": "<8.4.31",
+          "severity": "moderate"
+        },
+        {
+          "title": "PostCSS has XSS via Unescaped </style> in its CSS Stringify Output",
+          "url": "https://github.com/advisories/GHSA-qx2v-qp2m-jg93",
+          "range": "<8.5.10",
+          "severity": "moderate"
+        },
+        {
+          "title": "PostCSS: Arbitrary file read and information disclosure via attacker-controlled sourceMappingURL in CSS comments",
+          "url": "https://github.com/advisories/GHSA-6g55-p6wh-862q",
+          "range": "<=8.5.11",
+          "severity": "high"
+        },
+        {
+          "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q \u2014 attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset",
+          "url": "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp",
+          "range": "<=8.5.22",
+          "severity": "moderate"
+        },
+        {
+          "title": "PostCSS: Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary .map File Disclosure",
+          "url": "https://github.com/advisories/GHSA-r28c-9q8g-f849",
+          "range": "<=8.5.17",
+          "severity": "high"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "postcss-selector-parser",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/postcss-modules-local-by-default/node_modules/postcss-selector-parser",
+        "node_modules/postcss-modules-scope/node_modules/postcss-selector-parser",
+        "node_modules/postcss-selector-parser"
+      ],
+      "advisories": [
+        {
+          "title": "postcss-selector-parser allows denial of service through uncontrolled AST recursion",
+          "url": "https://github.com/advisories/GHSA-w9m9-85wc-3x92",
+          "range": ">=7.1.0 <7.1.3",
+          "severity": "low"
+        },
+        {
+          "title": "postcss-selector-parser allows denial of service through uncontrolled AST recursion",
+          "url": "https://github.com/advisories/GHSA-w9m9-85wc-3x92",
+          "range": ">=6.1.0 <6.1.3",
+          "severity": "low"
+        },
+        {
+          "title": "PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion",
+          "url": "https://github.com/advisories/GHSA-rj75-hqrm-r3gf",
+          "range": "<7.1.6",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "react-dev-utils",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/react-dev-utils"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "fork-ts-checker-webpack-plugin",
+        "globby"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "react-scripts",
+      "severity": "high",
+      "directDependency": true,
+      "paths": [
+        "node_modules/react-scripts"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "@svgr/webpack",
+        "babel-jest",
+        "css-minimizer-webpack-plugin",
+        "eslint-config-react-app",
+        "eslint-webpack-plugin",
+        "jest",
+        "jest-resolve",
+        "jest-watch-typeahead",
+        "react-dev-utils",
+        "resolve-url-loader",
+        "tailwindcss",
+        "webpack-dev-server",
+        "workbox-webpack-plugin"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "resolve-url-loader",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/resolve-url-loader"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "postcss"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "rollup-plugin-terser",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/rollup-plugin-terser"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "serialize-javascript"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "selfsigned",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/selfsigned"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "node-forge"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "serialize-javascript",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/rollup-plugin-terser/node_modules/serialize-javascript",
+        "node_modules/serialize-javascript"
+      ],
+      "advisories": [
+        {
+          "title": "Serialize JavaScript is Vulnerable to RCE via RegExp.flags and Date.prototype.toISOString()",
+          "url": "https://github.com/advisories/GHSA-5c6j-r48x-rmvq",
+          "range": "<=7.0.2",
+          "severity": "high"
+        },
+        {
+          "title": "Serialize JavaScript has CPU Exhaustion Denial of Service via crafted array-like objects",
+          "url": "https://github.com/advisories/GHSA-qj8w-gfj5-8c6v",
+          "range": ">=5.0.0 <7.0.5",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "sockjs",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/sockjs"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "uuid"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "sprintf-js",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/sprintf-js"
+      ],
+      "advisories": [
+        {
+          "title": "sprintf-js vulnerable to denial of service through unbounded precision specifiers",
+          "url": "https://github.com/advisories/GHSA-hp3w-g68c-fv3c",
+          "range": "<=1.1.3",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "svgo",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/postcss-svgo/node_modules/svgo",
+        "node_modules/svgo"
+      ],
+      "advisories": [
+        {
+          "title": "SVGO DoS through entity expansion in DOCTYPE (Billion Laughs)",
+          "url": "https://github.com/advisories/GHSA-xpqw-6gx7-v673",
+          "range": ">=2.1.0 <2.8.1",
+          "severity": "high"
+        },
+        {
+          "title": "SVGO removeScripts plugin leaves some executable scripts intact",
+          "url": "https://github.com/advisories/GHSA-2p49-hgcm-8545",
+          "range": ">=1.0.0 <2.8.3",
+          "severity": "high"
+        },
+        {
+          "title": "SVGO: removeScripts allows executable links through namespace and control-character bypasses",
+          "url": "https://github.com/advisories/GHSA-w27v-7q3p-w38r",
+          "range": ">=1.0.0 <2.8.4",
+          "severity": "high"
+        },
+        {
+          "title": "SVGO: removeScripts incompletely sanitizes executable HTML in SVG foreignObject elements",
+          "url": "https://github.com/advisories/GHSA-4vpr-x523-8j87",
+          "range": ">=1.0.0 <2.8.4",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [
+        "css-select",
+        "js-yaml"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "tailwindcss",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/react-scripts/node_modules/tailwindcss"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "chokidar",
+        "fast-glob",
+        "micromatch"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "terser-webpack-plugin",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/terser-webpack-plugin"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "serialize-javascript"
+      ],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "underscore",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/underscore"
+      ],
+      "advisories": [
+        {
+          "title": "Underscore has unlimited recursion in _.flatten and _.isEqual, potential for DoS attack",
+          "url": "https://github.com/advisories/GHSA-qpx9-hpmf-5gmw",
+          "range": "<=1.13.7",
+          "severity": "high"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "uuid",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/uuid"
+      ],
+      "advisories": [
+        {
+          "title": "uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided",
+          "url": "https://github.com/advisories/GHSA-w5hq-g745-h8pq",
+          "range": "<11.1.1",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "webpack",
+      "severity": "low",
+      "directDependency": false,
+      "paths": [
+        "node_modules/webpack"
+      ],
+      "advisories": [
+        {
+          "title": "webpack buildHttp: allowedUris allow-list bypass via URL userinfo (@) leading to build-time SSRF behavior",
+          "url": "https://github.com/advisories/GHSA-8fgc-7cc6-rx7x",
+          "range": ">=5.49.0 <=5.104.0",
+          "severity": "low"
+        },
+        {
+          "title": "webpack buildHttp HttpUriPlugin allowedUris bypass via HTTP redirects \u2192 SSRF + cache persistence",
+          "url": "https://github.com/advisories/GHSA-38r7-794h-5758",
+          "range": ">=5.49.0 <5.104.0",
+          "severity": "low"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "webpack-dev-middleware",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/webpack-dev-middleware"
+      ],
+      "advisories": [
+        {
+          "title": "webpack-dev-middleware vulnerable to Path Traversal via non-slash-terminated publicPath",
+          "url": "https://github.com/advisories/GHSA-g84c-rxfj-3j2c",
+          "range": "<7.4.5",
+          "severity": "high"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "webpack-dev-server",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/webpack-dev-server"
+      ],
+      "advisories": [
+        {
+          "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site with non-Chromium based browser",
+          "url": "https://github.com/advisories/GHSA-9jgg-88mc-972h",
+          "range": "<=5.2.0",
+          "severity": "moderate"
+        },
+        {
+          "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site",
+          "url": "https://github.com/advisories/GHSA-4v9v-hfq4-rm2v",
+          "range": "<=5.2.0",
+          "severity": "moderate"
+        },
+        {
+          "title": "webpack-dev-server vulnerable to cross-origin source code exposure on non-HTTPS origins",
+          "url": "https://github.com/advisories/GHSA-79cf-xcqc-c78w",
+          "range": "<=5.2.3",
+          "severity": "moderate"
+        },
+        {
+          "title": "webpack-dev-server vulnerable to HMR WebSocket interception via permissive user proxies",
+          "url": "https://github.com/advisories/GHSA-mx8g-39q3-5c79",
+          "range": "<5.2.5",
+          "severity": "moderate"
+        },
+        {
+          "title": "webpack-dev-server vulnerable to cross-site request forgery via internal developer endpoints",
+          "url": "https://github.com/advisories/GHSA-f5vj-f2hx-8m93",
+          "range": "<=5.2.5",
+          "severity": "moderate"
+        },
+        {
+          "title": "webpack-dev-server vulnerable to denial of service via a malformed Host or Origin header",
+          "url": "https://github.com/advisories/GHSA-m28w-2pqf-7qgj",
+          "range": "<=5.2.5",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [
+        "chokidar",
+        "http-proxy-middleware",
+        "selfsigned",
+        "sockjs",
+        "webpack-dev-middleware"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "workbox-build",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/workbox-build"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "rollup-plugin-terser"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "workbox-webpack-plugin",
+      "severity": "high",
+      "directDependency": false,
+      "paths": [
+        "node_modules/workbox-webpack-plugin"
+      ],
+      "advisories": [],
+      "inheritedVia": [
+        "workbox-build"
+      ],
+      "auditProposedFix": {
+        "name": "react-scripts",
+        "version": "0.0.0",
+        "isSemVerMajor": true
+      },
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    },
+    {
+      "workspace": "client",
+      "package": "yaml",
+      "severity": "moderate",
+      "directDependency": false,
+      "paths": [
+        "node_modules/yaml"
+      ],
+      "advisories": [
+        {
+          "title": "yaml is vulnerable to Stack Overflow via deeply nested YAML collections",
+          "url": "https://github.com/advisories/GHSA-48c2-rrv3-qjmp",
+          "range": ">=1.0.0 <1.10.3",
+          "severity": "moderate"
+        }
+      ],
+      "inheritedVia": [],
+      "auditProposedFix": true,
+      "reviewContext": "CRA build/test/dev-server chain; static Render deployment does not run that Node tooling as a public server. Malicious build input/developer exposure still requires review.",
+      "owner": "SpendWise maintainer + independent reviewer",
+      "nextStep": "Review fixed compatible parent/leaf releases; plan approved CRA/toolchain or SDK change if pinned ranges prevent patching. No force fix/major downgrade.",
+      "releaseDisposition": "Residual risk; no blanket acceptance, do not treat audit as security approval."
+    }
+  ]
+}
