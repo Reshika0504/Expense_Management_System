@@ -1,4 +1,4 @@
-// Observation probes, not passing regression tests: known defects are recorded as-is.
+// Historical observation probes; regression assertions live in tests/stabilization.test.js.
 // Always starts a disposable MongoDB; never reads MONGO_URL or a production .env.
 const {createRequire}=require('node:module');
 const req=createRequire(require('node:path').join(__dirname, '../package.json'));
@@ -17,12 +17,12 @@ const {categoryModel:categories}=req('./models/categoryModel');
   const a=await make('AuditA'),b=await make('AuditB');
   const auth=(r,u=a)=>r.set('Authorization','Bearer '+u.token);
   const date=new Date().toISOString();
+  await categories.create([{name:'Audit shared',type:'expense',userId:a.user.id,color:'#111111',icon:'OWN'},{name:'Audit shared',type:'expense',userId:b.user.id,color:'#222222',icon:'OTHER-USER'}]);
   const created=await auth(request(app).post('/transaction')).send({type:'expense',amount:12.34,category:'Audit shared',date});
   const id=created.body.transaction._id;
   const summary=await auth(request(app).get('/transaction/stats/summary'));
   const dashboard=await auth(request(app).get('/dashboard/overview'));
   console.log(JSON.stringify({case:'aggregation-objectid',transactionSummary:summary.body.stats.overall.totalExpenses,dashboardExpense:dashboard.body.overview.currentMonth.totalExpenses,expected:12.34}));
-  await categories.create([{name:'Audit shared',type:'expense',userId:a.user.id,color:'#111111',icon:'OWN'},{name:'Audit shared',type:'expense',userId:b.user.id,color:'#222222',icon:'OTHER-USER'}]);
   const report=await auth(request(app).get('/dashboard/category-report?type=expense'));
   console.log(JSON.stringify({case:'category-lookup-isolation',rowCount:report.body.categories.length,total:report.body.totalAmount,includesOtherUsersIcon:report.body.categories.some(x=>x.icon==='OTHER-USER'),expectedRows:1,expectedTotal:12.34}));
   console.log(JSON.stringify({case:'cross-user-transaction-CRUD',read:(await auth(request(app).get('/transaction/'+id),b)).status,update:(await auth(request(app).put('/transaction/'+id),b).send({amount:99})).status,delete:(await auth(request(app).delete('/transaction/'+id),b)).status,expected:404}));

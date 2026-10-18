@@ -17,3 +17,4 @@ tests/stabilization.test.js
 utils/apiError.js
 utils/finance.js
 utils/requestValidation.js
+scripts/audit-phase0.cjs

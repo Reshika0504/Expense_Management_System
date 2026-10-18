@@ -50,7 +50,8 @@
         "tests/stabilization.test.js",
         "utils/apiError.js",
         "utils/finance.js",
-        "utils/requestValidation.js"
+        "utils/requestValidation.js",
+        "scripts/audit-phase0.cjs"
       ]
     },
     {
@@ -72,6 +73,11 @@
       "command": "installed CRA env loader from client cwd, NODE_ENV=development",
       "status": "PASSED",
       "effect": "development server binds loopback only"
+    },
+    {
+      "command": "node scripts/audit-phase0.cjs",
+      "status": "PASSED",
+      "effect": "five historical observations match fixed behavior; isolated synthetic data"
     }
   ],
   "dependencyCounts": {

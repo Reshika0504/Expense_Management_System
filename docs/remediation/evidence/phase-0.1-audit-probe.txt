@@ -1,0 +1,5 @@
+{"case":"aggregation-objectid","transactionSummary":12.34,"dashboardExpense":12.34,"expected":12.34}
+{"case":"category-lookup-isolation","rowCount":1,"total":12.34,"includesOtherUsersIcon":false,"expectedRows":1,"expectedTotal":12.34}
+{"case":"cross-user-transaction-CRUD","read":404,"update":404,"delete":404,"expected":404}
+{"case":"query-boundaries","zeroLimitStatus":400,"invalidObjectIdStatus":400,"expected":400}
+{"case":"disabled-session","existingSessionStatus":403,"expected":403}

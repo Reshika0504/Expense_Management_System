@@ -67,6 +67,7 @@ Existing tests concentrated on login/password/provider exchange/redirects and mo
 | `client/src/redux/sessionGuard.js` | Created | Drop late previous-account data/profile responses | createSessionGuard | Request-ID/token association in memory only | late finance/profile response tests |
 | `client/src/utils/finance.js` | Modified | Do not hide cents/invalid values | formatCurrency | Two decimal places; malformed values are Unavailable | dashboard/formatter regression tests |
 | `client/src/test-fixtures/finance-contract.json` | Created | Deterministic API-to-UI money fixture | stats/overview numeric fields | Shared 10 income,0.30 expense,9.70 net fixture; not a full HTTP snapshot | backend fixture + real dashboard rendering |
+| `scripts/audit-phase0.cjs` | Modified | Keep historical audit command compatible with validated writes | Synthetic category fixtures seeded before transactions | Diagnostic remains reproducible under new category contract | Manual diagnostic rerun + syntax check |
 | `tests/auth.test.js` | Modified | Preserve auth intent and extend outage/revocation coverage | provider mocks/password change | Invalid mock now carries real SDK error code; unexpected error separately tests500 | 12 auth integration tests |
 | `tests/stabilization.test.js` | Created | Real MongoDB + full application regressions | two-user fixtures/createApp | Isolation, cents, filters, auth state, contract, defaults and errors | 23 new integration tests |
 | `client/src/Pages/Dashboard.contract.test.js` | Created | Render actual dashboard through Redux | fixture/API mock | Checks cents/net/zero-income/missing-data states | 4 frontend tests |
@@ -146,12 +147,14 @@ Logout calls `/users/logout`, prevents repeat clicks, clears local data and hand
 | `CI=true npm test --prefix client -- --watchAll=false --runInBand` | PASSED | 8 suites,22 tests,0 failures; prior13 + new9 meaningful rendering/session tests. |
 | `CI=true npm run build --prefix client` | PASSED | Production build, no suppressed ESLint error. Node tooling deprecation warning remains. |
 | `./client/node_modules/.bin/eslint client/src/Components/AppShell.js client/src/Pages/Dashboard.js client/src/Pages/Profile.js client/src/Pages/Dashboard.contract.test.js client/src/redux/slices/authSlice.js client/src/redux/slices/dashboardSlice.js client/src/redux/slices/logout.test.js client/src/redux/store.js client/src/redux/sessionGuard.js client/src/utils/finance.js` | PASSED | No findings, exit0. No separate backend lint script exists. |
-| `node --check` all changed/new backend JS | PASSED |18 files, recorded syntax evidence. |
+| `node --check` all changed/new backend JS | PASSED |19 files, recorded syntax evidence. |
 | `npm audit --json`; `npm audit --omit=dev --json`; `npm audit --prefix client --json` | PASSED for execution; residual risks open | Root0 known; client87 with67 high. Audit exit1 for residual findings is recorded, not misrepresented as a clean scan. |
 | TypeScript checks | NOT APPLICABLE | JavaScript project; no configured type-check script. |
 | Interactive Google login/browser E2E on this revision | NOT RUN | No remediation-branch deployment or configured local real-provider session. Mock-provider exchange/outage tests and actual Admin verifier forged-token rejection run. Prior live login from Phase0 is not evidence for this revision. |
 | Production DB explain/load/backup-restore/browser viewport suite | NOT RUN | No production data access or new topology/scale claims. No browser E2E runner exists in repository. |
 | GitHub CI | Pending at report creation | Final response/review package records actual PR check result and latest SHA after push; do not infer it from local pass. |
+
+`node scripts/audit-phase0.cjs` was rerun after adapting its fixture order to the new category-validation contract; all five observations match the expected fixed behavior. This maintenance change does not alter production application logic.
 
 Dependency batches were followed by backend/frontend suites and a production build: unused root removal + root direct patches; client direct security patches; root vulnerable leaf patches; client critical leaves; compatible client security leaves; client dev-server Express patch. No major framework changes were used to silence audit warnings. Intermediate fixture/error-state test failures were corrected and final results above supersede them. No existing test intent was weakened.
 
