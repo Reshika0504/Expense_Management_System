@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-18",
+  "applicationSourceRevision": "e8cd35688f870e90379362c1e1ccad1575aa9cf4",
+  "applicationRuntimeMatchesReviewedHead": "feb94f70efa58eaccdb91dea61a0e8c2d346b08d",
+  "configuration": "Local compiled UI /api/v1 and matched createApp backend at http://localhost:4317; disposable MongoMemoryServer database only; public Firebase project browser config, no production DB credential.",
+  "status": "PARTIAL_BROWSER_SMOKE_EXECUTED \u2014 REMAINING CASES OPEN",
+  "executed": [
+    {
+      "case": "email registration/login",
+      "actual": "Synthetic account created via UI; wrong password showed Invalid email or password; correct password opened dashboard.",
+      "status": "PASSED"
+    },
+    {
+      "case": "fresh zero summaries",
+      "actual": "Income 0.00 / expenses 0.00 / net 0.00 displayed.",
+      "status": "PASSED_WITH_KNOWN_HEURISTIC_NOTE"
+    },
+    {
+      "case": "create income and expense",
+      "actual": "Income 100.00 / expense 33.33 / net 66.67 in actual UI.",
+      "status": "PASSED"
+    },
+    {
+      "case": "edit expense",
+      "actual": "Expense 33.34 changed displayed net to 66.66.",
+      "status": "PASSED"
+    },
+    {
+      "case": "delete disposable fixtures",
+      "actual": "Deleting expense produced 100.00 /0.00 /100.00; deleting income restored 0.00 /0.00 /0.00.",
+      "status": "PASSED"
+    },
+    {
+      "case": "email refresh/logout",
+      "actual": "Refresh restored dashboard; logout returned to login. One mouse activation did not navigate in automation; keyboard activation completed logout; no application root cause inferred.",
+      "status": "PASSED_WITH_INTERACTION_NOTE"
+    },
+    {
+      "case": "second-tab logout behavior",
+      "actual": "After A logout, B still displayed authenticated transaction screen/empty state; B reload returned to login. Server response status for that exact browser request was not captured; existing backend tests verify version revocation.",
+      "status": "KNOWN_F 05_REPRODUCED"
+    },
+    {
+      "case": "real Google login Safari",
+      "actual": "Existing owner Google chooser -> real Firebase exchange -> local candidate dashboard; browser refresh retained session; logout returned to login. No identity/token saved.",
+      "status": "PASSED"
+    },
+    {
+      "case": "Google login in-app browser attempt",
+      "actual": "Attempt ended with Could not connect. Please check your connection and try again.; same configured local app succeeded in Safari. Root cause not proven.",
+      "status": "FAILED_IN_THIS_BROWSER_ENVIRONMENT"
+    }
+  ],
+  "notExecuted": [
+    "Browser password change",
+    "Browser expired-token/disabled-account controls",
+    "Browser two-user overlapping custom category report isolation",
+    "Browser month/year boundary fixture",
+    "Browser offline logout/network 503 fixture",
+    "All-domain production deployment smoke; no preview/production deploy performed",
+    "Browser nonempty zero-net 0.10+0.20 fixture",
+    "Browser malformed-history 422 message fixture"
+  ],
+  "notes": [
+    "A real Google identity existed in disposable local memory only; no identity details recorded, no Firebase users/permissions/config changed.",
+    "Ledger zeros were correct; existing financial-health heuristic still labels empty ledger as spending exceeds income in the narrow layout.",
+    "All operations requiring writes were confined to the disposable database; deployed database was only read for counts."
+  ],
+  "screenshots": [
+    "browser-empty.png",
+    "browser-cents.png",
+    "browser-stale-session.png",
+    "browser-google-network-error.png"
+  ],
+  "humanRiskAcceptance": "NONE",
+  "productionDatabaseResetExecuted": false
+}

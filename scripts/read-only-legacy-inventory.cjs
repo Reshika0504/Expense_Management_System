@@ -112,6 +112,19 @@ async function runInventory(db, maxTimeMS = 30000) {
         throw new AuditBlocked('UNSAFE_COUNT_OUTPUT');
     return counts;
 }
+// Atlas text mode accepts JSON expressions, not driver-specific BSON instances.
+// Keep this representation derived from the same predicate and test it against MongoDB.
+function atlasInventoryPipeline() {
+    const jsonExpression = value => {
+        if (value?._bsontype === 'Decimal128')
+            return { $convert: { input: value.toString(), to: 'decimal', onError: null, onNull: null } };
+        if (Array.isArray(value)) return value.map(jsonExpression);
+        if (value && typeof value === 'object')
+            return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, jsonExpression(item)]));
+        return value;
+    };
+    return jsonExpression(inventoryPipeline());
+}
 async function main() {
     const uri = process.env.SPENDWISE_AUDIT_URI;
     const database = process.env.SPENDWISE_AUDIT_DATABASE;
@@ -141,4 +154,4 @@ if (require.main === module) main().catch(error => {
     console.log(JSON.stringify({ status: 'BLOCKED', code: error instanceof AuditBlocked ? error.code : 'AUDIT_FAILED_DETAILS_SUPPRESSED' }));
     process.exitCode = 1;
 });
-module.exports = { inventoryPipeline, runInventory, assertReadOnlyPrivileges, counterNames };
+module.exports = { inventoryPipeline, atlasInventoryPipeline, runInventory, assertReadOnlyPrivileges, counterNames };

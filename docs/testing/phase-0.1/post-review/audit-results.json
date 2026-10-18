@@ -48,5 +48,7 @@
   },
   "firstAssessmentImplementation": "c596f0c5cb902dabfea2975129d8b01677efb283",
   "assessmentPullRequest": "https://github.com/Reshika0504/Expense_Management_System/pull/3",
-  "auditToolSha256": "539dd7abb5e4222b05c002d9a7cf96381d6f30c24d81044a832bca15b4c8ef7f"
+  "auditToolSha256": "539dd7abb5e4222b05c002d9a7cf96381d6f30c24d81044a832bca15b4c8ef7f",
+  "recordKind": "HISTORICAL_SNAPSHOT_BEFORE_ATLAS_ACCESS",
+  "supersededBy": "docs/testing/phase-0.1/post-review/2026-10-18-atlas-inventory-results.json"
 }

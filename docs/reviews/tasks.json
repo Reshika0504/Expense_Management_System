@@ -24,9 +24,10 @@
       ],
       "humanAcceptance": "PENDING",
       "openEngineeringRisks": [
-        "localStorage JWT XSS exposure",
-        "87 frontend dependency findings including 67 high; no blanket acceptance",
-        "Real Google/browser E2E not run at this revision"
+        "localStorage JWT XSS exposure remains unaccepted",
+        "87 frontend findings including67 high, no blanket acceptance",
+        "F-04 partial local browser/Google evidence; remaining cases open",
+        "F-05 stale-session UI remains open"
       ],
       "relevantSourcePaths": [
         "controllers/categoryController.js",
@@ -93,20 +94,24 @@
         "centralized-review-handoff"
       ],
       "request": "docs/reviews/phase-0.1/post-review-request.md",
-      "report": "docs/engineering-reports/2026-10-18-phase-0-1-post-review-assessment.md",
+      "report": "docs/engineering-reports/2026-10-18-phase-0-1-audit-access-followup.md",
       "verification": "docs/testing/phase-0.1/post-review/verification.md",
       "history": "docs/reviews/phase-0.1/history.md",
-      "primaryStatus": "BLOCKED — HUMAN DECISION REQUIRED",
-      "deliveryStatus": "BLOCKED — PRODUCTION AUDIT ACCESS REQUIRED",
+      "primaryStatus": "REVIEW FINDINGS OPEN — FIXES REQUIRED",
+      "deliveryStatus": "ASSESSMENT COMPLETE — REMEDIATION PLAN AWAITING APPROVAL",
       "claudeReviewReports": [],
       "humanAcceptance": "PENDING",
       "openEngineeringRisks": [
-        "Production audit counts unknown; verified read-only target/credential unavailable",
-        "Real-browser matched-preview smoke not executed",
-        "F-01/F-03 residuals unaccepted; auth implementation excluded",
-        "Assessment tools/evidence require independent re-review"
+        "F-01/F-03 remain unaccepted; no auth/dependency implementation authorized by test-data reset",
+        "F-04 partial browser evidence; remaining manual cases open",
+        "F-05 reproduced stale-session UI remains open",
+        "Follow-up tools/evidence need independent re-review"
       ],
-      "implementationCommit": "c596f0c5cb902dabfea2975129d8b01677efb283"
+      "implementationCommit": "c596f0c5cb902dabfea2975129d8b01677efb283",
+      "previousAssessmentReport": "docs/engineering-reports/2026-10-18-phase-0-1-post-review-assessment.md",
+      "atlasAuditEvidence": "docs/testing/phase-0.1/post-review/2026-10-18-atlas-inventory-results.json",
+      "browserEvidence": "docs/testing/phase-0.1/post-review/2026-10-18-browser-smoke-results.md",
+      "followupBaseline": "e8cd35688f870e90379362c1e1ccad1575aa9cf4"
     }
   ]
 }

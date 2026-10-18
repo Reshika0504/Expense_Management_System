@@ -1,14 +1,24 @@
 # Read-only legacy financial-data audit
 
+> **Current follow-up:** Atlas access was obtained using the existing account. The [executed inventory](2026-10-18-atlas-inventory-results.json) found 12 records and 0 invalid/overprecision records; 0 affected users. No database writes/reset needed. The blocked-access section below is the earlier snapshot, retained for history. The guarded CLI still requires a scoped read-only credential; the completed alternative was an authorized read-only Atlas UI aggregation.
+
 Application predicate pinned to `feb94f70efa58eaccdb91dea61a0e8c2d346b08d` (PR #1). Assessment branch `codex/phase-0-1-post-review-20261018`, task baseline `7f1c1f3a3ef6d05cc8b3c78e0001fd63536fe7e2`. Resolve the audit script's exact commit and hash before operator execution; the script records its SHA256 and the application predicate revision.
 
-## Actual access and result
+## Historical initial local-access result
 
 **BLOCKED — PRODUCTION AUDIT ACCESS REQUIRED**. [Structured results](audit-results.json) distinguish production counts (**null / unknown**) from executed synthetic checks. Inspected available local env filenames and variable-name/presence metadata only. No root `.env`, `.env.local`, `.env.production`, client `.env` or `.env.local` file and no process `MONGO_URL`, `MONGO_LOCAL_URL`, `SPENDWISE_AUDIT_URI` or `SPENDWISE_AUDIT_DATABASE` were present. Example/public production env files are not evidence of database permission. No production endpoint/DB connection, permissions change, credentials retrieval or record read/write was attempted. Existing cloud dashboard sessions are not proof of a scoped read-only database role.
 
 `config/connectDb.js` uses application credentials, a local fallback and Mongoose lifecycle; it is **not** an audit entrypoint. `server.js` can initialize indexes/categories. Existing `scripts/audit-phase0.cjs` creates/writes disposable test fixtures; it is not a production inventory. Do not run those against production.
 
 The new [operator script](../../../../scripts/read-only-legacy-inventory.cjs) uses only the existing MongoDB driver through Mongoose's export, with no models/bootstrap/dotenv/index initialization/fallback. It requires explicit operator configuration, checks authenticated privileges through `connectionStatus`, rejects writer/broad/unknown scope, then executes one counts-only aggregate on `transactions` with an internal existence-only `users` lookup. No names, IDs, dates, amounts, totals, URI, role output or financial details leave the database. Errors are fixed safe codes. No write stages, inserts, updates, deletes, index creation or application requests exist in the production CLI path.
+
+## Executed Atlas alternative — current procedure and result
+
+1. Privately verify the database name from the actual SpendWise Render service configuration. Do not copy the URI/password into commands, reports or browser screenshots. Reuse only existing authorized access; this route creates no roles or network grants.
+2. In Atlas, select the attested Cluster0 → `expense_management` → `transactions` → Aggregations → TEXT. Inspect the [exact JSON pipeline](atlas-read-only-inventory.pipeline.json) against `atlasInventoryPipeline()` at the current task revision. Only count expressions, an existence-only users lookup and projections are allowed; never add `$out`/`$merge` or sample records.
+3. Paste the complete JSON pipeline and select **Run aggregation** explicitly. Do not infer executed results from the pipeline preview. Confirm the input limit covers the full observed collection; if truncated, timed out or ambiguous, stop and mark incomplete rather than claiming exact totals.
+4. Record only the 18 counters plus target attestation, time, exact predicate/query hash, read-only operation method and snapshot limitations. Existing account access does not attest a dedicated read-only database principal. The guarded CLI below still requires its scoped reader; do not bypass it.
+5. On 2026-10-18 this procedure was executed: collection count **12**, observed input limit **100000**, total **12**, every invalid/affected counter **0**. The final aggregation output was verified twice. [Dated results and query hash](2026-10-18-atlas-inventory-results.json). No reset, write, permission change or paid resource was needed. This is a point-in-time observation, not an atomic snapshot or a future guarantee; rerun if data changes before deployment.
 
 ## Predicate and counting definitions
 

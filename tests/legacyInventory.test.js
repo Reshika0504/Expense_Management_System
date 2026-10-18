@@ -4,7 +4,7 @@ const { spawnSync } = require('node:child_process');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 const { MongoClient, ObjectId, Decimal128 } = mongoose.mongo;
-const { runInventory, inventoryPipeline, assertReadOnlyPrivileges } = require('../scripts/read-only-legacy-inventory.cjs');
+const { runInventory, inventoryPipeline, atlasInventoryPipeline, assertReadOnlyPrivileges } = require('../scripts/read-only-legacy-inventory.cjs');
 const { financeSummary } = require('../services/financeSummary');
 let mongo, adminClient, readerClient, db;
 const database = 'inventory_synthetic';
@@ -99,6 +99,11 @@ test('inventory validation matches actual report service, including invalid data
         await db.collection('transactions').insertOne({ userId: owner, amount: 1, type: 'expense',
             date: new Date('2020-01-01T00:00:00Z'), category: 'Synthetic', ...patch });
         const counts = await runInventory(readerClient.db(database));
+        const [atlasCounts] = await readerClient.db(database).collection('transactions').aggregate(
+            JSON.parse(JSON.stringify(atlasInventoryPipeline())),
+            { allowDiskUse: false, maxTimeMS: 30000 },
+        ).toArray();
+        assert.deepEqual(atlasCounts, counts, 'Atlas JSON and driver pipelines disagree');
         let rejected = false;
         try { await financeSummary(owner, { $gte: new Date('2026-01-01T00:00:00Z') }); }
         catch (error) { assert.equal(error.code, 'DATA_INTEGRITY_ERROR'); rejected = true; }

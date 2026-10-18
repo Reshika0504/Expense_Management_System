@@ -1,6 +1,6 @@
 # Manual browser smoke checklist — proposed, not executed
 
-Status: **NOT RUN**. Exact application SHA actually tested: **none**. Candidate: PR #1 `feb94f70efa58eaccdb91dea61a0e8c2d346b08d`; assessment branch `codex/phase-0-1-post-review-20261018` adds no runtime auth/finance changes. A different candidate requires its exact new full SHA, CI and applicable re-review. No preview was deployed or real identity used in this task.
+Status: **PARTIALLY EXECUTED**. Exact application SHA tested in the local browser follow-up: `e8cd35688f870e90379362c1e1ccad1575aa9cf4` (application runtime identical to reviewed feb94f7). See [actual results](2026-10-18-browser-smoke-results.md), including real Safari Google sign-in/refresh/logout. The original template rows below retain NOT RUN placeholders; use the dated result record for actual outcomes. Candidate: PR #1 `feb94f70efa58eaccdb91dea61a0e8c2d346b08d`; assessment branch `codex/phase-0-1-post-review-20261018` adds no runtime auth/finance changes. A different candidate requires its exact new full SHA, CI and applicable re-review. No preview was deployed or real identity used in this task.
 
 ## Operator header — complete before execution
 

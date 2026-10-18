@@ -12,11 +12,11 @@ No merge/deploy approval. Reviewed application PR #1 `feb94f70efa58eaccdb91dea61
 - [x] Fresh audit evidence and all 67 high package paths/exposure/fix/compatibility triage delivered; manifests/locks unchanged.
 - [x] Manual browser checklist with expected vs actual fields and exact revision requirement delivered; no browser pass asserted.
 
-## Open approval gates
+## Data gate evidence and remaining approval gates
 
-- [ ] Authorized operator's production counts-only inventory recorded, exact script commit/hash/target attestation/time and result checked (currently unknown, not zero).
-- [ ] Any invalid/overflow legacy cohort has separately approved compatibility/data policy; no automatic rounding/deletion or production execution.
-- [ ] F-02 merge/deployment sequencing explicitly decided; no default relaxation of the inventory requirement.
+- [x] Read-only Atlas inventory completed through the existing authorized account; verified exact Render database, tested pipeline hash and all18 counts:12 records,0 invalid/overprecision,0 affected users. [Actual record](../../testing/phase-0.1/post-review/2026-10-18-atlas-inventory-results.json). A dedicated CLI read-only principal is not claimed.
+- [x] No invalid/overflow cohort found in this observed12-record snapshot; no repair/reset needed. Any later change/nonzero inventory still requires a separately approved policy.
+- [x] F-02 inventory performed before any merge/deploy, satisfying both sequencing interpretations for this snapshot. Rerun if data changes; no deferral silently accepted.
 - [ ] Actual matched-preview browser/Google smoke results and tested frontend/backend full SHAs recorded; all critical rows pass or genuine findings dispositioned.
 - [ ] F-01 High session risk fixed and re-reviewed, or explicit bounded owner acceptance recorded with expiry/mitigation; no acceptance exists now.
 - [ ] F-03 High dependency risks remediated/re-audited and re-reviewed, or exact scoped owner acceptance with expiry/migration deadline; none exists now.
@@ -30,8 +30,12 @@ No merge/deploy approval. Reviewed application PR #1 `feb94f70efa58eaccdb91dea61
 
 For each exception record finding/advisory IDs, exact reviewed code/lock SHA, real exposure and remaining impact, chosen mitigation, accountable owner, concrete expiry date and migration/remediation task deadline, required verification/monitoring, and the human's actual explicit decision/date. Do not fill a signature or expiry as if approved. A review verdict/green CI/report is not consent. Current decisions: **none received**.
 
-## Executed vs unverified
+## Historical initial assessment checks
 
 Local: 5 dedicated audit tests and full 44 backend tests passed; 22 frontend tests and production build passed. Source-map check found0 Firestore/gRPC source paths across2 emitted maps; this limits reachability evidence, not package risk acceptance. Fresh npm audit root0 known / client87 findings (67 high) returned the corresponding actual0/1 exit codes. Production inventory, real-browser/Google and production operational checks remain NOT RUN/BLOCKED. See [results](../../testing/phase-0.1/post-review/audit-results.json) and [engineering report](../../engineering-reports/2026-10-18-phase-0-1-post-review-assessment.md).
 
-**BLOCKED — PRODUCTION AUDIT ACCESS REQUIRED**
+**ASSESSMENT COMPLETE — REMEDIATION PLAN AWAITING APPROVAL**
+
+## Current evidence update
+
+The earlier NOT RUN/blocked prose above is the initial snapshot. Current [browser results](../../testing/phase-0.1/post-review/2026-10-18-browser-smoke-results.md) record actual local email/Google/CRUD/zero checks at e8cd356; F-04 remains partial. [Atlas results](../../testing/phase-0.1/post-review/2026-10-18-atlas-inventory-results.json) remove the database-access blocker. User permission to reset test data did not authorize silent High-risk acceptance, merge or deploy. No production records were changed.

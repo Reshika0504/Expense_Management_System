@@ -1,0 +1,9 @@
+{
+  "sourceRevision": "e8cd35688f870e90379362c1e1ccad1575aa9cf4",
+  "apiBase": "/api/v1",
+  "source": "public deployed browser configuration",
+  "secretsSaved": false,
+  "status": "PASSED",
+  "deploymentPerformed": false,
+  "publicConfigValuesSavedInReport": false
+}

@@ -1,0 +1,18 @@
+{
+  "status": "PASSED",
+  "check": "No Firestore/gRPC module paths in all emitted JS source maps",
+  "forbiddenSources": 0,
+  "artifacts": [
+    {
+      "file": "453.a3c1d153.chunk.js.map",
+      "sourceCount": 1,
+      "sha256": "ae47851b9671e948744681ff39961a7c57e6fd0ce1b9923b4a5c98bbc2d4811d"
+    },
+    {
+      "file": "main.20a04dde.js.map",
+      "sourceCount": 962,
+      "sha256": "aec61e58610102e4586529ed57c0eed563cc48302bbeef03674e3e8063f09b5b"
+    }
+  ],
+  "limitation": "Only inspected emitted map source paths; not proof of absence from all assets or package safety."
+}
